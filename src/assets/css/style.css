@@ -1,3 +1,8 @@
+:root {
+  --main: #33eeff;
+  --text: #eeeeee;
+}
+
 html,
 body {
   margin: 0;
@@ -27,12 +32,16 @@ body {
 }
 
 a {
-  color: #33eeff;
+  color: var(--main);
   text-decoration: none;
 }
 
+a:hover {
+  color: yellow;
+}
+
 h1 {
-  color: #11ccdd;
+  color: var(--main);
   text-align: center;
   font-weight: normal;
   margin-top: 0px;
@@ -47,7 +56,7 @@ h1 {
 
 h3 {
   text-align: center;
-  color: #bbbbbb;
+  color: var(--text);
   font-weight: normal;
   margin-top: 0px;
 }
@@ -94,18 +103,19 @@ h3 {
   flex-wrap: wrap;
   justify-content: center;
   box-shadow: 0px 5px 20px 2px #111111;
-  color: #aaaaaa;
   text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.1),
     0px -1px 0px rgba(0, 0, 0, 0.5);
 }
 
 #navigation a {
   margin: 10px;
-  transition: color 0.5s;
+  padding: 4px;
 }
 
 #navigation a:hover {
-  color: #ffdd00;
+  color: black;
+  background-color: white;
+  border-radius: 8px;
 }
 
 #navigation img {
@@ -119,6 +129,22 @@ h3 {
 
 .active {
   color: #ffdd00;
+}
+
+.button {
+  border-radius: 8px;
+  border: 2px solid var(--main);
+  padding: 12px;
+  margin: 24px 12px 12px 12px;
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.button:hover {
+  border: 2px solid white;
+  background-color: white;
+  color: black;
+  transform: scale(1.1, 1.1);
 }
 
 .releases {
@@ -137,7 +163,7 @@ h3 {
   background-color: #333333;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
   vertical-align: top;
-  color: #dddddd;
+  color: var(--text);
   text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.1),
     0px -1px 0px rgba(0, 0, 0, 0.5);
   line-height: 160%;
@@ -167,7 +193,7 @@ h3 {
 
 .release:hover {
   transform: scale(1.02, 1.02);
-  box-shadow: 0px 10px 10px 4px rgba(248, 51, 255, 0.1);
+  box-shadow: 0px 10px 10px 4px rgba(6, 227, 194, 0.1);
   background: linear-gradient(
     172deg,
     rgba(128, 151, 164, 1) 0%,
@@ -190,6 +216,7 @@ h3 {
 
 .release:hover h1 {
   transform: scale(1.2, 1.2) translate(0px, -25px) rotate(-3deg);
+  color: yellow;
 }
 
 .release .body {
@@ -211,48 +238,27 @@ h3 {
 }
 
 .release .button {
-  border: 2px solid;
   flex: 1;
   margin: 4px;
-  border-radius: 4px;
+  border-radius: 8px;
   text-align: center;
-  border-color: #aaaaaa #666666 #333333 #666666;
   padding: 6px 23px 6px 23px;
-  color: #eeeeee;
-  box-shadow: 0px 12px 8px 2px rgba(0, 0, 0, 0.4);
+  background-color: rgb(45, 50, 58);
+  border-color: rgb(45, 50, 58);
   text-transform: uppercase;
   letter-spacing: 3px;
-  font-size: 80%;
-  text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.4),
-    0px -1px 0px rgba(0, 0, 0, 0.5);
-
-  background-color: #888888;
-  background: -webkit-linear-gradient(
-    #555555,
-    #888888
-  ); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#555555, #888888); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(
-    #555555,
-    #888888
-  ); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(#555555, #888888); /* Standard syntax */
+  font-size: 100%;
+  transform: rotate(-2deg);
+  transition: all 0.2s;
+  z-index: 1;
 }
 
 .release .button:hover {
-  background-color: #999999;
-  background: -webkit-linear-gradient(
-    #777777,
-    #bbbbbb
-  ); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#777777, #bbbbbb); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(
-    #777777,
-    #bbbbbb
-  ); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(#777777, #bbbbbb); /* Standard syntax */
-  color: #ffffff;
-  box-shadow: 0px 2px 4px 2px #222222;
+  color: black;
+  transform: scale(1.2, 1.2) rotate(-2deg);
+  background-color: white;
+  border: 0px;
+  z-index: 1000;
 }
 
 .infobox {
@@ -262,7 +268,7 @@ h3 {
   min-width: 400px;
   max-width: 900px;
   padding: 20px 20px 60px 20px;
-  color: #cccccc;
+  color: #eeeeee;
   border-radius: 16px;
   margin-bottom: 20px;
   margin-top: 80px;
@@ -285,58 +291,3 @@ h3 {
   border-radius: 12px;
   display: inline-block;
 }
-
-/* unused
-
-.logo{
-  width: 210px;
-  float:left;
-  padding: 0px;
-  margin:11px;
-}
-
-#screens{
-padding-top: 0px;
-}
-
-img.center{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top:5%;
-  margin-bottom: 0px;
-
-}
-
-img.left{
-  float: left;
-  padding: 10px 20px 20px 0px;
-}
-
-
-p.info{
-  display:block;
-  color: #cccccc;
-  margin: 0px;
-  padding: 4px 10px 4px 10px;
-  text-align: left;
-  width: 364px;
-  font-size: 16px;
-  line-height: 26px;
-  min-height: 120px;
-}
-
-p.info a{
-  color: #0088dd;
-}
-
-.clear
-{
-    clear: both;
-}
-
-p.spacer{
-  margin-top:60px;
-}
-
-*/
