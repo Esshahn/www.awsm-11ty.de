@@ -1,0 +1,15 @@
+<div class="release">
+  <img src="../assets/img/releases/{{release.data.img_url}}">
+  <h1>{{release.data.title}}</h1>
+  <div class="body">
+    {{ rotation}}
+    {{ release.templateContent | safe }}
+  </div>
+  <div class="buttons">
+    {%- for link in release.data.links -%}
+      <a href="{{link.url}}" class="button">
+        <div >{{link.title}}</div>
+      </a>
+    {%- endfor -%}
+  </div>
+</div>

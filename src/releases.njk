@@ -1,0 +1,21 @@
+---
+layout: default
+order: 2
+tags: navigation
+title: 8 bit Releases
+description: Custom Description
+---
+
+<div class="infobox" id="c64">
+  <h1>
+    Commodore C64, C128 & Plus/4
+  </h1>
+  A collection of releases for the Commodore 64, C128 and Plus/4. The CSDB link takes you to a website that hosts all C64 scene releases.
+</div>
+
+<div class="releases">
+  {% set items_by_order = collections.release | sortReverse %}
+  {%- for release in items_by_order -%}
+    {% include "release.njk" %}
+  {%- endfor -%}
+</div>

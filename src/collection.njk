@@ -1,0 +1,25 @@
+---
+layout: default
+order: 7
+tags: navigation
+title: Computer Collection
+description: Custom Description
+---
+
+<div class="infobox">
+  <h1>{{title}}</h1>
+  All these machines are now pure vintage, but at some point back in time, they were state of the art. It was a magical time for computer owners, every new machine was unexpected, surprising, ahead of the competition, unbelivably powerful and sometimes even crap from day one. Every chip was a small glimpse into the future. The list below is not complete as I'm not listing extra hardware like floppy drives, monitors, joysticks, software. Some of these computers I own more than one, which I'm not listing as well.
+</div>
+
+<div class="releases">
+  {% set items_by_order = collections.collection | sortReverse %}
+  {%- for item in items_by_order -%}
+    <div class="release">
+      <img src="../assets/img/collection/{{item.data.img_url}}">
+      <h1>{{item.data.title}}</h1>
+      <div class="body">
+        {{ item.templateContent | safe }}
+      </div>
+    </div>
+  {%- endfor -%}
+</div>

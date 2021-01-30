@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="mainscreen"><center><canvas id="main" width="640" height="400" style="border:60px solid #000000;"></canvas></center></div>
+
+<link rel="stylesheet" type="text/css" href="stylesheet.css" />
+<script type="text/javascript" src="codef_reduced.js"></script>
+<script type="text/javascript" src="https://www.awsm.de/lib/TinyJSid.js"></script>
+<script type="text/javascript" src="https://www.awsm.de/lib/TinyJSidWrapper.js"></script>
+
+<script>
+/*
+
+_____ __  _  ________ _____  
+\__  \\ \/ \/ /  ___//     \ 
+ / __ \\     /\___ \|  Y Y  \  sINC3
+(____  /\/\_//____  |__|_|  / 1974
+     \/           \/      \/ 
+
+:: Fairlight C64 Cracktro remake
+:: 2014 by Ingo Hinterding
+::
+:: Original artwork and design: Fairlight
+
+*/
+
+// request anim frame
+window.requestAnimFrame = (function(){
+  return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+          };
+})();
+
+
+// create main canvas and context
+var canvas=document.getElementById("main");
+canvas.ctx=canvas.getContext("2d");
+canvas.ctx.imageSmoothingEnabled = false;
+canvas.ctx.webkitImageSmoothingEnabled = false;
+canvas.ctx.mozImageSmoothingEnabled = false;
+canvas.ctx.scale(2,2); // scaling a 640*400 screen by 2,2 means: 640/2 = 320 and 400/2 = 200
+var pixelresX = 320;
+var pixelresY = 200;
+
+// create canvas for the scroller
+var scrollCanvas = document.createElement('canvas');
+scrollCanvas.ctx=scrollCanvas.getContext("2d");
+scrollCanvas.width  = pixelresX;
+scrollCanvas.height = 10;
+
+// create canvas for the logo and the subtext
+var logoCanvas = document.createElement('canvas');
+logoCanvas.ctx= logoCanvas.getContext("2d");
+logoCanvas.width  = pixelresX;
+logoCanvas.height = pixelresY;
+
+// create canvas for the white text
+var textCanvas = document.createElement('canvas');
+textCanvas.ctx= textCanvas.getContext("2d");
+textCanvas.width  = pixelresX;
+textCanvas.height = pixelresY;
+
+// create canvas for the copper bar
+var copperCanvas = document.createElement('canvas');
+copperCanvas.ctx= copperCanvas.getContext("2d");
+copperCanvas.width  = pixelresX;
+copperCanvas.height = pixelresY;
+
+// load media
+var logo = new Image();
+logo.src = "logo_fairlight.gif";
+
+var copperbar = new Image();
+copperbar.src = "copperbar_green.gif";
+
+var coppertext = new Image();
+coppertext.src = "copperbars_red_blue_text.gif";
+
+var scrollBlink = new Image();
+scrollBlink.src = "colorscroll.gif";
+scrollBlink.x = 0;
+
+var myfont = new image('c64font_fairlight.gif');
+myfont.initTile(8,9,33);
+
+var myscrolltext = new scrolltext_horizontal();
+myscrolltext.scrtxt="CRACKED ON THE 21ST OF NOVEMBER 1987...   GREETINGS GO TO:     ***  NONAMENO  ***  NEW CORE  ***  MELLOW MAN  ***  SOLO  ***  AIRO  ***  TOTORMAN  ***  AYOROS  ***  SUBZERO  ***  GANDALF  ***   THIS IS MY SECOND CRACKTRO REMAKE, THIS TIME FROM THE LEGENDARY FAIRLIGHT! CREDITS GO TO FAIRLIGHT FOR ART & DESIGN, DAVID M. HANLON FOR THE MUSIC, NONAMENO FOR THE CODEF FRAMEWORK AND JUERGEN WOTHKE FOR TINYJSSID.     * * * * * *     THIS SCREEN WAS A BIT HARDER TO MAKE THAN THE EAGLE SOFT CRACKTRO YET IT WAS CODED MUCH FASTER SIMPLY BECAUSE I HAD FIGURED OUT HOW TO DO THINGS A LOT BETTER. AGAIN, ALL COLORS HAVE BEEN CORRECTED TO MATCH THE REAL C64 COLORS. THE FONT WAS AVAILABLE AS TRUETYPE AND CONVERTED TO PIXELS. THE Z-INDEX LAYER FOR THE COPPERBAR AND LOGO WAS SURPRISINGLY EASY TO CODE, WHAT PROBABLY TOOK THE LONGEST TIME WAS TO GET THE TIMING OF EVERYTHING AS PERFECT AS POSSIBLE. IN THE END, I'M HAPPY WITH THE RESULT... SO, THANKS FOR WATCHING!          * ** *** ** *          ";
+myscrolltext.init(scrollCanvas,myfont,0.86,380);
+
+// SID data
+const SAMPLES_PER_BUFFER = 8192;  // allowed: buffer sizes: 256, 512, 1024, 2048, 4096, 8192, 16384
+var audioCtx;
+var bufferSource;
+var gainNode;
+var analyzerNode;
+
+playSong('druid2.sid',2);
+var scrollerColorX=0;
+var copperSin = 0;
+var copperDirection = 1;
+main();
+
+
+
+function drawCopper(){
+  copperCanvas.ctx.clearRect(0,0,320,200);
+
+  copperCanvas.ctx.drawImage(copperbar,0,this.sin); 
+  logoCanvas.ctx.drawImage(logo,0,24); 
+  myfont.print(logoCanvas,"...THE HOME OF THE REAL CRACKERS",24,63);
+  
+  this.sin = 37+Math.ceil(Math.sin(copperSin)*37);
+  
+  if(copperDirection == 1){  
+    // draw the copperbar in front of the logo 
+    canvas.ctx.drawImage(logoCanvas,0,0);
+    canvas.ctx.drawImage(copperCanvas,0,0);
+  }else{
+    // draw the copperbar behind the logo
+    canvas.ctx.drawImage(copperCanvas,0,0);
+    canvas.ctx.drawImage(logoCanvas,0,0);
+  }
+
+  if (copperDirection == 1 && this.sin >= 73){
+    copperDirection = -1;
+  }
+
+  if (copperDirection == -1 && this.sin <= 1){
+    copperDirection = 1;
+  }
+  
+  copperSin += 0.062;
+  
+}
+
+
+function render(){ 
+    // clear main canvas
+    canvas.ctx.fillStyle = '#000000';
+    canvas.ctx.fillRect(0,0,pixelresX,pixelresY); 
+
+    // draw smaller copperbars (blue, red) directly on main canvas
+    canvas.ctx.drawImage(coppertext,0,119);     
+        
+    // draw copperbar and the logo
+    drawCopper();
+
+    // draw text canvas and other text
+    canvas.ctx.drawImage(textCanvas,0,0);
+    myfont.print(textCanvas,"PRESENTS:",127,103);
+    myfont.print(textCanvas,"-FLI- SWEDISH QUALITY AT IT'S BEST -FLI- ",0,183);
+
+    // draw scroll canvas and scroller
+    canvas.ctx.drawImage(scrollCanvas,0,159);
+    scrollCanvas.ctx.clearRect (0,0,pixelresX,10);
+    myscrolltext.draw(0);   
+    scrollCanvas.ctx.globalCompositeOperation='source-atop';
+    scrollCanvas.ctx.drawImage(scrollBlink,scrollerColorX,0);
+    scrollerColorX=scrollerColorX-6;
+    if(scrollerColorX<-130) scrollerColorX = 0;
+    scrollCanvas.ctx.globalCompositeOperation='source-over';
+
+}
+
+function main(){
+  requestAnimFrame(main);
+  render();
+}
+
+
+
+</script>
+
+<div id="textbox">
+  <div>
+    <span style="color:#ff0000;">_</span><span style="color:#ff0400;">_</span><span style="color:#ff0900;">_</span><span style="color:#ff0d00;">_</span><span style="color:#ff1200;">_</span>&nbsp;<span style="color:#ff1a00;">_</span><span style="color:#ff1f00;">_</span>&nbsp;&nbsp;<span style="color:#ff2c00;">_</span>&nbsp;<span style="color:#ff3500;">&nbsp;<span style="color:#ff3900;">_</span><span style="color:#ff3d00;">_</span><span style="color:#ff4200;">_</span><span style="color:#ff4600;">_</span><span style="color:#ff4a00;">_</span><span style="color:#ff4f00;">_</span><span style="color:#ff5300;">_</span><span style="color:#ff5800;">_</span>&nbsp;<span style="color:#ff6000;">_</span><span style="color:#ff6500;">_</span><span style="color:#ff6900;">_</span><span style="color:#ff6d00;">_</span><span style="color:#ff7200;">_</span>&nbsp;&nbsp;
+  </div>
+  <div>
+    <span style="color:#ff7f00;">\</span><span style="color:#ff8300;">_</span><span style="color:#ff8800;">_</span>&nbsp;&nbsp;<span style="color:#ff9500;">\</span><span style="color:#ff9900;">\</span>&nbsp;<span style="color:#ffa200;">\</span><span style="color:#ffa700;">/</span>&nbsp;<span style="color:#ffb000;">\</span><span style="color:#ffb400;">/</span>&nbsp;<span style="color:#ffbd00;">/</span>&nbsp;&nbsp;<span style="color:#ffca00;">_</span><span style="color:#ffce00;">_</span><span style="color:#ffd300;">_</span><span style="color:#ffd700;">/</span><span style="color:#ffdc00;">/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#fff600;">\</span>&nbsp;
+  </div>
+  <div>
+    &nbsp;<span style="color:#f6ff00;">/</span>&nbsp;<span style="color:#e4ff00;">_</span><span style="color:#dbff00;">_</span>&nbsp;<span style="color:#c8ff00;">\</span><span style="color:#bfff00;">\</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#89ff00;">/</span><span style="color:#7fff00;">\</span><span style="color:#76ff00;">_</span><span style="color:#6dff00;">_</span><span style="color:#64ff00;">_</span>&nbsp;<span style="color:#52ff00;">\</span><span style="color:#49ff00;">|</span>&nbsp;&nbsp;<span style="color:#2eff00;">Y</span>&nbsp;<span style="color:#1bff00;">Y</span>&nbsp;&nbsp;<span style="color:#00ff00;">\</span>
+  </div>
+  <div>
+    <span style="color:#00ff09;">(</span><span style="color:#00ff12;">_</span><span style="color:#00ff1a;">_</span><span style="color:#00ff23;">_</span><span style="color:#00ff2c;">_</span>&nbsp;&nbsp;<span style="color:#00ff46;">/</span><span style="color:#00ff4f;">\</span><span style="color:#00ff58;">/</span><span style="color:#00ff61;">\</span><span style="color:#00ff6a;">_</span><span style="color:#00ff72;">/</span><span style="color:#00ff7b;">/</span><span style="color:#00ff84;">_</span><span style="color:#00ff8d;">_</span><span style="color:#00ff95;">_</span><span style="color:#00ff9e;">_</span>&nbsp;&nbsp;<span style="color:#00ffb9;">></span><span style="color:#00ffc1;">_</span><span style="color:#00ffca;">_</span><span style="color:#00ffd3;">|</span><span style="color:#00ffdc;">_</span><span style="color:#00ffe5;">|</span>&nbsp;&nbsp;<span style="color:#00ffff;">/</span>
+  </div>
+  <div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#00caff;">\</span><span style="color:#00c1ff;">/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#0058ff;">\</span><span style="color:#004fff;">/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#0012ff;">\</span><span style="color:#0009ff;">/</span>
+  </div>
+  <div>
+    <br>
+    :: Fairlight C64 Cracktro remake<br>
+    :: 2014 by Ingo Hinterding<br>
+    :: <br>
+    :: Original artwork and design: Fairlight<br>
+    :: Original SID tune: 'Enlightenment Druid 2' by David M. Hanlon<br>
+    :: <a href="http://www.wothke.ch/experimental/TinyJsSid.html">TinyRSid</a> SID audio library: J&uuml;rgen Wothke<br>
+    :: <a href="http://codef.santo.fr/">CODEF demo framework</a>: Antoine 'NoNameNo' Santo<br>
+  </div>
+</div>
+
+
+
+</body>
+</html>

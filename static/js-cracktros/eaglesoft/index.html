@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="mainscreen"><center><canvas id="main" width="640" height="400" style="border:60px solid #000000;"></canvas></center></div>
+
+<link rel="stylesheet" type="text/css" href="stylesheet.css" />
+<script type="text/javascript" src="codef_reduced.js"></script>
+<script type="text/javascript" src="https://www.awsm.de/lib/TinyJSid.js"></script>
+<script type="text/javascript" src="https://www.awsm.de/lib/TinyJSidWrapper.js"></script>
+
+<script>
+/*
+
+_____ __  _  ________ _____  
+\__  \\ \/ \/ /  ___//     \ 
+ / __ \\     /\___ \|  Y Y  \  sINC3
+(____  /\/\_//____  |__|_|  / 1974
+     \/           \/      \/ 
+
+:: Eaglesoft C64 Cracktro remake
+:: 2014 by Ingo Hinterding
+::
+:: Original artwork and design: Eaglesoft Incorporated
+:: Original SID tune: 'Mountie Mick's Death Ride' by Ben Daglish
+:: TinyRSid SID audio library: Jürgen Wothke
+:: CODEF demo framework: Antoine 'NoNameNo' Santo
+
+*/
+
+
+
+
+// request anim frame
+window.requestAnimFrame = (function(){
+  return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+          };
+})();
+
+// create main canvas and context
+var canvas=document.getElementById("main");
+canvas.ctx=canvas.getContext("2d");
+canvas.ctx.imageSmoothingEnabled = false;
+canvas.ctx.webkitImageSmoothingEnabled = false;
+canvas.ctx.mozImageSmoothingEnabled = false;
+canvas.ctx.scale(4,2); // scaling a 640*400 screen by 4,2 means: 640/4 = 160 and 400/2 = 200
+
+// create canvas for the scroller
+var scrollCanvas = document.createElement('canvas');
+scrollCanvas.ctx=scrollCanvas.getContext("2d");
+scrollCanvas.width  = 160;
+scrollCanvas.height = 10;
+
+// load media
+var eagle = new Image();
+eagle.src = "eaglesoft160opt.gif";
+
+var scrollBlink = new Image();
+scrollBlink.src = "colorBlink.gif";
+scrollBlink.x = 0;
+
+var myfont = new image('c64font_9x9_styled.gif');
+myfont.initTile(8,8,33);
+
+var myscrolltext = new scrolltext_horizontal();
+myscrolltext.scrtxt="*** MANIAC MANSION *** BROKEN BY EAGLE SOFT INCORPORATED ON JULY 23TH, 1987... THIS JS REMAKE OF THE FAMOUS EAGLE SOFT CRACKTRO WAS DONE BY AWSM ON JANUARY 27TH, 2014... GREETINGS GO TO:     ***  NONAMENO  ***  NEW CORE  ***  MELLOW MAN  ***  SOLO  ***  AIRO  ***  TOTORMAN  ***  AYOROS  ***  SUBZERO  ***  GANDALF  ***       THIS SCREEN MIGHT BE SIMPLE AND LACKING FUNKY TRICKS, YET IT WAS THE RIGHT CHALLENGE FOR ME GETTING BACK INTO CODING AFTER MANY YEARS. BEFORE GOING INTO SOME DETAILS, BIG THANKS TO *NONAMENO* FOR HIS GREAT CODEF DEMO FRAMEWORK LIBRARY AND *JUERGEN WOTHKE* FOR HIS EXCELLENT JAVASCRIPT PORT OF THE TINYSID SID MUSIC PLAYER - WITHOUT YOU GUYS THIS DEMO WOULDN'T EXIST.....          NOW SOME INSIGHTS ABOUT THE REMAKE: THE SCREEN RESOLUTION IS 160*200 PIXELS, WHICH IS THE NATIVE C64 RESOLUTION FOR MULTICOLOR SCREENS. IT IS SCALED UP TO 640*400 PIXELS, WHICH USUALLY RESULTS IN HEAVY BLURRING OF THE CANVAS UNLESS YOU DO THE SCALING WITHIN CODE (NOT CSS!) AND USE 'IMAGESMOOTHINGENABLED = FALSE'. TOOK ME A LIFETIME TO FIND THAT OUT, BUT IT WAS WORTH IT SINCE NOW THE SCREEN IS CRYSTAL SHARP AND USING THE EXACT PIXEL RATIO THE C64 HAS.          THE PICTURE WAS TAKEN FROM THE WEB SINCE THERE ISN'T A SINGLE C64 EMULATOR FOR THE MAC THAT CAN DISPLAY AT 100% PIXEL SIZE. THE IMAGE HAD TO BE SCALED FROM 320*200 TO 160*200 AND ALL COLORS HAVE BEEN MODIFIED TO REFLECT THE REAL C64 COLORS BETTER.          UNFORTUNATELY I WASN'T ABLE TO GET THE ORIGINAL BITMAP FONT EXTRACTED (EMULATORS SUCK), SO I HAD TO USE THE STANDARD SYSTEM FONT, WHICH I MODIFIED A BIT.          THE MUSIC WAS COMPOSED BY SID-WIZARD BEN DAGLISH AND TAKEN FROM 'MOUNTIE MICK'S DEATH RIDE'. IT'S A COMMON TRACK USED BY EAGLE SOFT. I DIDN'T FIND A WAY TO MAKE IT LOOP THOUGH.          WELL, SO MUCH FOR NOW, HOPE TO SEE YOU IN MY NEXT REMAKE!          10     9     8     7     6     5     4     3     2     1     0               1     2     3     4     WAIT....      I MEANT....                    BOOOOOOOOOOOOM!!!!!                    ";
+myscrolltext.init(scrollCanvas,myfont,0.86,380);
+
+// SID data
+const SAMPLES_PER_BUFFER = 8192;  // allowed: buffer sizes: 256, 512, 1024, 2048, 4096, 8192, 16384
+var audioCtx;
+var bufferSource;
+var gainNode;
+var analyzerNode;
+
+
+function BlackBox(){
+  this.init = function(){
+    this.width = 160;
+    this.height = 200;
+    this.color = "#000000";
+    this.speed = 1;
+    this.y = 0;
+
+  }
+  this.draw = function(){
+    if (this.y < this.height){
+      canvas.ctx.fillStyle = this.color;
+      canvas.ctx.fillRect(0,this.y,this.width,this.height);
+      this.y+=0.8;      
+    }
+
+  }
+
+}
+
+
+function render(){    
+    canvas.ctx.drawImage(eagle,0,0); 
+    blackbox.draw();
+    canvas.ctx.drawImage(scrollCanvas,0,190);
+    scrollCanvas.ctx.clearRect ( 0,0,160,10);
+    myscrolltext.draw(0);   
+    scrollCanvas.ctx.globalCompositeOperation='source-atop';
+    scrollCanvas.ctx.drawImage(scrollBlink,scrollerColorX,0);
+    scrollerColorX=scrollerColorX-3;
+    if(scrollerColorX<-240) scrollerColorX = 0;
+    scrollCanvas.ctx.globalCompositeOperation='source-over';
+
+/*
+    if(songHasStopped()){
+      // check if song is done playing and restart
+      songIsPlaying = false;
+      playSong('mountie.sid',1);
+    }
+*/
+}
+
+function main(){
+  requestAnimFrame(main);
+  render();
+}
+
+
+var blackbox = new BlackBox();
+blackbox.init();
+// songIsPlaying = false;
+playSong('mountie.sid',1);
+var scrollerColorX=0;
+main();
+
+
+</script>
+
+<div id="textbox">
+  <div>
+    <span style="color:#ff0000;">_</span><span style="color:#ff0400;">_</span><span style="color:#ff0900;">_</span><span style="color:#ff0d00;">_</span><span style="color:#ff1200;">_</span>&nbsp;<span style="color:#ff1a00;">_</span><span style="color:#ff1f00;">_</span>&nbsp;&nbsp;<span style="color:#ff2c00;">_</span>&nbsp;<span style="color:#ff3500;">&nbsp;<span style="color:#ff3900;">_</span><span style="color:#ff3d00;">_</span><span style="color:#ff4200;">_</span><span style="color:#ff4600;">_</span><span style="color:#ff4a00;">_</span><span style="color:#ff4f00;">_</span><span style="color:#ff5300;">_</span><span style="color:#ff5800;">_</span>&nbsp;<span style="color:#ff6000;">_</span><span style="color:#ff6500;">_</span><span style="color:#ff6900;">_</span><span style="color:#ff6d00;">_</span><span style="color:#ff7200;">_</span>&nbsp;&nbsp;
+  </div>
+  <div>
+    <span style="color:#ff7f00;">\</span><span style="color:#ff8300;">_</span><span style="color:#ff8800;">_</span>&nbsp;&nbsp;<span style="color:#ff9500;">\</span><span style="color:#ff9900;">\</span>&nbsp;<span style="color:#ffa200;">\</span><span style="color:#ffa700;">/</span>&nbsp;<span style="color:#ffb000;">\</span><span style="color:#ffb400;">/</span>&nbsp;<span style="color:#ffbd00;">/</span>&nbsp;&nbsp;<span style="color:#ffca00;">_</span><span style="color:#ffce00;">_</span><span style="color:#ffd300;">_</span><span style="color:#ffd700;">/</span><span style="color:#ffdc00;">/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#fff600;">\</span>&nbsp;
+  </div>
+  <div>
+    &nbsp;<span style="color:#f6ff00;">/</span>&nbsp;<span style="color:#e4ff00;">_</span><span style="color:#dbff00;">_</span>&nbsp;<span style="color:#c8ff00;">\</span><span style="color:#bfff00;">\</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#89ff00;">/</span><span style="color:#7fff00;">\</span><span style="color:#76ff00;">_</span><span style="color:#6dff00;">_</span><span style="color:#64ff00;">_</span>&nbsp;<span style="color:#52ff00;">\</span><span style="color:#49ff00;">|</span>&nbsp;&nbsp;<span style="color:#2eff00;">Y</span>&nbsp;<span style="color:#1bff00;">Y</span>&nbsp;&nbsp;<span style="color:#00ff00;">\</span>
+  </div>
+  <div>
+    <span style="color:#00ff09;">(</span><span style="color:#00ff12;">_</span><span style="color:#00ff1a;">_</span><span style="color:#00ff23;">_</span><span style="color:#00ff2c;">_</span>&nbsp;&nbsp;<span style="color:#00ff46;">/</span><span style="color:#00ff4f;">\</span><span style="color:#00ff58;">/</span><span style="color:#00ff61;">\</span><span style="color:#00ff6a;">_</span><span style="color:#00ff72;">/</span><span style="color:#00ff7b;">/</span><span style="color:#00ff84;">_</span><span style="color:#00ff8d;">_</span><span style="color:#00ff95;">_</span><span style="color:#00ff9e;">_</span>&nbsp;&nbsp;<span style="color:#00ffb9;">></span><span style="color:#00ffc1;">_</span><span style="color:#00ffca;">_</span><span style="color:#00ffd3;">|</span><span style="color:#00ffdc;">_</span><span style="color:#00ffe5;">|</span>&nbsp;&nbsp;<span style="color:#00ffff;">/</span>
+  </div>
+  <div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#00caff;">\</span><span style="color:#00c1ff;">/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#0058ff;">\</span><span style="color:#004fff;">/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#0012ff;">\</span><span style="color:#0009ff;">/</span>
+  </div>
+  <div>
+    <br>
+    :: Eaglesoft C64 Cracktro remake<br>
+    :: 2014 by Ingo Hinterding<br>
+    :: <br>
+    :: Original artwork and design: Eaglesoft Incorporated<br>
+    :: Original SID tune: 'Mountie Mick's Death Ride' by Ben Daglish<br>
+    :: <a href="http://www.wothke.ch/experimental/TinyJsSid.html">TinyRSid</a> SID audio library: J&uuml;rgen Wothke<br>
+    :: <a href="http://codef.santo.fr/">CODEF demo framework</a>: Antoine 'NoNameNo' Santo<br>
+  </div>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+---
+layout: default
+order: 8
+tags: navigation
+title: Bonus Stuff
+description: Custom Description
+---
+
+<div class="infobox" id="javascript">
+  <h1>{{title}}</h1>
+  Some stuff I created along the way. Feel free to download and use them for your personal pleasure. How about a cool MOS logo tee? Or, create your own browser demo and put a stylish Commodore 1984S monitor around it. Do it.
+</div>
+
+<div class="releases">
+  {% set items_by_order = collections.bonusstuff | sortReverse %}
+  {%- for release in items_by_order -%}
+    <div class="release">
+      <img src="../assets/img/bonusstuff/{{release.data.img_url}}">
+      <h1>{{release.data.title}}</h1>
+      <div class="body">
+        {{ release.templateContent | safe }}
+      </div>
+      <div class="buttons">
+        {%- for link in release.data.links -%}
+          <a href="{{link.url}}" class="button">
+            <div >{{link.title}}</div>
+          </a>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endfor -%}
+</div>

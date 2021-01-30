@@ -1,0 +1,34 @@
+---
+layout: default
+order: 6
+tags: navigation
+title: JavaScript Cracktros
+description: Custom Description
+---
+
+<div class="infobox" id="javascript">
+  <h1>C64 cracktro remakes made in JavaScript</h1>
+  You can do a lot of cool stuff in the browser with the canvas element and some JavaScript. I recreated some iconic C64 cracktros as an exercise, using a library called
+  <a href="http://codef.santo.fr/">CODEF</a>
+  Please note: while the C64 specs don't change anymore, browsers do - a lot. Chrome is recommended for best results.
+</div>
+
+<div class="releases">
+  {% set items_by_order = collections.cracktro | sortReverse %}
+  {%- for release in items_by_order -%}
+    <div class="release">
+      <img src="../assets/img/jsreleases/{{release.data.img_url}}">
+      <h1>{{release.data.title}}</h1>
+      <div class="body">
+        {{ release.templateContent | safe }}
+      </div>
+      <div class="buttons">
+        {%- for link in release.data.links -%}
+          <a href="{{link.url}}" class="button">
+            <div >{{link.title}}</div>
+          </a>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endfor -%}
+</div>

@@ -1,0 +1,44 @@
+---
+layout: default
+order: 0
+tags: navigation
+title: Welcome
+description: Custom Description
+---
+
+<div class="infobox" id="about">
+  <h1>Welcome</h1>
+  Hey! My name is Ingo and this site is mostly about my retro computing. I'm a member of the demo groups
+  <b>Mayday!</b>
+  and
+  <b>Vision</b>
+  and run by the handle
+  <a href="http://csdb.dk/scener/?id=27239">awsm</a>. Thanks for stopping by and if you want to get in touch, message me on twitter:
+  <a href="http://www.twitter.com/awsm9000">@awsm9000</a>.
+</div>
+
+<div class="infobox">
+  <h1>Latest Articles</h1>
+  <div class="releases">
+    {% set items_by_order = collections.release | latest(2) %}
+    {%- for release in items_by_order -%}
+      {% include "release.njk" %}
+    {%- endfor -%}
+  </div>
+  <center>
+    <a href="blog/">See all articles</a>
+  </center>
+</div>
+
+<div class="infobox">
+  <h1>Latest Releases</h1>
+  <div class="releases">
+    {% set items_by_order = collections.release | latest(2) %}
+    {%- for release in items_by_order -%}
+      {% include "release.njk" %}
+    {%- endfor -%}
+  </div>
+  <center>
+    <a href="releases/">See all releases</a>
+  </center>
+</div>
