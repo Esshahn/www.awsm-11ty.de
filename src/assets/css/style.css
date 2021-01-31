@@ -5,34 +5,25 @@
 
 html,
 body {
-  margin: 0;
+  margin: 100px 0px 0px 0px;
   padding: 0;
   color: #666666;
   line-height: 160%;
   font-size: 105%;
-
-  background: repeating-linear-gradient(
-    -45deg,
-    #101010,
-    #101010 10px,
-    #161616 10px,
-    #161616 20px
-  );
 
   background: radial-gradient(
     circle,
     rgba(86, 196, 255, 0.23713235294117652) 0%,
     rgba(42, 4, 11, 0.1250875350140056) 100%
   );
-}
 
-body {
-  background-color: #252522;
+  background-color: #1e3250;
+
   font-family: "Quicksand", sans-serif;
 }
 
 a {
-  color: var(--main);
+  color: black;
   text-decoration: none;
 }
 
@@ -72,45 +63,27 @@ h3 {
 }
 
 #navigation {
+  z-index: 1001;
+  position: fixed;
+  top: 0;
+  color: white;
   width: 100%;
   padding: 10px;
   margin-bottom: 100px;
   border: 1px solid #444444;
-  border-color: #666666 #222222 #111111 #222222;
-
-  background: -webkit-linear-gradient(
-    rgba(0, 0, 0, 0.95),
-    rgba(70, 70, 70, 0.6)
-  ); /* For Safari 5.1 to 6.0 */
-  background: -webkit-linear-gradient(
-    rgba(0, 0, 0, 0.95),
-    rgba(70, 70, 70, 0.6)
-  ); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(
-    rgba(0, 0, 0, 0.95),
-    rgba(70, 70, 70, 0.6)
-  ); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(
-    rgba(0, 0, 0, 0.95),
-    rgba(70, 70, 70, 0.6)
-  ); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(
-    rgba(0, 0, 0, 0.95),
-    rgba(70, 70, 70, 0.6)
-  ); /* Standard syntax */
-
+  background: #3863a0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   box-shadow: 0px 5px 20px 2px #111111;
-  text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.1),
-    0px -1px 0px rgba(0, 0, 0, 0.5);
+  transition: top 0.8s;
 }
 
 #navigation a {
   margin: 10px;
   padding: 4px;
+  color: white;
 }
 
 #navigation a:hover {
@@ -128,11 +101,14 @@ h3 {
   transform: scale(1.4, 1);
 }
 
-.active {
-  color: #ffdd00;
+#navigation .active {
+  color: black;
+  background-color: white;
+  border-radius: 8px;
 }
 
 .button {
+  color: white;
   border-radius: 8px;
   border: 2px solid var(--main);
   padding: 12px;
@@ -285,6 +261,10 @@ h3 {
   );
 }
 
+.infobox a {
+  color: var(--main);
+}
+
 .roundbox {
   background-color: white;
   padding: 22px;
@@ -303,12 +283,6 @@ h3 {
   max-width: 900px;
   display: flex;
   justify-content: space-between;
-  transition: transform 0.2s;
-}
-
-.articles:hover {
-  transform: scale(1.1, 1.1);
-  cursor: pointer;
 }
 
 .articles .title {
@@ -343,11 +317,26 @@ h3 {
   height: auto;
 }
 
+.navlink {
+  color: black;
+  margin: 12px 0px 0px 0px;
+  padding: 8px 12px 8px 0px;
+  border-radius: 8px;
+  display: inline-block;
+  transition: all 0.2s;
+}
+
+.navlink:hover {
+  color: white;
+  background-color: black;
+  padding: 8px 12px 8px 12px;
+}
+
 #article {
   background-color: #eeeeee;
   margin: auto;
   margin-top: 32px;
-  padding: 32px;
+  padding: 10%;
   border-radius: 8px;
   width: 60%;
   min-width: 400px;
@@ -363,14 +352,6 @@ h3 {
   padding: 32px 0px 0px 0px;
 }
 
-#article .backlink {
-  color: black;
-}
-
-#article .backlink::before {
-  content: "\276E  ";
-}
-
 #article .navbar {
   display: flex;
   justify-content: space-between;
@@ -379,4 +360,29 @@ h3 {
 #article img {
   max-width: 100%;
   height: auto;
+}
+
+.pagination {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination .page {
+  background-color: #dddddd;
+  color: black;
+  padding: 8px 12px 8px 12px;
+  border-radius: 8px;
+  margin: 4px;
+  transition: transform 0.2s;
+}
+
+.pagination #active {
+  background-color: white;
+  transform: scale(1.1, 1.1);
+}
+
+.pagination .page:hover {
+  background-color: yellow;
+  transform: scale(1.1, 1.1);
 }

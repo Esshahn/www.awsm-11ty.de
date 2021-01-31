@@ -3,20 +3,41 @@ layout: default
 order: 1
 tags: navigation
 title: Blog
+pagination:
+  data: collections.blog
+  size: 6
+  alias: articles
 ---
 
-{% set items_by_order = collections.blog | latest(60) %}
-{%- for article in items_by_order -%}
-  <a href="{{article.url }}">
-    <div class="articles">
-      <div class="title">
-        <h2>"{{ article.data.title}}"
-        </h2>
-        <div class="date">{{ article.data.published}}</div>
-      </div>
-      <div class="main">
-        {{ article.templateContent | safe}}
-      </div>
+<nav class="pagination" aria-labelledby="pagination">
+  {%- for pageEntry in pagination.pages %}
+    <a class="page" {% if page.url == pagination.hrefs[ loop.index0 ] %} id="active" aria-current="page" {% endif %} href="{{ pagination.hrefs[ loop.index0 ] }}">{{ loop.index }}</a>
+  {%- endfor %}
+</nav>
+
+{%- for article in articles -%}
+
+  <div class="articles">
+    <div class="title">
+      <h2>"{{ article.data.title}}"
+      </h2>
+      <div class="date">{{ article.data.published}}</div>
     </div>
-  </a>
+    <div class="main">
+      {% if article.data.excerpt %}
+        {{article.data.excerpt}}
+        <br/>
+        <a class="navlink" href="{{article.url }}">continue reading... &#10095;&#10095;</a>
+      {% else %}
+        {{ article.templateContent | safe}}
+      {% endif %}
+    </div>
+  </div>
+
 {%- endfor -%}
+
+<nav class="pagination" aria-labelledby="pagination">
+  {%- for pageEntry in pagination.pages %}
+    <a class="page" {% if page.url == pagination.hrefs[ loop.index0 ] %} id="active" aria-current="page" {% endif %} href="{{ pagination.hrefs[ loop.index0 ] }}">{{ loop.index }}</a>
+  {%- endfor %}
+</nav>
