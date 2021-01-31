@@ -3,22 +3,20 @@ layout: default
 order: 1
 tags: navigation
 title: Blog
-description: Custom Description
 ---
 
-<h1>{{title}}</h1>
-
-{%- for release in collections.release -%}
-  <div class="release">
-    <img src="../assets/img/releases/{{release.data.img_url}}">
-    <h2>{{release.data.title}}</h2>
-    <div class="body">
-      {{ release.templateContent | safe }}
+{% set items_by_order = collections.blog | latest(60) %}
+{%- for article in items_by_order -%}
+  <a href="{{article.url }}">
+    <div class="articles">
+      <div class="title">
+        <h2>"{{ article.data.title}}"
+        </h2>
+        <div class="date">{{ article.data.published}}</div>
+      </div>
+      <div class="main">
+        {{ article.templateContent | safe}}
+      </div>
     </div>
-    {%- for link in release.data.links -%}
-      <button class="full">{{link.title}}
-        {{link.url}}
-      </button>
-    {%- endfor -%}
-  </div>
+  </a>
 {%- endfor -%}

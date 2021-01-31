@@ -1,5 +1,5 @@
 :root {
-  --main: #33eeff;
+  --main: #09efff;
   --text: #eeeeee;
 }
 
@@ -74,6 +74,7 @@ h3 {
 #navigation {
   width: 100%;
   padding: 10px;
+  margin-bottom: 100px;
   border: 1px solid #444444;
   border-color: #666666 #222222 #111111 #222222;
 
@@ -271,7 +272,6 @@ h3 {
   color: #eeeeee;
   border-radius: 16px;
   margin-bottom: 20px;
-  margin-top: 80px;
   box-shadow: 0px 5px 10px 2px #080808;
   border: 1px solid #444444;
   border-color: #666666 #222222 #111111 #222222;
@@ -290,4 +290,93 @@ h3 {
   padding: 22px;
   border-radius: 12px;
   display: inline-block;
+}
+
+.articles {
+  background-color: #eeeeee;
+  margin: auto;
+  margin-top: 12px;
+  padding: 32px;
+  border-radius: 8px;
+  width: 60%;
+  min-width: 400px;
+  max-width: 900px;
+  display: flex;
+  justify-content: space-between;
+  transition: transform 0.2s;
+}
+
+.articles:hover {
+  transform: scale(1.1, 1.1);
+  cursor: pointer;
+}
+
+.articles .title {
+  flex: 1;
+  margin-right: 32px;
+}
+
+.articles .main {
+  flex: 3;
+  color: #111111;
+}
+
+.articles h2 {
+  transform: rotate(-2deg);
+  color: #222222;
+  font-size: 160%;
+  text-align: right;
+  font-family: "Quicksand", sans-serif;
+  margin: 0px;
+}
+
+.articles .date {
+  transform: rotate(-2deg);
+  color: #222222;
+  font-size: 90%;
+  text-align: right;
+  font-family: "Quicksand", sans-serif;
+}
+
+.articles img {
+  max-width: 100%;
+  height: auto;
+}
+
+#article {
+  background-color: #eeeeee;
+  margin: auto;
+  margin-top: 32px;
+  padding: 32px;
+  border-radius: 8px;
+  width: 60%;
+  min-width: 400px;
+  max-width: 900px;
+}
+
+#article h1 {
+  color: #222222;
+  text-shadow: none;
+  font-size: 160%;
+  text-align: left;
+  font-family: "Quicksand", sans-serif;
+  padding: 32px 0px 0px 0px;
+}
+
+#article .backlink {
+  color: black;
+}
+
+#article .backlink::before {
+  content: "\276E  ";
+}
+
+#article .navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+#article img {
+  max-width: 100%;
+  height: auto;
 }

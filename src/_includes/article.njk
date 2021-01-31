@@ -1,0 +1,19 @@
+{% include "header.njk" %}
+{% include "navigation.njk" %}
+
+<div id="article">
+  <div class="navbar">
+    <a href="../../blog/" class="backlink">back to overview</a>
+    {{ published }}
+  </div>
+
+  <h1>{{ title }}</h1>
+  {{ content | safe }}
+
+  <div class="navbar" style="margin-top:64px;">
+    <a href="../../blog/" class="backlink">back to overview</a>
+    {{ published }}
+  </div>
+</div>
+
+{% include "footer.html" %}
