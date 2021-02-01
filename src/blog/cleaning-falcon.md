@@ -1,6 +1,6 @@
 ---
 layout: article
-published: '2017-02-21'
+date: 2017-02-21
 tags: blog
 title: 'Cleaning an Atari Falcon 030'
 excerpt: 'The Atari Falcon 030 is without a doubt my most precious item in my vintage computer collection. The last home computer made by Atari which after only one year, decided to stop producing it and focus on the also-destined-to-fail Jaguar game console. Well, we all know what happened to the company shortly after.'

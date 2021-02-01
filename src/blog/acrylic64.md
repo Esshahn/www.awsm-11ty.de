@@ -1,8 +1,9 @@
 ---
 layout: article
-published: '2017-02-21'
+date: 2017-02-21
 tags: blog
 title: 'Building the ultimate C64'
+excerpt: 'A custom acrylic C64 case and some oxy bleaching is all this little C64 needed to shine again and steal the show.'
 ---
 
 Some days ago I saw this amazing custom case for the C64 and immediately ordered it ( http://plexilaser.de/ ). I decided to put some work into this to make it my main C64, cool enough to sit in the living room.

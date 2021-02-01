@@ -1,8 +1,9 @@
 ---
 layout: article
-published: '2017-02-21'
+date: 2017-02-21
 tags: blog
 title: 'Fixing an Atari 65 XE'
+excerpt: "I'm fixing a problem with the video signal on this beautiful Atari 65 XE."
 ---
 
 My newly cleaned Atari 65 XE had one issue: while the antenna signal was good and showed the blue startup screen, no signal at all came out of the monitor port. Since the XE/XL use the same 5 pin cable as the most Commodore 8bit machines, I knew my cable was working ok.

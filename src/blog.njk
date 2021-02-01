@@ -7,6 +7,7 @@ pagination:
   data: collections.blog
   size: 6
   alias: articles
+  reverse: true
 ---
 
 <nav class="pagination" aria-labelledby="pagination">
@@ -15,13 +16,14 @@ pagination:
   {%- endfor %}
 </nav>
 
-{%- for article in articles -%}
+{%- for article in articles  -%}
 
   <div class="articles">
     <div class="title">
       <h2>"{{ article.data.title}}"
       </h2>
-      <div class="date">{{ article.data.published}}</div>
+      <div class="date">{{ article.data.date.toDateString() }}
+      </div>
     </div>
     <div class="main">
       {% if article.data.excerpt %}

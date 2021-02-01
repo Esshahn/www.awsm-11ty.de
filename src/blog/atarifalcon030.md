@@ -1,6 +1,6 @@
 ---
 layout: article
-published: '2017-02-21'
+date: 2017-02-21
 tags: blog
 title: 'Atari Falcon 030'
 ---

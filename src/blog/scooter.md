@@ -1,6 +1,6 @@
 ---
 layout: article
-published: '2017-05-18'
+date: 2017-05-18
 tags: blog
 title: 'Scooter was a cracker!'
 ---

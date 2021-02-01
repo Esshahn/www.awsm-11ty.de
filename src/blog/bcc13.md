@@ -1,6 +1,6 @@
 ---
 layout: article
-published: '2019-02-25'
+date: 2019-02-25
 tags: blog
 title: 'BCC#13'
 ---

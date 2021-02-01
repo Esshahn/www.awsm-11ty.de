@@ -1,8 +1,9 @@
 ---
 layout: article
-published: '2017-02-21'
+date: 2017-02-21
 tags: blog
-title: 'Build your own 1530 to C16,C116,Plus/4 adapter and make an C64 SD2IEC work on your 264 computer'
+title: 'Build your own 1530 to C16, C116 & Plus/4 adapter and make an C64 SD2IEC work on your 264 computer'
+excerpt: "When released, the Commodore 264 series suffered from some questionable decisions regarding it's joystick and datasette ports. In this article I show how to solder an adapter cable to make SD2IEC devices work with those systems."
 ---
 
 ![{{title}}](../../assets/img/blog/1530cable-1.jpg)

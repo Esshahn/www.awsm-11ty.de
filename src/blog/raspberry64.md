@@ -1,8 +1,9 @@
 ---
 layout: article
-published: '2017-02-21'
+date: 2017-02-21
 tags: blog
 title: 'Raspberry64'
+excerpt: "I’m working on a new little hardware project. A Raspberry Pi 3 in a C64 case. Thanks to the Keyrah2 interface, you can even hook the original keyboard and make it work via USB. I got the basic setup up and running pretty fast, there’s no magic behind it. The keyboard of the C64 connects to the Keyrah2, which itself connects to the Pi3 via USB. "
 ---
 
 ![{{title}](../../assets/img/blog/raspberry64-1.jpg)
