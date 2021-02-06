@@ -20,12 +20,15 @@ pagination:
 
   <div class="articles">
     <div class="title">
-      <h2>"{{ article.data.title}}"
+      {% if article.data.teaser %}
+        <img src="/assets/img/blog/{{article.data.teaser}}">
+      {% endif %}
+    </div>
+    <div class="main">
+      <h2>{{ article.data.title}}
       </h2>
       <div class="date">{{ article.data.date.toDateString() }}
       </div>
-    </div>
-    <div class="main">
       {% if article.data.excerpt %}
         {{article.data.excerpt}}
         <br/>

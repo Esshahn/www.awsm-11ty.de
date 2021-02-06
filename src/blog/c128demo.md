@@ -3,6 +3,7 @@ layout: article
 date: 2020-09-27
 tags: blog
 title: 'Revisiting my first ever intro'
+teaser: 'c128demo/c128demo-00002.png'
 excerpt: "I found a box of floppies in my parent's attic and they contain some of the first program's I've ever written. This is probably my earliest attempt at writing a demo."
 ---
 

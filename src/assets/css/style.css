@@ -71,7 +71,7 @@ h3 {
   width: 100%;
   padding: 10px;
   margin-bottom: 100px;
-  background: #3863a0;
+  background: #3863a0da;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -273,7 +273,7 @@ h3 {
 }
 
 .articles {
-  background-color: #eeeeee;
+  background-color: #f8f8f8;
   margin: auto;
   margin-top: 12px;
   padding: 32px;
@@ -288,6 +288,11 @@ h3 {
 .articles .title {
   flex: 1;
   margin-right: 32px;
+}
+
+.title img {
+  max-width: 100%;
+  border-radius: 8px;
 }
 
 .articles .main {
@@ -305,8 +310,9 @@ h3 {
 .articles .date {
   color: #222222;
   font-size: 90%;
-
+  font-style: italic;
   font-family: "Quicksand", sans-serif;
+  margin-bottom: 20px;
 }
 
 .articles img {
@@ -353,7 +359,7 @@ h3 {
   height: auto;
 }
 
-#article,
+#article a,
 .articles a {
   color: #3863a0;
 }

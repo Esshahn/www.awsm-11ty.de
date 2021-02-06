@@ -3,6 +3,7 @@ layout: article
 date: 2020-05-01
 tags: blog
 title: 'Ghost Town 64'
+teaser: 'ghosttown64/ghosttown64-00006.png'
 excerpt: 'Over the last year I disassembled the Commodore 16 game and ported it to the Commodore 64. This is my retrospective.'
 ---
 
