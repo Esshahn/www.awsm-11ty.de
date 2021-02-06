@@ -3,6 +3,7 @@ layout: article
 date: 2017-02-21
 tags: blog
 title: 'Building the ultimate C64'
+teaser: uc64-16.jpg
 excerpt: 'A custom acrylic C64 case and some oxy bleaching is all this little C64 needed to shine again and steal the show.'
 ---
 

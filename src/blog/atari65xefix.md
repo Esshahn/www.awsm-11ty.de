@@ -3,6 +3,7 @@ layout: article
 date: 2017-02-21
 tags: blog
 title: 'Fixing an Atari 65 XE'
+teaser: atari65xe-1.jpg
 excerpt: "I'm fixing a problem with the video signal on this beautiful Atari 65 XE."
 ---
 

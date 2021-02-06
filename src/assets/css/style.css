@@ -340,8 +340,7 @@ h3 {
   padding: 32px 0px 0px 0px;
 }
 
-#article,
-h2,
+#article h2,
 h3 {
   text-align: left;
   color: var(--text-dark);

@@ -3,6 +3,7 @@ layout: article
 date: 2017-02-21
 tags: blog
 title: 'Pi3 RetroPie 3D printed console'
+teaser: pi3-4.jpg
 excerpt: 'My 3D printed case for the Raspberry Pi 3 with RetroPie is finally done. 1024×768 pixel resolution and a single power source to drive both the pi and the display.'
 ---
 
