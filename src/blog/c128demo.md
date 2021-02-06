@@ -338,10 +338,10 @@ Now that we got the embarrasing assembly code out of the way, let’s move on to
 ```
 0 color0,2:color 5,1:graphic0,1:char,12,12,"done by i.s.c. 89"
 ```
-* color 0,2 sets the background color to white
-* color 5,1 sets the text color to black
-* graphic 0,1 clears the screen
-* char,12,12,"done by i.s.c. 89" prints the text at x=12,y=12
+* `color 0,2` sets the background color to white
+* `color 5,1` sets the text color to black
+* `graphic 0,1` clears the screen
+* `char,12,12,"done by i.s.c. 89"` prints the text at x=12,y=12
 ```
 10 sprcolor10,9
 ```
