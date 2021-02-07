@@ -71,9 +71,9 @@ So now that we have the digital image of the floppy disk, how do we extract the 
 
 ### Step one: extract all contents of a D64 image into single files:
 
-```
+<pre><code class="plaintext">
 ./c1541 -attach disk.d64 -extract
-```
+</code></pre>
 
 This command will create files in your folder for every program on the disk. Easy peasy. But opening them in your favorite editor will not lead to success yet:
 
@@ -97,7 +97,7 @@ Some instructions can not be translated correctly, e.g. color and cursor command
 To make this work, we have to replace that information with either `?CHR$(X)` statements, or use different commands. Since this is a BASIC 7.0 program, I replaced most instructions by special commands like `char`. So without further ado, here’s the converted and slightly optimized code from 1989.
 
 ```
-0 color0,2:color 5,1:graphic0,1:char,12,12,"done by i.s.c. 89"
+0 color0,2:color5,1:graphic0,1:char,12,12,"done by i.s.c. 89"
 10 sprcolor10,9
 20 bload"balken/spr":bload"the outsider"
 21 color4,2:fory=1to50:next

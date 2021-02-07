@@ -10,6 +10,31 @@ title: Ghost Town
   <h3>This site is dedicated to my unhealthy relationship with the old Kingsoft game created by Udo Gertz.</h3>
 </div>
 
+{%- for article in collections.ghosttown  -%}
+
+  <div class="articles">
+    <div class="title">
+      {% if article.data.teaser %}
+        <img src="/assets/img/blog/{{article.data.teaser}}">
+      {% endif %}
+    </div>
+    <div class="main">
+      <h2>{{ article.data.title}}
+      </h2>
+      <div class="date">{{ article.data.date.toDateString() }}
+      </div>
+      {% if article.data.excerpt %}
+        {{article.data.excerpt}}
+        <br/>
+        <a class="navlink" href="{{article.url }}">continue reading... &#10095;&#10095;</a>
+      {% else %}
+        {{ article.templateContent | safe}}
+      {% endif %}
+    </div>
+  </div>
+
+{%- endfor -%}
+
 <div class="infobox">
 
   <h1>Ghost Town JS</h1>

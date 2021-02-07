@@ -1,7 +1,7 @@
 ---
 layout: article
 date: 2020-01-22
-tags: blog
+tags: ['blog','ghosttown']
 title: 'Ghost Town für den Commodore 16 – Showdown in JavaScript'
 teaser: 'ghosttown-story/ghosttown-story-00008.png'
 excerpt: '(german language only) Dieser Artikel über meine Kindheitserinnerungen mit dem Spiel Ghost Town sowie die Konvertierung des Spieles mit JavaScript wurde erstmalig auf Videospielgeschichten veröffentlicht.'

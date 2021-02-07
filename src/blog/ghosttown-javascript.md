@@ -1,7 +1,7 @@
 ---
 layout: article
 date: 2020-01-22
-tags: blog
+tags: ['blog','ghosttown']
 title: 'Ghost Town - A JavaScript conversion of a Commodore 16 game'
 teaser: 'ghosttown-javascript/ghosttown-js-00020.png'
 excerpt: 'This is a summary of a series of posts from my last blog. I still remember the creation of this game as a very enjoyable experience, so I want to share it here.'

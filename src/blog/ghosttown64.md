@@ -1,7 +1,7 @@
 ---
 layout: article
 date: 2020-05-01
-tags: blog
+tags: ['blog','ghosttown']
 title: 'Ghost Town 64'
 teaser: 'ghosttown64/ghosttown64-00006.png'
 excerpt: 'Over the last year I disassembled the Commodore 16 game and ported it to the Commodore 64. This is my retrospective.'
@@ -36,7 +36,7 @@ Disassembling a game means that you take the binary file (which is just a sequen
 
 and convert it into Assembly code, which looks like this:
 
-```
+<pre><code class="6502-acme">
 .C:419c  A9 1B       LDA #$1B
 .C:419e  8D 11 D0    STA $D011
 .C:41a1  A9 C8       LDA #$C8
@@ -44,7 +44,7 @@ and convert it into Assembly code, which looks like this:
 .C:41a6  A9 03       LDA #$03
 .C:41a8  8D 00 DD    STA $DD00
 .C:41ab  60          RTS
-```
+</code></pre>
 
 Luckily, there are tools that help you with this, like Regenerator for Windows. Since I’m working on a Mac, I had to use a Windows Virtual Machine. Many great tools for C64 development are Windows-only, sadly. Converting the code back to a reusable state is still a complete pain in the butt though. While the compiler wouldn’t make any difference between code and data (like graphics, sound etc.), it’s crucial to identify the different sections of the game in order to make changes to them.
 
@@ -64,22 +64,22 @@ With the code compiling and running on the C16 we have achieved an important mil
 
 But as soon as we start adding or removing code, the game would fail to work or behave unpredictably. This is because the code is referencing absolute addresses, not relative. Here’s an example:
 
-```
-419C  LDA #$1B      <- we can easily change $1b to any other value
+<pre><code class="6502-acme">
+419C  LDA #$1B      ; we can easily change $1b to any other value
 419E  STA $D011
-[   ...     ]       <- but we can't insert code here!
+[   ...     ]       ; <- but we can't insert code here!
 41A1  LDA #$C8
 41A3  STA $FF07
 41A6  LDA #$03
 41A8  STA $DD00
-41Ab  JMP $41A1     <- because this jump address wouldn't be correct anymore
-```
+41Ab  JMP $41A1     ; because this jump address wouldn't be correct anymore
+</code></pre>
 
 As soon as we add or remove bytes from the file, absolute jump addresses would change and wrong code would be executed. This is a tough problem, as it can be super easy to accidentally change the byte count when making small changes. Replacing a `STA $D020` (3 bytes: `8D 00 DD`) with a `RTS` (1 byte: `60`) would change the absolute addresses by 2 bytes.
 
 The solution is simple: we use labels for relative jump addresses. The code above (which admittedly makes no sense at all) would read like this:
 
-```
+<pre><code class="6502-acme">
 419C  LDA #$1B      
 419E  STA $D011
 .l41A1
@@ -88,7 +88,7 @@ The solution is simple: we use labels for relative jump addresses. The code abov
 41A6  LDA #$03
 41A8  STA $DD00
 41Ab  JMP l41A1  
-```
+</code></pre>
 
 The only change is that I added a label `.lA1A1` at the position where the `JMP` command would jump to and changed the absolute address `$41A1` to the relative label `.la1A1.` With that change we could insert a line of code in this little block without breaking the jump address! Sweeeet.
 
@@ -133,7 +133,7 @@ While I structured the code and tried to understand and reproduce the behavior o
 
 This is a typical code segment from the game:
 
-```
+<pre><code class="6502-acme">
 ; ==============================================================================
 ; I moved this out of the main loop and call it once when changing rooms
 ; TODO: call it only when room 4 is entered
@@ -149,7 +149,7 @@ room_04_prep_door:
         lda #$f6                 ; put fake door char in place (making it closed)
 +       sta SCREENRAM + $f9 
 ++      rts
-```
+</code></pre>
 
 As you can see I’m using anonymous foward (+) and backward (-) labels instead of named ones. This is good practice if we do not leave the function and are just looping or branching inside it.
 
@@ -180,41 +180,42 @@ I’m dealing with graphics and sound a bit later, let’s focus on the code fir
 
 Example:
 
-```
+<pre><code class="commodore-basic">
 POKE 65305,0: changes the border of the C16 to black
 POKE 53280,0: changes the border of the C64 to black
-```
+</code></pre>
 
 Same for assembly code:
 
-```
+<pre><code class="6502-acme">
 LDA #$00
 STA $FF19    ; change border color to black on C16
 LDA #$00
 STA $D020    ; change border color to black on C64
-```
+</code></pre>
 
 To make the conversion easier, I use labels again and replace the border color address `$FF19` with `BORDER_COLOR` and give it a different value on the C64
 
-```
+<pre><code class="6502-acme">
 BORDER_COLOR = $D020
 LDA #$00
 STA BORDER_COLOR
-```
+</code></pre>
+
 You will need memory maps for both machines showing you the memory layout and how to convert addresses to match the target machine.
 
 I’ve created a memory map (based on Zimmers.net) for the Commodore 64 here: [https://mem64.awsm.de](https://mem64.awsm.de). A less comprehensive [memory map for the Commodore 16 & Plus/4 can be found here](https://github.com/franckverrot/EmulationResources/blob/master/consoles/commodore/C16%20Memory%20Map.txt).
 
 I’ve used label definitions for the most common addresses, e.g.
 
-```
+<pre><code class="6502-acme">
 TAPE_BUFFER         = $033c     ; $0333
 SCREENRAM           = $0400     ; $0C00   ; PLUS/4 default SCREEN
 COLRAM              = $d800     ; $0800   ; PLUS/4 COLOR RAM
 PRINT_KERNAL        = $ffd2     ; $c56b
 BASIC_DA89          = $e8ea     ; $da89   ; scroll screen up by 1 line
 FF07                = $d016     ; $FF07   ; FF07 scroll & multicolor
-```
+</code></pre>
 
 To my surprise, very few changes had to be made to adapt the code to the C64. I was able to see first working bits of the game after changing the SCREEN and COLOR RAM througout the code, and when I removed the TED based music the title screen did come up already. Next up were the typical code blocks like joystick routines, IRQs, character display and screen settings and so on. It probably took me a day to get a first version to run. At this point you might wonder why the creator of the game, Udo Gertz, didn’t release a version for the C64 right away if it was so easy to port. My theory is that back in 1985 the code was written on the actual target machine and getting it cleaned and structured was a whole different story than with the tools we have today.
 
