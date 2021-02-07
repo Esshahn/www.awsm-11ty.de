@@ -3,6 +3,11 @@ layout: default
 order: 0
 tags: navigation
 title: Welcome
+pagination:
+  data: collections.blog
+  size: 6
+  alias: articles
+  reverse: true
 ---
 
 <div class="infobox" id="about">
@@ -16,18 +21,28 @@ title: Welcome
   <a href="http://www.twitter.com/awsm9000">@awsm9000</a>.
 </div>
 
-<div class="infobox">
-  <h1>Latest Articles</h1>
-  <div class="releases">
-    {% set items_by_order = collections.release | latest(2) %}
-    {%- for release in items_by_order -%}
-      {% include "release.njk" %}
-    {%- endfor -%}
+{%- for article in articles | latest(3)  -%}
+  <div class="articles">
+    <div class="title">
+      {% if article.data.teaser %}
+        <img src="/assets/img/blog/{{article.data.teaser}}">
+      {% endif %}
+    </div>
+    <div class="main">
+      <h2>{{ article.data.title}}
+      </h2>
+      <div class="date">{{ article.data.date.toDateString() }}
+      </div>
+      {% if article.data.excerpt %}
+        {{article.data.excerpt}}
+        <br/>
+        <a class="navlink" href="{{article.url }}">continue reading... &#10095;&#10095;</a>
+      {% else %}
+        {{ article.templateContent | safe}}
+      {% endif %}
+    </div>
   </div>
-  <center>
-    <a class="button" href="blog/">See all articles</a>
-  </center>
-</div>
+{%- endfor -%}
 
 <div class="infobox">
   <h1>Latest Releases</h1>
