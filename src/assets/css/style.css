@@ -6,8 +6,9 @@
 
 html,
 body {
-  margin: 100px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
   padding: 0;
+  padding-top: 100px;
   color: #666666;
   line-height: 160%;
   font-size: 105%;
@@ -30,20 +31,6 @@ a {
 
 a:hover {
   color: yellow;
-}
-
-h1 {
-  color: var(--main);
-  text-align: center;
-  font-weight: normal;
-  margin-top: 0px;
-  letter-spacing: 4px;
-  line-height: 120%;
-  margin-bottom: 10px;
-  font-size: 240%;
-  text-shadow: 0px 2px 0px rgba(0, 255, 255, 0.2),
-    0px 4px 4px rgba(0, 0, 0, 0.5);
-  font-family: "Sedgwick Ave Display", cursive;
 }
 
 h3 {
@@ -179,10 +166,17 @@ h3 {
 }
 
 .release h1 {
+  color: #33eeff;
+  text-align: center;
+  font-weight: normal;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  line-height: 120%;
+  text-shadow: 0px 2px 0px rgba(0, 255, 255, 0.2),
+    0px 4px 4px rgba(0, 0, 0, 0.5);
+  font-family: "Sedgwick Ave Display", cursive;
   font-size: 200%;
   display: block;
-  margin-bottom: 0px;
-  color: #33eeff;
   letter-spacing: 2px;
   text-shadow: 0 1px 0 #777, 0 2px 0 #777, 0 0 5px rgba(0, 0, 0, 0.1),
     0 8px 2px rgba(0, 0, 0, 0.3);
@@ -239,26 +233,25 @@ h3 {
 }
 
 .infobox {
-  background-color: rgba(30, 30, 30, 0.6);
+  background-color: rgba(30, 30, 50, 0.9);
   margin: auto;
   width: 60%;
   min-width: 400px;
   max-width: 900px;
-  padding: 20px 20px 60px 20px;
+  padding: 20px 32px 60px 32px;
   color: #eeeeee;
   border-radius: 16px;
   margin-bottom: 20px;
+  margin-top: 20px;
   box-shadow: 0px 5px 10px 2px #080808;
   border: 1px solid #444444;
   border-color: #666666 #222222 #111111 #222222;
+}
 
-  background: repeating-linear-gradient(
-    -45deg,
-    #1c1c1c,
-    #1c1c1c 15px,
-    #1f1f1f 15px,
-    #1f1f1f 30px
-  );
+.infobox h1 {
+  font-weight: normal;
+  letter-spacing: 3px;
+  font-family: "Quicksand", sans-serif;
 }
 
 .infobox a {
@@ -334,10 +327,12 @@ h3 {
 #article h1 {
   color: #222222;
   text-shadow: none;
-  font-size: 160%;
+  font-size: 180%;
   text-align: left;
   font-family: "Quicksand", sans-serif;
   padding: 32px 0px 0px 0px;
+  letter-spacing: 3px;
+  font-weight: normal;
 }
 
 #article h2,
