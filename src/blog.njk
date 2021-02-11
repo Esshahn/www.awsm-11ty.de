@@ -10,6 +10,10 @@ pagination:
   reverse: true
 ---
 
+<div class="infobox">
+  <h1>Blog</h1>
+</div>
+
 <nav class="pagination" aria-labelledby="pagination">
   {%- for pageEntry in pagination.pages %}
     <a class="page" {% if page.url == pagination.hrefs[ loop.index0 ] %} id="active" aria-current="page" {% endif %} href="{{ pagination.hrefs[ loop.index0 ] }}">{{ loop.index }}</a>
