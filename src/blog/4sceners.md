@@ -5,7 +5,7 @@ tags: blog
 title: 'Full Of Sinus gets awarded by 4Sceners'
 ---
 
-![{{title}}](../../assets/img/blog/fullofsinus.png)
+![{{title}}](/assets/img/blog/fullofsinus.png)
 
 I just learned that the “4Sceners” special on 4players awarded my browser demo “My God, it’s full of Sinus!” in two categories:
 

@@ -17,7 +17,7 @@ description: Custom Description
   {% set items_by_order = collections.cracktro | sortReverseDate %}
   {%- for release in items_by_order -%}
     <div class="release">
-      <img src="../assets/img/jsreleases/{{release.data.img_url}}">
+      <img src="/assets/img/jsreleases/{{release.data.img_url}}">
       <h1>{{release.data.title}}</h1>
       <div class="body">
         {{ release.templateContent | safe }}

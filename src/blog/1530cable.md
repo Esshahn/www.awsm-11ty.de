@@ -7,14 +7,14 @@ teaser: 1530cable-5.jpg
 excerpt: "When released, the Commodore 264 series suffered from some questionable decisions regarding it's joystick and datasette ports. In this article I show how to solder an adapter cable to make SD2IEC devices work with those systems."
 ---
 
-![{{title}}](../../assets/img/blog/1530cable-1.jpg)
+![{{title}}](/assets/img/blog/1530cable-1.jpg)
 
 Now this is a special interest post…
 I own an excellent SD2IEC device to load programs from a regular SD card to the Commodore C64/C128. Different version are available and I got one that hooks up to the C64 tape port to get it’s power from. They work great and I got mine from here: http://www.sd2iec.co.uk/id14.html
 
 While getting power from the tape port is very convenient, it comes with the downside of not working with the 264 series computers C16, C116 and plus/4 as they have a round tape connector (round was the new black back then, as Commodore decided to make round joystick ports too, which was another big mistake). So I could either buy an SD2IEC made for the 264 tape connector or use an adapter (or adaptor? Even Google doesn’t seem to know), which was available 30 years ago but nearly extinct today:
 
-![{{title}}](../../assets/img/blog/1530cable-2.jpg)
+![{{title}}](/assets/img/blog/1530cable-2.jpg)
 
 Funny enough, at the time of writing this, eBay has an auction with someone selling it right now.
 
@@ -32,12 +32,12 @@ The little tape port board is available on eBay if you search for a seller named
 
 Now you should have something similar to this:
 
-![{{title}}](../../assets/img/blog/1530cable-3.jpg)
+![{{title}}](/assets/img/blog/1530cable-3.jpg)
 
 ## The Circuit Plan
 Connecting the wires to the board isn’t hard, even for novices. This is my second soldering job (really, as anybody can see in the pictures below) and it got me no headache at all. First of all we need a so called PINOUT map for both ends of the cable. I made a nice graphic for you guys (click to enlarge):
 
-![{{title}}](../../assets/img/blog/1530cable-4.jpg)
+![{{title}}](/assets/img/blog/1530cable-4.jpg)
 
 Most pinouts you can find on the net show the setup when looking at the port at the back of the computer (as seen on the left). This is fine especially if you need to solder your own cable and don’t have the datasette cable to start with.
 
@@ -55,29 +55,29 @@ Remember when I ranted that Commodore wanted to make your life miserable by usin
 
 But don’t try to open the cable! By the time you have a solid idea about what wire is for what all you have left from your cable is a complete, unfixable, glued mess. The solution to the problem is a multimeter, which you can buy for cheap (mine cost about 9 Euro) at an electronics store. Watch a tutorial to find out how it works. It’s pretty easy (hold one pin to a cable on one side, the other pin to a cable on the other side and see if the display shows something).
 
-![{{title}}](../../assets/img/blog/1530cable-5.jpg)
+![{{title}}](/assets/img/blog/1530cable-5.jpg)
 
 As you can see in the pictures below, my GND was red and the +5V was white. But don’t rely on it being the same for you.
 
 Now you just need to solder everything together. I’m not giving a tutorial on how to solder, that would probably just kill innocent people. Here’s a pic of my soldering station (again, pretty cheap, around 40 Euro):
 
-![{{title}}](../../assets/img/blog/1530cable-6.jpg)
+![{{title}}](/assets/img/blog/1530cable-6.jpg)
 
 Also, a fantastic Star Wars coffee mug.
 After connecting all the wires, one end of the cable should look like this:
 
-![{{title}}](../../assets/img/blog/1530cable-7.jpg)
+![{{title}}](/assets/img/blog/1530cable-7.jpg)
 
 I was so proud of myself after I was done, only to realize that I made the most obvious mistake of all and soldered all the wires mirrored (see above). It took me a while to find out the reason why it wasn’t working and by that time I was running out of time, so I only connected the GND and +5V again.
 
-![{{title}}](../../assets/img/blog/1530cable-8.jpg)
+![{{title}}](/assets/img/blog/1530cable-8.jpg)
 
 ## The finished cable
 Some final wire cutting and we’re already done (it might take you shorter to build the cable than it took me to write this all down)!
 
-![{{title}}](../../assets/img/blog/1530cable-9.jpg)
+![{{title}}](/assets/img/blog/1530cable-9.jpg)
 
 It works as expected and now I can use my SD2IEC to connect with my plus/4 (e.g. to play the marvelous Mr. Puniverse)
 
-![{{title}}](../../assets/img/blog/1530cable-10.jpg)
+![{{title}}](/assets/img/blog/1530cable-10.jpg)
 

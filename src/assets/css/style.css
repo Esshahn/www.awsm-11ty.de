@@ -134,7 +134,7 @@ h3 {
 }
 
 .button {
-  color: white;
+  color: var(--accent);
   border-radius: 8px;
   border: 2px solid var(--accent);
   padding: 12px;
@@ -238,6 +238,7 @@ h3 {
 }
 
 .release .button {
+  color: var(--text-light);
   flex: 1;
   margin: 4px;
   border-radius: 8px;

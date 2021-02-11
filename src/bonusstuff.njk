@@ -14,7 +14,7 @@ title: Bonus Stuff
   {% set items_by_order = collections.bonusstuff | sortReverse %}
   {%- for release in items_by_order -%}
     <div class="release">
-      <img src="../assets/img/bonusstuff/{{release.data.img_url}}">
+      <img src="/assets/img/bonusstuff/{{release.data.img_url}}">
       <h1>{{release.data.title}}</h1>
       <div class="body">
         {{ release.templateContent | safe }}
