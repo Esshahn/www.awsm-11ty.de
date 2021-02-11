@@ -7,7 +7,7 @@ title: 'Schaltkreis C64 Cracktro'
 
 Schaltkreis – another small release for the C64. Mostly PETSCII with some Sprites and rasters.
 
-![Mayden](../../assets/img/blog/schaltkreis.gif)
+![Mayden](/assets/img/blog/schaltkreis.gif)
 
 This design came to my mind when I listened to the incredible C64 songs of Eddie Svärd. Most of his songs are just totally different from what you are used to and show incredible talent.
 

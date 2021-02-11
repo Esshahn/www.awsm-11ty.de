@@ -5,7 +5,7 @@ tags: blog
 title: 'Eight Fingered Hand'
 ---
 
-![{{title}}](../../assets/img/blog/8fingers.jpg)
+![{{title}}](/assets/img/blog/8fingers.jpg)
 
 “We could explain BYTES using a hand!”
 “No. A hand only has five fingers.” 

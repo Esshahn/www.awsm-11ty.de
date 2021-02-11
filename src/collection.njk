@@ -14,7 +14,7 @@ title: Computer Collection
   {% set items_by_order = collections.collection | sortReverse %}
   {%- for item in items_by_order -%}
     <div class="release">
-      <img src="../assets/img/collection/{{item.data.img_url}}">
+      <img src="/assets/img/collection/{{item.data.img_url}}">
       <h1>{{item.data.title}}</h1>
       <div class="body">
         {{ item.templateContent | safe }}

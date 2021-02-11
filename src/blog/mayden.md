@@ -13,4 +13,4 @@ I wanted to create a nice Plus/4 version of the Mayden image I drew for the C64 
 
 I think I have to give up on this one and need to keep this limitation in mind right from the start when doing artwork for the 264 series. Anyway, here’s the picture without the restriction.
 
-![Mayden](../../assets/img/blog/mayden-c16.png)
+![Mayden](/assets/img/blog/mayden-c16.png)

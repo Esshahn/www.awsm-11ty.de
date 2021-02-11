@@ -9,4 +9,4 @@ What if HP Baxxter, the band leader of Scooter, was doing (horrible) cracks on t
 
 Check out the <a href="http://csdb.dk/release/?id=152048">cracktro here</a> and make sure to <a href="https://www.youtube.com/watch?v=VYCTfVU-kqE">watch the fake video</a>…
 
-![{{title}}](../../assets/img/blog/hpg.png)
+![{{title}}](/assets/img/blog/hpg.png)

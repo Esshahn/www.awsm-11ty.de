@@ -5,7 +5,7 @@ tags: blog
 title: 'Amiga 500 fixing'
 ---
 
-![{{title}}](../../assets/img/blog/amiga500.jpg)
+![{{title}}](/assets/img/blog/amiga500.jpg)
 
 Another computer alive again: Amiga 500 with a HxC SD Floppy Emulator running Xenon II – Megablast.
 
