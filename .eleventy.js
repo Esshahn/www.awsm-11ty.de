@@ -14,9 +14,11 @@ module.exports = function (eleventyConfig) {
   }
 
   // sort by reverse order, e.g. 5,4,3,2,1
-  function sortReverseDate(values) {
+  function sortReverseDate(values, amount) {
     let vals = [...values]; // this *seems* to prevent collection mutation...
-    return vals.sort((a, b) => Math.sign(b.data.date - a.data.date));
+    return vals
+      .sort((a, b) => Math.sign(b.data.date - a.data.date))
+      .slice(0, amount);
   }
 
   // return the latest of a collection
