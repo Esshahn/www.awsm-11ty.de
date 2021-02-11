@@ -3,41 +3,89 @@ layout: default
 order: 4
 tags: navigation
 title: Ghost Town
-description: Custom Description
 ---
+
+<center>
+  <img src="../assets/img/ghosttown/ghosttown-tv.png" width="40%">
+</center>
 
 <div class="infobox">
   <h1>{{title}}</h1>
-  <h3>This site is dedicated to my unhealthy relationship with the old Kingosft game created by Udo Gertz.</h3>
+  <h2>This site is dedicated to my unhealthy relationship with the old Kingsoft game created by Udo Gertz.</h2>
+  <p>Visit the mysterious Ghost Town, a place full of unexpected dangers and hidden treasures! Ghost Town is a fantastic adventure written by Udo Gertz and was released in 1985 for the Commodore C16, C116 & Plus/4. It was one of my favorite games when I was a kid and I never managed to beat the game. 35 years later I uncovered every single mystery hidden inside the Ghost Town. You can play the game as an extended version on the Commodore Plus/4, for the first time on the Commodore 64 or right here in your browser.</p>
 </div>
+
+<!-- game -->
+<div class="container">
+  <div class="column">
+    <img src="/assets/img/ghosttown/gamebox-plus.png">
+  </div>
+  <div class="column">
+    <h1>Ghost Town Plus</h1>
+    <p>Enjoy this scary adventure created by Udo Gertz in a special extended version! This game has never looked so good on a 264 series computer with 64k of RAM.</p>
+    <img class="imgborder" src="/assets/img/ghosttown/plus4-animated.gif">
+    <a class="button" href="http://www.kingsoft.de/plus4/ghost-town-plus4.prg">Download game</a>
+    <a class="button" href="https://github.com/Esshahn/Ghost-Town">Source on Github</a>
+  </div>
+</div>
+<!-- END game -->
+
+<!-- game -->
+<div class="container">
+  <div class="column">
+    <img src="/assets/img/ghosttown/gamebox-c64.png">
+  </div>
+  <div class="column">
+    <h1>Ghost Town 64</h1>
+    <p>Enjoy this scary adventure created by Udo Gertz in a special extended version! This game has never before been released on this platform.</p>
+    <img class="imgborder" src="/assets/img/ghosttown/c64-animated.gif">
+    <a class="button" href="http://www.kingsoft.de/c64/ghost-town-c64.prg">Download game</a>
+    <a class="button" href="https://github.com/Esshahn/Ghost-Town">Source on Github</a>
+  </div>
+</div>
+<!-- END game -->
+
+<!-- game -->
+<div class="container">
+  <div class="column">
+    <img src="/assets/img/ghosttown/gamebox-web.png">
+  </div>
+  <div class="column">
+    <h1>Ghost Town JS</h1>
+    <p>It's Ghost Town. In your browser. For free. Go play it now!</p>
+    <img class="imgborder" src="/assets/img/ghosttown/web-animated.gif">
+    <a class="button" href="http://www.kingsoft.de/ghosttown/">Play Ghost Town JS</a>
+    <a class="button" href="https://github.com/Esshahn/ghosttown">Source on Github</a>
+  </div>
+</div>
+<!-- END game -->
 
 <div class="infobox">
-
-  <h1>Ghost Town JS</h1>
-  <h3>A JavaScript remake of the Commodore C16 game.</h3>
-
-  <p>
-    Visit the mysterious Ghost Town, a place full of unexpected dangers and hidden treasures! Ghost Town JS is a JavaScript remake of the fantastic game written by Udo Gertz and released in 1985 for the Commodore C16, C116 & Plus/4. This remake is pixel perfect as it reads in the binary screen data from the original game. For more information and additional links, scroll down the page after launching the game. Have fun!<br/><br/>
-  </p>
-  <center>
-    <a href="http://www.kingsoft.de">www.kingsoft.de</a>
-  </center>
-
-  <center>
-    <a href="http://www.kingsoft.de/"><img src="../assets/img/ghosttown/ghosttown-tv.png" id="ghosttown" width="80%" class="center"></a>
-    <br/>
-
-    <img src="../assets/img/ghosttown/ghosttown_01.jpg">
-    <img src="../assets/img/ghosttown/ghosttown_02.jpg">
-    <img src="../assets/img/ghosttown/ghosttown_03.jpg">
-    <img src="../assets/img/ghosttown/ghosttown_04.jpg">
-    <img src="../assets/img/ghosttown/ghosttown_05.jpg">
-    <img src="../assets/img/ghosttown/ghosttown_06.jpg">
-    <img src="../assets/img/ghosttown/ghosttown_07.jpg">
-    <img src="../assets/img/ghosttown/ghosttown_08.jpg">
-    <img src="../assets/img/ghosttown/ghosttown_09.jpg">
-    <img src="../assets/img/ghosttown/ghosttown_10.jpg">
-    <img src="../assets/img/ghosttown/ghosttown_11.jpg">
-    <img src="../assets/img/ghosttown/ghosttown_12.jpg">
-  </center>
+  <h1>Articles about Ghost Town</h1>
+  <p>I've covered the process of converting the game to various platforms in my blog. Below are three articles to choose from.</p>
 </div>
+
+{%- for article in collections.ghosttown  -%}
+
+  <div class="articles">
+    <div class="title">
+      {% if article.data.teaser %}
+        <img src="/assets/img/blog/{{article.data.teaser}}">
+      {% endif %}
+    </div>
+    <div class="main">
+      <h2>{{ article.data.title}}
+      </h2>
+      <div class="date">{{ article.data.date.toDateString() }}
+      </div>
+      {% if article.data.excerpt %}
+        {{article.data.excerpt}}
+        <br/>
+        <a class="navlink" href="{{article.url }}">continue reading... &#10095;&#10095;</a>
+      {% else %}
+        {{ article.templateContent | safe}}
+      {% endif %}
+    </div>
+  </div>
+
+{%- endfor -%}

@@ -13,6 +13,12 @@ module.exports = function (eleventyConfig) {
     return vals.sort((a, b) => Math.sign(b.data.order - a.data.order));
   }
 
+  // sort by reverse order, e.g. 5,4,3,2,1
+  function sortReverseDate(values) {
+    let vals = [...values]; // this *seems* to prevent collection mutation...
+    return vals.sort((a, b) => Math.sign(b.data.date - a.data.date));
+  }
+
   // return the latest of a collection
   function returnLatest(values, amount) {
     let vals = [...values]; // this *seems* to prevent collection mutation...
@@ -23,6 +29,7 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("sortByOrder", sortByOrder);
   eleventyConfig.addFilter("sortReverse", sortReverse);
+  eleventyConfig.addFilter("sortReverseDate", sortReverseDate);
   eleventyConfig.addFilter("latest", returnLatest);
 
   return {

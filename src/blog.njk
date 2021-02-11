@@ -3,22 +3,50 @@ layout: default
 order: 1
 tags: navigation
 title: Blog
-description: Custom Description
+pagination:
+  data: collections.blog
+  size: 6
+  alias: articles
+  reverse: true
 ---
 
-<h1>{{title}}</h1>
+<div class="infobox">
+  <h1>Blog</h1>
+</div>
 
-{%- for release in collections.release -%}
-  <div class="release">
-    <img src="../assets/img/releases/{{release.data.img_url}}">
-    <h2>{{release.data.title}}</h2>
-    <div class="body">
-      {{ release.templateContent | safe }}
+<nav class="pagination" aria-labelledby="pagination">
+  {%- for pageEntry in pagination.pages %}
+    <a class="page" {% if page.url == pagination.hrefs[ loop.index0 ] %} id="active" aria-current="page" {% endif %} href="{{ pagination.hrefs[ loop.index0 ] }}">{{ loop.index }}</a>
+  {%- endfor %}
+</nav>
+
+{%- for article in articles  -%}
+
+  <div class="articles">
+    <div class="title">
+      {% if article.data.teaser %}
+        <img src="/assets/img/blog/{{article.data.teaser}}">
+      {% endif %}
     </div>
-    {%- for link in release.data.links -%}
-      <button class="full">{{link.title}}
-        {{link.url}}
-      </button>
-    {%- endfor -%}
+    <div class="main">
+      <h2>{{ article.data.title}}
+      </h2>
+      <div class="date">{{ article.data.date.toDateString() }}
+      </div>
+      {% if article.data.excerpt %}
+        {{article.data.excerpt}}
+        <br/>
+        <a class="navlink" href="{{article.url }}">continue reading... &#10095;&#10095;</a>
+      {% else %}
+        {{ article.templateContent | safe}}
+      {% endif %}
+    </div>
   </div>
+
 {%- endfor -%}
+
+<nav class="pagination" aria-labelledby="pagination">
+  {%- for pageEntry in pagination.pages %}
+    <a class="page" {% if page.url == pagination.hrefs[ loop.index0 ] %} id="active" aria-current="page" {% endif %} href="{{ pagination.hrefs[ loop.index0 ] }}">{{ loop.index }}</a>
+  {%- endfor %}
+</nav>

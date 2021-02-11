@@ -14,7 +14,7 @@ description: Custom Description
 </div>
 
 <div class="releases">
-  {% set items_by_order = collections.cracktro | sortReverse %}
+  {% set items_by_order = collections.cracktro | sortReverseDate %}
   {%- for release in items_by_order -%}
     <div class="release">
       <img src="../assets/img/jsreleases/{{release.data.img_url}}">
