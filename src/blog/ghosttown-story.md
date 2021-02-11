@@ -178,6 +178,6 @@ Ich betrete den Raum und treffe auf den gleichen bösen Zauberer, der mich schon
 
 **Vielen Dank Udo Gertz für dieses großartige Erlebnis.**
 
-GhostTownJS kann hier gespielt werden: [http://www.kingosoft.de](http://www.kingosoft.de)
+GhostTownJS kann hier gespielt werden: [http://www.kingsoft.de/ghosttown/](http://www.kingsoft.de/ghosttown/)
 
 PS: Wer gerne mehr über die technische Umsetzung des Spieles erfahren möchte, kann sich den kommentierten Sourcecode auf Github herunterladen: [GhostTownJS auf Github](https://github.com/Esshahn/ghosttown).

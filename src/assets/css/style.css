@@ -1,7 +1,15 @@
 :root {
-  --main: #09efff;
-  --text: #eeeeee;
+  --text-light: #eeeeee;
   --text-dark: #444444;
+  --background: #272932;
+  --bg-dark: #828489;
+  --bg-light: #eae6e5;
+  --release: #8284892f;
+  --release-button-bg: rgb(27, 30, 36);
+  --navigation: #146781d0;
+  --accent: #1fd2ff;
+  --link-light: #f5e663;
+  --link-dark: #146781;
 }
 
 html,
@@ -9,18 +17,19 @@ body {
   margin: 0px 0px 0px 0px;
   padding: 0;
   padding-top: 100px;
-  color: #666666;
+  color: var(--text-light);
   line-height: 160%;
   font-size: 105%;
 
+  /*
   background: radial-gradient(
     circle,
     rgba(86, 196, 255, 0.23713235294117652) 0%,
-    rgba(42, 4, 11, 0.1250875350140056) 100%
+    rgba(0, 0, 0, 0.1250875350140056) 100%
   );
+  */
 
-  background-color: #1e3250;
-
+  background-color: var(--background);
   font-family: "Quicksand", sans-serif;
 }
 
@@ -30,7 +39,7 @@ a {
 }
 
 a:hover {
-  color: yellow;
+  color: var(--link-light);
 }
 
 h3 {
@@ -58,7 +67,7 @@ h3 {
   width: 100%;
   padding: 10px;
   margin-bottom: 100px;
-  background: #3863a0da;
+  background: var(--navigation);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -94,10 +103,40 @@ h3 {
   border-radius: 8px;
 }
 
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: center;
+  margin: auto;
+  width: 60%;
+  min-width: 400px;
+  max-width: 900px;
+  margin-bottom: 80px;
+}
+
+.column {
+  flex: 1;
+  margin: auto;
+}
+
+.column img {
+  width: 400px;
+  margin: auto;
+  display: block;
+}
+
+.imgborder {
+  margin: 32px 0px 32px 0px;
+  border-radius: 20px;
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.4);
+}
+
 .button {
   color: white;
   border-radius: 8px;
-  border: 2px solid var(--main);
+  border: 2px solid var(--accent);
   padding: 12px;
   margin: 24px 12px 12px 12px;
   display: inline-block;
@@ -121,23 +160,16 @@ h3 {
   max-width: 384px;
   padding: 20px;
   margin: 10px;
-  border: 1px solid #444444;
-  border-color: #666666 #222222 #111111 #222222;
+  border: 4px solid transparent;
   min-height: 510px;
-  background-color: #333333;
+  background-color: var(--release);
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
   vertical-align: top;
-  color: var(--text);
+  color: var(--text-light);
   text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.1),
     0px -1px 0px rgba(0, 0, 0, 0.5);
   line-height: 160%;
   border-radius: 12px;
-
-  background: linear-gradient(
-    172deg,
-    rgba(114, 135, 147, 1) 0%,
-    rgba(65, 78, 89, 1) 29%
-  );
 
   transition: all 0.2s;
   transition-timing-function: ease;
@@ -158,15 +190,11 @@ h3 {
 .release:hover {
   transform: scale(1.02, 1.02);
   box-shadow: 0px 10px 10px 4px rgba(6, 227, 194, 0.1);
-  background: linear-gradient(
-    172deg,
-    rgba(128, 151, 164, 1) 0%,
-    rgba(76, 91, 103, 1) 29%
-  );
+  border: 4px solid var(--accent);
 }
 
 .release h1 {
-  color: #33eeff;
+  color: var(--accent);
   text-align: center;
   font-weight: normal;
   margin-top: 0px;
@@ -174,7 +202,7 @@ h3 {
   line-height: 120%;
   text-shadow: 0px 2px 0px rgba(0, 255, 255, 0.2),
     0px 4px 4px rgba(0, 0, 0, 0.5);
-  font-family: "Sedgwick Ave Display", cursive;
+  font-family: "Pacifico", cursive;
   font-size: 200%;
   display: block;
   letter-spacing: 2px;
@@ -187,7 +215,7 @@ h3 {
 
 .release:hover h1 {
   transform: scale(1.2, 1.2) translate(0px, -25px) rotate(-3deg);
-  color: yellow;
+  color: var(--link-light);
 }
 
 .release .body {
@@ -197,6 +225,7 @@ h3 {
 .release img {
   border: 1px solid #888888;
   border-color: #111111 #333333 #666666 #333333;
+  border-radius: 8px;
 }
 
 .release .buttons {
@@ -212,10 +241,10 @@ h3 {
   flex: 1;
   margin: 4px;
   border-radius: 8px;
+  border: 0px;
   text-align: center;
   padding: 6px 23px 6px 23px;
-  background-color: rgb(45, 50, 58);
-  border-color: rgb(45, 50, 58);
+  background-color: var(--release-button-bg);
   text-transform: uppercase;
   letter-spacing: 3px;
   font-size: 100%;
@@ -233,29 +262,28 @@ h3 {
 }
 
 .infobox {
-  background-color: rgba(30, 30, 50, 0.9);
+  text-align: center;
   margin: auto;
   width: 60%;
   min-width: 400px;
   max-width: 900px;
-  padding: 20px 32px 60px 32px;
   color: #eeeeee;
-  border-radius: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
   margin-top: 20px;
-  box-shadow: 0px 5px 10px 2px #080808;
-  border: 1px solid #444444;
-  border-color: #666666 #222222 #111111 #222222;
 }
 
 .infobox h1 {
   font-weight: normal;
-  letter-spacing: 3px;
+  letter-spacing: 4px;
+  font-size: 300%;
   font-family: "Quicksand", sans-serif;
+  color: var(--accent);
+  line-height: 100%;
 }
 
-.infobox a {
-  color: var(--main);
+.infobox a,
+.column a {
+  color: var(--accent);
 }
 
 .roundbox {
@@ -266,7 +294,7 @@ h3 {
 }
 
 .articles {
-  background-color: #f8f8f8;
+  background-color: var(--bg-light);
   margin: auto;
   margin-top: 12px;
   padding: 32px;
@@ -315,6 +343,7 @@ h3 {
 
 #article {
   background-color: #eeeeee;
+  color: var(--text-dark);
   margin: auto;
   margin-top: 32px;
   padding: 10%;
@@ -328,6 +357,7 @@ h3 {
   color: #222222;
   text-shadow: none;
   font-size: 180%;
+  line-height: 160%;
   text-align: left;
   font-family: "Quicksand", sans-serif;
   padding: 32px 0px 0px 0px;
@@ -355,7 +385,8 @@ h3 {
 
 #article a,
 .articles a {
-  color: #3863a0;
+  color: var(--link-dark);
+  font-weight: bold;
 }
 
 #article p a:hover {
@@ -387,7 +418,7 @@ h3 {
 }
 
 .pagination .page:hover {
-  background-color: yellow;
+  background-color: var(--accent);
   transform: scale(1.1, 1.1);
 }
 
@@ -412,3 +443,24 @@ h3 {
   height: 420px;
   max-width: 100%;
 }
+
+/* Ghost Town specific */
+
+.game-info {
+  color: white;
+}
+
+.game-info h1 {
+  text-align: center;
+  margin-top: 0px;
+  line-height: 120%;
+  margin-bottom: 10px;
+}
+
+.game-info img {
+  margin: 32px 0px 32px 0px;
+  border-radius: 20px;
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* Ghost Town specific END */
