@@ -5,7 +5,7 @@ window.onscroll = function () {
   if (currentScrollPos < 100 || prevScrollpos > currentScrollPos) {
     document.getElementById("navigation").style.top = "0px";
   } else {
-    document.getElementById("navigation").style.top = "-180px";
+    document.getElementById("navigation").style.top = "-480px";
   }
   prevScrollpos = currentScrollPos;
 };
