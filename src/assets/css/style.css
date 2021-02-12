@@ -265,8 +265,8 @@ h3 {
 .infobox {
   text-align: center;
   margin: auto;
-  width: 60%;
-  max-width: 900px;
+
+  max-width: 800px;
   color: #eeeeee;
   margin-bottom: 60px;
   margin-top: 20px;
@@ -356,8 +356,7 @@ h3 {
   margin-top: 32px;
   padding: 10%;
   border-radius: 8px;
-  width: 60%;
-  min-width: 400px;
+
   max-width: 900px;
 }
 
@@ -446,7 +445,6 @@ h3 {
 }
 
 .video {
-  margin: 20px;
   width: 560px;
   height: 420px;
   max-width: 100%;
