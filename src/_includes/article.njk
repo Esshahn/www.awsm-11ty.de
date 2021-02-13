@@ -3,16 +3,18 @@
 
 <div id="article">
   <div class="navbar">
-    <a href="../../blog/" class="navlink">&#10094;&#10094; back to overview</a>
-    {{ published }}
+    <a href="/blog/" class="navlink">&#10094;&#10094; back to overview</a>
   </div>
 
   <h1>{{ title }}</h1>
+  on
+  {{ date.toDateString() }}
+  by
+  {{ site.author }}
   {{ content | safe }}
 
   <div class="navbar" style="margin-top:64px;">
-    <a href="../../blog/" class="navlink">&#10094;&#10094; back to overview</a>
-
+    <a href="/blog/" class="navlink">&#10094;&#10094; back to overview</a>
   </div>
 </div>
 

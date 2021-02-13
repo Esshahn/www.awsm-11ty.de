@@ -17,9 +17,7 @@ excerpt: 'This is a summary of a series of posts from my last blog. I still reme
 
 I’m trying to convert the original Ghost Town game for the Commodore 264 series to HTML5 and JavaScript. Let’s see how far I get, this is a video of a complete playthrough of the game (SP0IL0RZ AL3RTZ!!1):
 
-<iframe class="video"
-src="https://www.youtube.com/embed/eXM6h9Q3dDQ" 
-allowfullscreen></iframe>
+https://www.youtube.com/embed/eXM6h9Q3dDQ
 
 ## About the game
 
@@ -110,7 +108,7 @@ So, after all the whole game is just fancy styled letters and some questionable 
 
 Thanks to Hexworx from the forum64 who gave me some valuable hints. If you’re the super smart type of person you would ask yourself now “this guy must be pretty damn good looking, but why was the last screenshot taken with the C64 emulator and not the C16 emulator?” Well, the reason is that Hexworx provided me with a nice little code snipped that displays the extracted code on the C64 (which I’m far more familiar with). I’m not going into details, but here’s the code I use for my tests:
 
-<pre><code class="arm">
+``` asm6502
 ; Ghost Town C64 Test
 !to “build/ghost.prg”,cbm
 
@@ -161,7 +159,7 @@ Thanks to Hexworx from the forum64 who gave me some valuable hints. If you’re 
     lda #$d8
     sta $d016
     jmp –
-</code></pre>
+```
 
 This might not make sense to you, but at least now you know what 6502 assembly language looks like.
 
@@ -187,17 +185,13 @@ The 264 series hasn’t got the amazing SID chip of the big brother C64 and you 
 
 There are some cool tunes though, like the title music of Mr. Puniverse:
 
-<iframe class="video"
-src="https://www.youtube.com/embed/3JxU1qmFdf4" 
-allowfullscreen></iframe>
+https://www.youtube.com/embed/3JxU1qmFdf4
 
 I still whistle it from time to time. Like before I hurt people.
 
 Here’s that music of Ghost Town again:
 
-<iframe class="video"
-src="https://www.youtube.com/embed/eXM6h9Q3dDQ" 
-allowfullscreen></iframe>
+https://www.youtube.com/embed/eXM6h9Q3dDQ
 
 Some catchy badass polyphonic stuff, eh?
 For the remake, I have two realistic options (and I might implement both):
@@ -244,10 +238,7 @@ The initial idea of loading in the pure binary machine code from the C16 game su
 
 There’s tons of stuff to improve to make it usable for a full game, but for now, that’s pretty satisfying.
 
-<iframe class="video"
-src="https://www.youtube.com/embed/oFSWsKiWNBc" 
-allowfullscreen></iframe>
-
+https://www.youtube.com/embed/oFSWsKiWNBc
 
 ## Ghost Town: I’m walking
 

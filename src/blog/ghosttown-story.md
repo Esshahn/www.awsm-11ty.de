@@ -15,17 +15,14 @@ Dieser Artikel über meine Kindheitserinnerungen mit dem Spiel Ghost Town sowie 
 
 199 Mark. Soviel habe ich für meinen ersten Computer bezahlt, das war 1986, der Computer ein Commodore C16 samt Datasette und der Verkäufer der große Bruder von Stefan aus meiner Klasse. Es ist Nachmittag und wir stehen im Wohnzimmer seiner Eltern. Die Flügeltür einer erdrückenden Schrankwand schwingt auf und aus dem Familienfernseher erstrahlt schon bald ein blau-weißes Rechteck mit dem Hinweis: 
 
-<pre><code class="plaintext">
+```text
 COMMODORE BASIC V3.5 12277 BYTES FREE 
 READY.
-
-</code></pre>
+```
 
 Auf dem Teppichboden unter dem Bildschirm liegt in einem Gewirr aus Kabeln das, was schon bald mein liebstes Hobby werden sollte. Vor meinen staunenden Augen tippt Stefans Bruder etwas auf der Tastatur:
 
-<iframe class="video"
-src="https://www.youtube.com/embed/emxvRFAxnbo" 
-allowfullscreen></iframe>
+https://www.youtube.com/embed/emxvRFAxnbo
 
 Fünf Zeilen BASIC, die meinen weiteren Lebensweg bestimmten. Und dann diese kleine schwarze Kiste, die tut, was man ihr sagt! So aufregend und ganz anders als unser erziehungsresistenter Rauhhaardackel oder „Husten-Markus“ zwei Häuser weiter, der, wie der Name schon sagt, meistens krank war und nur mit einem spielen wollte, wenn er auch garantiert alles bestimmen durfte, und zwar immer und alles. Und immer. Einen Tag und ein irgendwie-dann-doch gemeistertes Problemgespräch mit den Eltern später stand er dann bei mir im Kinderzimmer: mein erster Computer!
 
@@ -43,13 +40,13 @@ Der Puls rast und das Herz pocht ganz oben im Hals, als ich auf dem Heimweg von 
 
 Computer eingeschaltet, Kassette in die Datasette eingelegt, los ging’s.
 
-<pre><code class="plaintext">
+```text
 LOAD 
 PRESS PLAY ON TAPE 
 OK 
 SEARCHING GHOST TOWN C16 
 LOADING
-</code></pre>
+```
 
 Der Fliesentisch, der zum Kleiderständer umfunktionierte Heimtrainer und die ausgediente Schreibmaschine verschwanden. Die farbigen Pixel des Fernsehers erfassten den ganzen Raum und zogen uns hinein in die geheimnisvolle Ghost Town.
 
@@ -137,12 +134,12 @@ Die Logik für den Handschuh sieht also grob so aus:
 Der tatsächliche Code liest sich fast genauso einfach:
 ```
 
-<pre><code class="coffeescript">
+```coffeescript
 if "a9" in new_position
    if "ladder" in player.inventory
      player.add "gloves"
      player.remove "ladder"
-</code></pre>
+```
 
 Daß es sich beim Handschuh um das Zeichen „A9“ handelt, kann man leicht an der Spritemap ablesen. Nach diesem Prinzip ist jeder Raum des Spieles aufgebaut.  
 

@@ -1,9 +1,17 @@
 const pluginRss = require("@11ty/eleventy-plugin-rss");
+const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
+const embedYouTube = require("eleventy-plugin-youtube-embed");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss);
+  eleventyConfig.addPlugin(syntaxHighlight);
+  eleventyConfig.addPlugin(embedYouTube);
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("static");
+  eleventyConfig.addFilter("sortByOrder", sortByOrder);
+  eleventyConfig.addFilter("sortReverse", sortReverse);
+  eleventyConfig.addFilter("sortReverseDate", sortReverseDate);
+  eleventyConfig.addFilter("latest", returnLatest);
 
   function sortByOrder(values) {
     let vals = [...values]; // this *seems* to prevent collection mutation...
@@ -32,15 +40,11 @@ module.exports = function (eleventyConfig) {
       .slice(0, amount);
   }
 
-  eleventyConfig.addFilter("sortByOrder", sortByOrder);
-  eleventyConfig.addFilter("sortReverse", sortReverse);
-  eleventyConfig.addFilter("sortReverseDate", sortReverseDate);
-  eleventyConfig.addFilter("latest", returnLatest);
-
   return {
     dir: {
       input: "src",
       output: "dist",
+      data: "_data",
     },
   };
 };

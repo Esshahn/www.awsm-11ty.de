@@ -74,6 +74,7 @@ h3 {
   justify-content: center;
   box-shadow: 0px 5px 20px 2px #111111;
   transition: top 0.8s;
+  align-items: center;
 }
 
 #navigation a {
@@ -255,7 +256,7 @@ h3 {
 }
 
 .release .button:hover {
-  color: black;
+  color: rgb(167, 88, 88);
   transform: scale(1.2, 1.2) rotate(-2deg);
   background-color: white;
   border: 0px;

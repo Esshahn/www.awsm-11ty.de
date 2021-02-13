@@ -7,13 +7,21 @@ teaser: 'commodore-highlight.png'
 excerpt: 'I created syntax highlighting for the ACME assembler which you can implement on your own website or blog.'
 ---
 
+## Update!
+
+Well it didn't take me long to realize that there's a superior library to `highlight.js` called [Prism.js](http://www.prismjs.com), which does basically the same job, but supports 6502 assembly out of the box. Moreover, it is easier to include in markdown templates (which is what I'm mostly using for my articles) and it comes as a plugin for [Eleventy](http://www.11ty.com) and generates javascript-free static highlighting, which is even more amazing.
+
+But if for some reason Prism would not work for you, using highlight.js is still a great option.
+
+## Highlight.js 
+
 One of the main reasons for me why I took the extra effort and build my own little CMS for this website was to gain more control over the content and styling again. Wordpress is quite convenient, but complex and bulky and therefore limited in what you can achieve without deep diving into the realm of ancient PHP code.
 
 I'm using a library called [highlightjs](https://highlightjs.org) for all code syntax highlighting on this website. It has support for 191 different languages and allows for theming as well, with 97 styles to start and extend from.
 
 Since ACME Assembler syntax was missing I added it with this little javascript, which you can use for your own website if you like:
 
-```
+``` js
 hljs.registerLanguage(
   "6502acme",
   (() => {
@@ -52,7 +60,7 @@ hljs.registerLanguage(
 
 As a result, assembly code on this page now looks almost as good as in VSCode. Take this example program from my [VSCode Template for ACME](https://github.com/Esshahn/acme-assembly-vscode-template) repo:
 
-<pre><code class="6502-acme">
+``` asm6502
 ;==========================================================
 ; 6502 assembly template for VSCode
 ; https://github.com/Esshahn/acme-assembly-vscode-template
@@ -107,14 +115,16 @@ character_loop
         rts                     ; exit the program
 
 hello   !scr "hello world!"     ; our string to display
-</code></pre>
+```
 
 To integrate [highlightjs](https://highlightjs.org) checkout their [usage guide](https://highlightjs.org/usage/) or copy this snippet below and paste it into your site header.
 
-```
+``` html
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/monokai-sublime.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
 <script type="text/javascript" charset="UTF-8" src="/your/lokal/js/path/commodore-highlight.js"></script>
 ```
 
 [Commodore-Highlight on Github](https://github.com/Esshahn/commodore-highlight)
+
+
