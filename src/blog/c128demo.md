@@ -9,9 +9,7 @@ excerpt: "I found a box of floppies in my parent's attic and they contain some o
 
 I found a box of floppies in my parent's attic and they contain some of the first program's I've ever written. This is probably my earliest attempt at writing a demo.
 
-<iframe class="video"
-src="https://www.youtube.com/embed/oLU_mbsxog0" 
-allowfullscreen></iframe>
+https://www.youtube.com/embed/oLU_mbsxog0
 
 ## My first love: the Commodore 16
 

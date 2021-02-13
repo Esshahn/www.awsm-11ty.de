@@ -22,9 +22,7 @@ READY.
 
 Auf dem Teppichboden unter dem Bildschirm liegt in einem Gewirr aus Kabeln das, was schon bald mein liebstes Hobby werden sollte. Vor meinen staunenden Augen tippt Stefans Bruder etwas auf der Tastatur:
 
-<iframe class="video"
-src="https://www.youtube.com/embed/emxvRFAxnbo" 
-allowfullscreen></iframe>
+https://www.youtube.com/embed/emxvRFAxnbo
 
 Fünf Zeilen BASIC, die meinen weiteren Lebensweg bestimmten. Und dann diese kleine schwarze Kiste, die tut, was man ihr sagt! So aufregend und ganz anders als unser erziehungsresistenter Rauhhaardackel oder „Husten-Markus“ zwei Häuser weiter, der, wie der Name schon sagt, meistens krank war und nur mit einem spielen wollte, wenn er auch garantiert alles bestimmen durfte, und zwar immer und alles. Und immer. Einen Tag und ein irgendwie-dann-doch gemeistertes Problemgespräch mit den Eltern später stand er dann bei mir im Kinderzimmer: mein erster Computer!
 

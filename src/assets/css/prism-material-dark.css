@@ -8,8 +8,8 @@ pre[class*="language-"] {
   color: #eee;
   background: #2f2f2f;
   font-family: Roboto Mono, monospace;
-  font-size: 1em;
-  line-height: 1.5em;
+  font-size: 0.9em;
+  line-height: 1.4em;
 
   -moz-tab-size: 4;
   -o-tab-size: 4;
@@ -19,6 +19,7 @@ pre[class*="language-"] {
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
+  border-radius: 8px;
 }
 
 code[class*="language-"]::-moz-selection,

@@ -17,9 +17,7 @@ excerpt: 'This is a summary of a series of posts from my last blog. I still reme
 
 I’m trying to convert the original Ghost Town game for the Commodore 264 series to HTML5 and JavaScript. Let’s see how far I get, this is a video of a complete playthrough of the game (SP0IL0RZ AL3RTZ!!1):
 
-<iframe class="video"
-src="https://www.youtube.com/embed/eXM6h9Q3dDQ" 
-allowfullscreen></iframe>
+https://www.youtube.com/embed/eXM6h9Q3dDQ
 
 ## About the game
 
@@ -187,17 +185,13 @@ The 264 series hasn’t got the amazing SID chip of the big brother C64 and you 
 
 There are some cool tunes though, like the title music of Mr. Puniverse:
 
-<iframe class="video"
-src="https://www.youtube.com/embed/3JxU1qmFdf4" 
-allowfullscreen></iframe>
+https://www.youtube.com/embed/3JxU1qmFdf4
 
 I still whistle it from time to time. Like before I hurt people.
 
 Here’s that music of Ghost Town again:
 
-<iframe class="video"
-src="https://www.youtube.com/embed/eXM6h9Q3dDQ" 
-allowfullscreen></iframe>
+https://www.youtube.com/embed/eXM6h9Q3dDQ
 
 Some catchy badass polyphonic stuff, eh?
 For the remake, I have two realistic options (and I might implement both):
@@ -244,10 +238,7 @@ The initial idea of loading in the pure binary machine code from the C16 game su
 
 There’s tons of stuff to improve to make it usable for a full game, but for now, that’s pretty satisfying.
 
-<iframe class="video"
-src="https://www.youtube.com/embed/oFSWsKiWNBc" 
-allowfullscreen></iframe>
-
+https://www.youtube.com/embed/oFSWsKiWNBc
 
 ## Ghost Town: I’m walking
 
