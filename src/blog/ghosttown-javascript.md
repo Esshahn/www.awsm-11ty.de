@@ -110,7 +110,7 @@ So, after all the whole game is just fancy styled letters and some questionable 
 
 Thanks to Hexworx from the forum64 who gave me some valuable hints. If you’re the super smart type of person you would ask yourself now “this guy must be pretty damn good looking, but why was the last screenshot taken with the C64 emulator and not the C16 emulator?” Well, the reason is that Hexworx provided me with a nice little code snipped that displays the extracted code on the C64 (which I’m far more familiar with). I’m not going into details, but here’s the code I use for my tests:
 
-<pre><code class="arm">
+``` asm6502
 ; Ghost Town C64 Test
 !to “build/ghost.prg”,cbm
 
@@ -161,7 +161,7 @@ Thanks to Hexworx from the forum64 who gave me some valuable hints. If you’re 
     lda #$d8
     sta $d016
     jmp –
-</code></pre>
+```
 
 This might not make sense to you, but at least now you know what 6502 assembly language looks like.
 
