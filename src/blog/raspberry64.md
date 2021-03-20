@@ -9,10 +9,6 @@ excerpt: "I’m working on a new little hardware project. A Raspberry Pi 3 in a 
 
 ![{{title}](/assets/img/blog/raspberry64-1.jpg)
 
-I’m working on a new little hardware project. A Raspberry Pi 3 in a C64 case. Thanks to the Keyrah2 interface, you can even hook the original keyboard and make it work via USB. 
-
-I got the basic setup up and running pretty fast, there’s no magic behind it. The keyboard of the C64 connects to the Keyrah2, which itself connects to the Pi3 via USB. 
-
 ![{{title}](/assets/img/blog/raspberry64-2.jpg)
 
 There are several Linux Distributions out there that either have full emulator support (like the RetroPie) or focus on one vintage computer only and make the emulator boot at start. After trying out some options (I have a full RetroPie emulator already working on another Pi), I decided to setup my own configuration with Ubuntu Mate as a basis.
