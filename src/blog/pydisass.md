@@ -648,3 +648,5 @@ setInterval(function(){
   document.getElementById("selfmod").innerHTML = text[Math.floor(Math.random()*text.length)]
  }, 3000);
 </script>
+
+At this point it made sense to refactor the code and start with a fresh approach. I'm keeping both versions in my github repository for comparison.
