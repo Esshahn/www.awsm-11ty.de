@@ -10,12 +10,12 @@ excerpt: "In this article I share some learnings about disassembling 6502 machin
 
 The Commodore 64 computer is without any doubt a timeless classic. Therefore it wouldn't surprise me if you read this article sometime in the future from today. Maybe flying cars have finally become a thing. Maybe doge coins became the prime planetary currency. Or even bolder, it is the year of Linux on the desktop. Wild. But, it's probably much more likely that humanity has succeeded in terraforming earth into a second deadly, dusty mars. 
 
-For me, it's the year 2021. We have just survived the *first* incarnation of evil emperor Trump and we're celebrating just over one year of being stuck in a fucking global pandemic which started as a simple deadly virus but later on mutated into a brain slug that skyrocketed critical cases of baffling stupidity among the population, resulting in a never ending groundhog day. Oh boy.
+For me, it's the year 2021. We have just survived the *first* incarnation of evil emperor Trump and we're celebrating just over one year of being stuck in a fucking global pandemic which started as a fairly deadly virus but later on mutated into a much more dangerous brain slug that skyrocketed critical cases of baffling stupidity amongst the population, resulting in a never ending groundhog day. Oh boy.
 
 Where was I... ah, yes, writing a disassembler.
 ## The Mac, the modern version of the Commodore 16
 
-My fist computer was a C16 and I credit this fact that I have a passion and profession in programming. From those kids in my school who owned a home computer in the mid 80s, most of them had a C64. I watched them sharing the coolest games all the time while I just had... Winter Games and [Ghost Town](/blog/ghosttown64). But my computer featured something that was much better than games, it had the amazing BASIC 3.5, which was far superior to the 64's BASIC 2.0. So I created my own *very shitty* games.
+My fist computer was a C16 and I credit this fact that I have a passion for and profession in programming. From those kids in my school who owned a home computer in the mid 80s, most of them had a C64. I watched them sharing the coolest games all the time while I just had... Winter Games and [Ghost Town](/blog/ghosttown64). But my computer featured something that was much better than games, it had the amazing BASIC 3.5, which was far superior to the 64's BASIC 2.0. So I created my own *very shitty* games.
 
 The situation is similar with today's retro tooling support for the Apple Mac. Most good programs are made for Windows machines and getting them to work on Linux or Mac would require [Wine](https://www.winehq.org) or running a resource demanding virtual machine. In fact, the last time I wanted to create a new game for the C64 I couldn't find a good native sprite editor and because of that on that day [spritemate](https://www.spritemate.com) was born. The same is true for disassemblers. There are some amazing ones for Windows, like [Regenerator](https://csdb.dk/release/?id=149429) and even web based solutions like [masswerk's 6502 disassembler](https://www.masswerk.at/6502/disassembler.html). But my goldfish brain thought _"hmmm... how hard can it be to write my own disassembler?"_ 
 
@@ -36,7 +36,7 @@ Assembling (also called compiling) is converting program code into a machine lan
 ```
 
 When executed on the C64, this code would turn the border color (`d020`) to red (`$02`).
-These commands (`lda` for **L**oa**D A**ccumulator and `sta` for **ST**ore **A**ccumulator) are called _mnemonics_. The machine would not actually understand these natively, but they are represented by eight bit long hexadecimal numbers from `00` to `ff` called _opcodes_. Let's add those opcodes to the listing:
+These commands (`lda` for **L**oa**D A**ccumulator and `sta` for **ST**ore **A**ccumulator) are called _mnemonics_. The machine would not actually understand these natively, but they are represented by eight bit long hexadecimal numbers from `00` to `ff`, called _opcodes_. Let's add those opcodes to the listing:
 
 ```asm6502
     A9 02     lda #$02          ; load the value $02 into the accumulator
@@ -99,7 +99,7 @@ Not quite. The result would look like this:
       rts
 ```
 
-Our data would be interpreted as code, resulting in jibberish that no compiler accept as a valid program. This brings us to our biggest challenge when writing a disassembler.
+Our data would be interpreted as code, resulting in jibberish that no compiler would accept as a valid program. This brings us to our biggest challenge when writing a disassembler.
 
 ## Distinguishing code from data (part I)
 
@@ -134,7 +134,9 @@ zpg,X	zeropage, X-indexed
 zpg,Y	zeropage, Y-indexed	
 ```
 
-And here you see all *legal* instructions of the 6502 (table chart courtesy of the excellent website [masswerk](https://www.masswerk.at/6502/6502_instruction_set.html)). There are _illegal opcodes_ as well, those fill in the blank spots in the chart. Some of them can be used for some special tricks, others just crash the program.
+# 6502 legal opcodes
+
+And here you see all *legal* instructions of the 6502 (table chart courtesy of the excellent website [masswerk](https://www.masswerk.at/6502/6502_instruction_set.html)). There are _illegal opcodes_ as well, those fill in the blank spots in the chart. Some of them can be used for special tricks, others would just crash the program.
 
 |  |‐0|‐1|‐2|‐3|‐4|‐5|-6|‐7|‐8|‐9|‐A|‐B|‐C|‐D|‐E|‐F|
 |--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
@@ -231,17 +233,17 @@ The first (and tedious) step for my disassembler was to make these opcodes avail
 }
 ```
 
-I can therefore write something like
+I can therefore write code in python like
 
 ```python
-ins = opcodes["a9"]["ins"]    # returns lda #$hh
+ins = opcodes["a9"]   # returns lda #$hh
 ```
 
-and get an object with the instruction. By checking for `hh` and `ll` I can easily identify how many of the following bytes are data associated to this instruction. I could have included that information in the `JSON` data as well, but considered it redundand. In addition to the instruction, I use `ill` to mark an illegal opcode and `rel` to mark a relative branching instruction (more on that later).
+and get an object with the instruction. By checking for `hh` and `ll` I can easily identify how many of the following bytes are data associated to this instruction. I could have included that information in the `JSON` data as well, but considered it redundant. In addition to the instruction, I use `ill` to mark an illegal opcode and `rel` to mark a relative branching instruction (more on that later).
 
 ## The first version 
 
-Here's a simplified version of the python code that reads in a byte, checks for the right opcode, takes care of the following data bytes and constructs a proper line of assembly.
+Here's a simplified version of the python code that reads in a byte, checks for the matching opcode, takes care of the following data bytes and constructs a proper line of assembly.
 
 ```python
 def bytes_to_asm(startaddr, bytes, opcodes):
@@ -311,7 +313,7 @@ Again our little example program, including the start address, which defines whe
         rts
 ```
 
-Our program will now be compiled using the ACME assembler. Loading the PRG into the VICE emulator and starting the program with `sys 2064` (which in hexadecimal would be `0810`) we see the nice red border.
+Our program will now be compiled using the [ACME assembler](https://sourceforge.net/projects/acme-crossass/). I'm using my [ACME Assembler VSCode Template](https://github.com/Esshahn/acme-assembly-vscode-template) for development, supporting Windows, Linux and Mac. Loading the PRG into the VICE emulator and starting the program with `sys 2064` (which in hexadecimal would be `0810`) we see the nice red border.
 
 ![c64 with red border](/assets/img/blog/c64-red-border.png)
 
@@ -365,7 +367,7 @@ $0810  EE 20 D0    inc $D020
 $0813  4C 10 08    jmp $0810
 ```
 
-Our disassembler would still work fine, but we can make it quite a bit more usefull by replacing memory jump addresses that are within our own code with labels. It might not look that important in this example, but if we don't do this, our disassembled program could break with any change that moves code to a different address. We would be extremely limited. Let's add labels.
+Our disassembler would still work fine, but we can make it quite a bit more versatile by replacing memory jump addresses that are within our own code range (e.g. `$0810` to `$0816` in the example above) with labels. Labels are references to memory locations. It might not look that important in this example, but if we don't do this, our disassembled program could break with any change that moves code to a different address. We would be extremely limited. Let's add labels.
 
 Labels work pretty straightforward, here's the pseudo code:
 
@@ -404,7 +406,7 @@ Which is amazing, because we could change the code now or even move it to a diff
 
 ## Adding Relative Branching
 
-As our disassembler got smarter we throw a new challenge at it, which is relative branching. With the `jmp $0810` instruction before we had an absolute address that we could replace with a label. But this wouldn't work for the branching instructions of the 6502, which are `BPL, BMI, BVC, BVS, BCC, BCS, BNE` and `BEQ`. Here's a little program with branching:
+As our disassembler gets smarter we can throw a new challenge at it, which is relative branching. With the `jmp $0810` instruction before we had an absolute address that we could replace by a label. But this wouldn't work for the branching instructions of the 6502, which are `BPL, BMI, BVC, BVS, BCC, BCS, BNE` and `BEQ`. Here's a little program with branching:
 
 ```asm6502
 * = $0810
@@ -422,7 +424,7 @@ The program stores bytes `$00 - $07` at memory location `$0400 - $0407`, which i
 
 ![c64 with letter](/assets/img/blog/c64-abcdefg.png)
 
-Looking into the memory using VICE's monitor command it shows:
+Looking into the memory using [VICE](https://vice-emu.sourceforge.io)'s monitor command it shows:
 
 ```asm6502
 .C:0810  A0 07       LDY #$07
@@ -433,7 +435,7 @@ Looking into the memory using VICE's monitor command it shows:
 .C:0819  60          RTS
 ```
 
-One would expect the `BNE` command to read `BNE $0812`, but it's `BNE $F9`! That's because it is relative to it's own position. Branching instructions can only jump forward 128 bytes or backward 128 bytes. In our example we would jump back 6 bytes: from address `$0818` to address `$0812`. We do that by starting with `$ff` (255) and subtracting 6, so it's `$F9` (249). If we would jump forward, we would add 6 to `$00`, resulting in `$06`.
+One would expect the `BNE` command to read `BNE $0812`, but it's `BNE $F9`! That's because it branches relative to it's own position. Branching instructions can only jump forward 128 bytes or backward 128 bytes. In our example we would jump back 6 bytes: from address `$0818` to address `$0812`. We do that by starting with `$ff` (255) and subtracting 6, so it's `$F9` (249). If we would jump forward, we would add 6 to `$00`, resulting in `$06`.
 
 With that knowledge we can add a check in the code for relative branching. Here's the full python function including the previous label checking, adding information about illegal opcodes and a check for the end of the file.
 
@@ -547,7 +549,7 @@ def bytes_to_asm(startaddr, bytes, opcodes):
     return asm
 ```
 
-Ok, drumroll, let's use this masterpiece on our latest program!
+Ok, drumroll, let's use this masterpiece on our latest program and disassemble the sh#t out of it!
 
 ```asm6502
 ; converted with pydisass6502 by awsm of mayday!
@@ -569,11 +571,11 @@ We're done, right? Right? Riiiiiggghhht??
 
 ![c64 with letter](/assets/img/blog/60percent.gif)
 
-Well, so far I've been doing **happy path programming**. Obviously my path to victory wasn't as flawless as I've demonstrated here (and it never is - don't ever assume that articles like this didn't require lots of trial and error and most of all buckets of WTFs). Our disassembler does work in many situations, but fails in the most important area.
+Well, so far I've been doing **happy path programming**. Obviously my road to victory wasn't as flawless as I've demonstrated here (and it never is - don't ever assume that articles like this didn't require lots of trial and error and most of all buckets of WTFs). Our disassembler does work in many situations, but fails in the most important area.
 
 ## Distinguishing code from data (part II)
 
-Up until now, the disassembler lacks any smartness determining if a byte is a mnemonic or data. It just follows the rule that our program always starts with an instruction (which is actually a good assumption) and is followed by more instructions (which is a bad assumption). For programs that are code only (like the ones so far), we would indeed be done with our work and get a pretty realiable conversion. But, this is a rare case, as most of the time, data is an important part of any program. Let's ramp up the difficulty again and try something more common and complex at the same time.
+Up until now, the disassembler lacks any smartness determining if a byte is a mnemonic or data. It just follows the rule that our program always starts with an instruction (which is actually a good assumption) and is followed by more instructions (which is a bad assumption). For programs that are code only (like the ones so far), we would indeed be done with our work and get a pretty reliable conversion. But, this is a rare case, as most of the time, data is an important part of any program. Let's ramp up the difficulty again and try something more common and complex at the same time.
 
 ```asm6502
 * = $0810
@@ -633,7 +635,7 @@ Everything went smooth until we reached the data section with the "hello world!"
 
 It is actually impossible to be 100% certain if something is code or data. Even the computer wouldn't "know", it just executes instruction by instruction blindly. A jump to a memory location one byte before or after a valid instruction would likely result in a crash. The machine doesn't care. It's us damn humans who care. We want to read that nicely formatted code and make make sense out of it.
 
-However, there are some pretty good indicators which can guide us through the conversion.
+However, there are some good indicators which can guide us through the conversion.
 
 1. The entry point always starts with code
 2. As long as no `jmp` or `rts` command is used, it's safe to assume we're still parsing code
@@ -644,9 +646,291 @@ Other rules might apply, which I haven't added yet, if you happen to know any, l
 
 <script>
 setInterval(function(){ 
-  let text = ["modifying itself","selfmodding itself","changing itself","selfmoding"]
+  let text = ["modifying itself","selfmodding itself","changing itself","selfmodding"]
   document.getElementById("selfmod").innerHTML = text[Math.floor(Math.random()*text.length)]
  }, 3000);
 </script>
 
 At this point it made sense to refactor the code and start with a fresh approach. I'm keeping both versions in my github repository for comparison.
+
+## Applying the ruleset 
+
+The new script generates very different data than before and I'm keeping in some information that might not be needed, but I'm still exploring this idea and it's useful to have as much data available as possible.
+
+Let's go through the code again, byte by byte, with our rules documented in the comments
+
+```asm6502
+* = $0810
+
+; lda #$00
+A9                ; entry point. This must be code
+00                ; byte is has to be part of the instruction  
+; sta $d020
+8D                ; must be code as we haven't hit JMP or RTS or RTI yet
+20                ; must be part of instruction
+D0                ; must be part of instruction
+; sta $d021              
+8D                ; must be code as we haven't hit JMP or RTS or RTI yet
+21                ; must be part of instruction
+D0                ; must be part of instruction
+; ldy #$0b
+A0                ; must be code as we haven't hit JMP or RTS or RTI yet
+0B                ; must be part of instruction
+
+; loop
+; lda hello,y     ; must still be code, but also mark position "hello" as data!
+B9                ; must be part of instruction
+24                ; must be part of instruction
+08                ; must be part of instruction
+; sta $0400,y           
+99                ; must be code as we haven't hit JMP or RTS or RTI yet
+00                ; must be part of instruction
+04                ; must be part of instruction
+; dey         
+88                ; must be code as we haven't hit JMP or RTS or RTI yet
+; bpl loop                             
+10                ; must be code as we haven't hit JMP or RTS or RTI yet
+f7                ; must be part of instruction, but also mark branch destination (loop) as code!
+; rts                  
+60                ; must be code as we haven't hit JMP or RTS or RTI yet         
+
+; hello   
+; !scr "hello world!"    
+08                ; must be data since it was defined by the absolute lda earlier  
+05 0C 0C 0F 20 17 0F 12 0C 04 21    ; no rules apply, so defaults to code = 0 and data = 0     
+```
+
+The generated data looks like this:
+
+```json
+{'addr': 2064, 'byte': 'a9', 'dest': 0, 'code': 1, 'data': 0}
+{'addr': 2065, 'byte': '00', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2066, 'byte': '8d', 'dest': 0, 'code': 1, 'data': 0}
+{'addr': 2067, 'byte': '20', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2068, 'byte': 'd0', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2069, 'byte': '8d', 'dest': 0, 'code': 1, 'data': 0}
+{'addr': 2070, 'byte': '21', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2071, 'byte': 'd0', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2072, 'byte': 'a0', 'dest': 0, 'code': 1, 'data': 0}
+{'addr': 2073, 'byte': '0b', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2074, 'byte': 'b9', 'dest': 1, 'code': 1, 'data': 0}
+{'addr': 2075, 'byte': '24', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2076, 'byte': '08', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2077, 'byte': '99', 'dest': 0, 'code': 1, 'data': 0}
+{'addr': 2078, 'byte': '00', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2079, 'byte': '04', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2080, 'byte': '88', 'dest': 0, 'code': 1, 'data': 0}
+{'addr': 2081, 'byte': '10', 'dest': 0, 'code': 1, 'data': 0}
+{'addr': 2082, 'byte': 'f7', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2083, 'byte': '60', 'dest': 0, 'code': 1, 'data': 0}
+{'addr': 2084, 'byte': '08', 'dest': 1, 'code': 0, 'data': 1}
+{'addr': 2085, 'byte': '05', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2086, 'byte': '0c', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2087, 'byte': '0c', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2088, 'byte': '0f', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2089, 'byte': '20', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2090, 'byte': '17', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2091, 'byte': '0f', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2092, 'byte': '12', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2093, 'byte': '0c', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2094, 'byte': '04', 'dest': 0, 'code': 0, 'data': 0}
+{'addr': 2095, 'byte': '21', 'dest': 0, 'code': 0, 'data': 0}
+```
+
+Parsing this data with the python function that constructs the assembly code results in a much better representation:
+
+```asm6502
+; converted with pydisass6502 by awsm of mayday!
+
+* = $0810
+
+            lda #$00
+            sta $d020
+            sta $d021
+            ldy #$0b
+
+l081a
+            lda l0824,y
+            sta $0400,y
+            dey
+            bpl l081a
+            rts
+
+l0824
+            !byte $08
+            !byte $05
+            !byte $0c
+            !byte $0c
+            !byte $0f
+            !byte $20
+            !byte $17
+            !byte $0f
+            !byte $12
+            !byte $0c
+            !byte $04
+            !byte $21
+```
+
+This assembly listing will now recompile without any errors and disassembling the binary PRG file again would reveal the exact same lines of code :)
+
+It's time for a final test that includes everything we and our trusty disassembler have learned today. We mix code and data, jump to addresses and branch to other sections of the code.
+
+```asm6502
+* = $0810
+
+            lda #$00                ; the color value
+            sta $d020               ; change border color
+
+            ldy #$0b                ; the string "hello world!" has 12 characters
+
+loop
+            lda hello,y             ; load character number y of the string
+            sta $0400,y             ; save it at position y of the screen ram
+            dey                     ; decrement y by 1
+            bpl loop                ; is y positive? then repeat
+            jmp exit                ; exit the program
+
+hello       !scr "hello world!"     ; our string to display
+
+exit
+            lda $d020               ; load value from border color into A
+            sta $d021               ; store A into background color
+            rts
+```
+
+It's basically the same code as before, with and added jump to `exit`, which would be code after a data section. Let's see how the disassembler handles the final exam:
+
+```asm6502
+; converted with pydisass6502 by awsm of mayday!
+
+* = $0810
+
+            lda #$00
+            sta $d020
+            ldy #$0b
+
+l0817
+            lda l0823,y
+            sta $0400,y
+            dey
+            bpl l0817
+            jmp l082f
+
+l0823
+            !byte $08
+            !byte $05
+            !byte $0c
+            !byte $0c
+            !byte $0f
+            !byte $20
+            !byte $17
+            !byte $0f
+            !byte $12
+            !byte $0c
+            !byte $04
+            !byte $21
+
+l082f
+            lda $d020
+            sta $d021
+            rts
+```
+
+Test completed. Mission accomplished! \o/
+
+![party hard](/assets/img/blog/c64-party.gif)
+
+And here's the (very unoptimized) main python code used for the conversion. Not too much code I'd say, although a lot is outsourced in little helper functions to make the code more readable.
+
+```python
+def analyze(startaddr, bytes, opcodes):
+    bytes_table = generate_byte_array(startaddr, bytes)
+
+    # JMP RTS RTI
+    # used to default back to data for the following instructions
+    default_to_data_after = ["4c", "60", "40"]
+
+    # JMP JSR
+    # used to identify code sections in the code
+    abs_branch_mnemonics = ["4c", "20"]
+
+    # LDA STA
+    # used to identify data sections in the code
+    abs_address_mnemonics = [
+        "0d", "0e", "19", "1d", "1e", "2d", "2e", "39", "3d", "3e", "4d", "4e",
+        "59", "5d", "5e", "6d", "6e", "79", "7d", "7e", "8c", "8d", "8e", "99", "9d,",
+        "ac", "ad", "ae", "b9", "bc", "bd", "be", "cc", "cd", "ce", "d9", "dd", "de",
+        "ec", "ee", "ed", "f9", "fd", "fe"
+    ]
+
+    # our entrypoint is assumed to be code
+    is_code = 1
+    is_data = 0
+
+    i = 0
+    end = len(bytes_table)
+
+    while i < end:
+        byte = bytes_table[i]["byte"]
+        opcode = opcodes[byte]
+
+        if bytes_table[i]["data"]:
+            is_data = 1
+
+        if bytes_table[i]["code"]:
+            is_code = 1
+
+        if is_code:
+            bytes_table[i]["code"] = 1
+            instruction_length = get_instruction_length(opcode["ins"])
+
+            if byte in default_to_data_after:
+                # we have a branching/jumping instruction, so we can't be sure anymore
+                # about the following bytes being code
+                is_code = 0
+
+            if "rel" in opcode:
+                # if the instruction is relative, we have to calculate the
+                # absolute branching address to add a label later below
+                destination_address = get_abs_from_relative(
+                    bytes_table[i+1]["byte"], startaddr+i+1)
+
+            if instruction_length == 2:
+                # this is the absolute address
+                destination_address = bytes_to_addr(
+                    bytes_table[i+2]["byte"], bytes_table[i+1]["byte"])
+
+            if byte in abs_branch_mnemonics or "rel" in opcode:
+                if addr_in_program(destination_address, startaddr, startaddr + end):
+                    # the hhll address must be code, so we mark that entry in the array
+                    table_pos = destination_address - startaddr
+                    bytes_table[table_pos]["code"] = 1
+                    bytes_table[table_pos]["dest"] = 1
+
+            if byte in abs_address_mnemonics:
+                if addr_in_program(destination_address, startaddr, startaddr + end):
+                    # the hhll address must be data, so we mark that entry in the array
+                    table_pos = destination_address - startaddr
+                    bytes_table[table_pos]["data"] = 1
+                    bytes_table[table_pos]["dest"] = 1
+
+            i += instruction_length
+        i += 1
+    return bytes_table
+```
+
+
+## What's next
+
+There's lots of room for improvements and the code could be much smarter and more elegant. But since I'm neither smart nor elegant either, I kinda feel in good company here. Also this article has already become the longest on my blog and the fact that you're even here anymore, still reading this, makes me question your life choices. Think about it. You should probably be outside right now, running after some butterflies or digging a whole in the ground leading to the center of the earth where Elvis lives.
+
+Some ideas for further improvement would be:
+
+* Add more smart rules. For example, in the last code example we use `ldy #$0b` and `lda hello,y`, which could be identified so that the next `0b` bytes after `hello` are marked as data
+* a section of data bytes could be combined into single lines of code, e.g. `!byte $08, $05, $0c, $0c, $0f, $20, $17, $0f, $12, $0c, $04, $21`
+* typical byte patterns that represent often used instructions like `8D 20 0D` for `sta $d020` could be "weighted", meaning that while one could not be 100% sure it's code, we could be biased towards it being code. If we reach a certain threshhold of weight, we could mark something as either code or data
+* interaction with a proper UI. Turning this into JavaScript is pretty easy and we could let the user mark sections as either code or data and convert between both states on the fly. This is probably the biggest step towards a function app 
+
+So that's it for now. Feel free to [checkout the code on github](https://github.com/Esshahn/pydisass64), make changes to it and submit pull requests. This has been a fun learning experience for me. I still need to disassemble that Fairlight intro though...
+
+Thank you for reading this article :)
