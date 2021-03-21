@@ -798,7 +798,7 @@ exit
             rts
 ```
 
-It's basically the same code as before, with and added jump to `exit`, which would be code after a data section. Let's see how the disassembler handles the final exam:
+It's basically the same code as before, with an added jump to `exit`, which would be code after a data section. Let's see how the disassembler handles the final exam:
 
 ```asm6502
 ; converted with pydisass6502 by awsm of mayday!
