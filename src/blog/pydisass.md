@@ -840,7 +840,7 @@ Test completed. Mission accomplished! \o/
 
 ![party hard](/assets/img/blog/c64-party.gif)
 
-And here's the (very unoptimized) main python code used for the conversion. Not too much code I'd say, although a lot is outsourced in little helper functions to make the code more readable.
+And here's the (very unoptimized) main python function used for the conversion. Not too much code I'd say, although a lot is outsourced into little helper functions to make the code more readable.
 
 ```python
 def analyze(startaddr, bytes, opcodes):
@@ -922,14 +922,14 @@ def analyze(startaddr, bytes, opcodes):
 
 ## What's next
 
-There's lots of room for improvements and the code could be much smarter and more elegant. But since I'm neither smart nor elegant either, I kinda feel in good company here. Also this article has already become the longest on my blog and the fact that you're even here anymore, still reading this, makes me question your life choices. Think about it. You should probably be outside right now, running after some butterflies or digging a whole in the ground leading to the center of the earth where Elvis lives.
+There's lots of room for improvements and the code could be much smarter and more elegant. But since I'm neither smart nor elegant either, I kinda feel in good company here. Also this article has already become the longest on my blog and the fact that you're still here, reading this, makes me question your life choices. Think about it. You should probably be outside right now, running after some butterflies or digging a whole in the ground leading to the center of the earth where Elvis and your mom live.
 
 Some ideas for further improvement would be:
 
 * Add more smart rules. For example, in the last code example we use `ldy #$0b` and `lda hello,y`, which could be identified so that the next `0b` bytes after `hello` are marked as data
 * a section of data bytes could be combined into single lines of code, e.g. `!byte $08, $05, $0c, $0c, $0f, $20, $17, $0f, $12, $0c, $04, $21`
 * typical byte patterns that represent often used instructions like `8D 20 0D` for `sta $d020` could be "weighted", meaning that while one could not be 100% sure it's code, we could be biased towards it being code. If we reach a certain threshhold of weight, we could mark something as either code or data
-* interaction with a proper UI. Turning this into JavaScript is pretty easy and we could let the user mark sections as either code or data and convert between both states on the fly. This is probably the biggest step towards a function app 
+* interaction with a proper UI. Turning this into JavaScript is pretty easy and we could let the user mark sections as either code or data and convert between both states on the fly. This is probably the biggest step towards a functional app 
 
 So that's it for now. Feel free to [checkout the code on github](https://github.com/Esshahn/pydisass64), make changes to it and submit pull requests. This has been a fun learning experience for me. I still need to disassemble that Fairlight intro though...
 
