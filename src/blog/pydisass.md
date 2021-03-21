@@ -596,7 +596,7 @@ loop
 hello       !scr "hello world!"     ; our string to display
 ```
 
-Ahh, the classic "hello world!". Don't you hate it as much I do? I would have loved to use a different text, but I'm pretty sure it's required by law to _always_ include this in _any_ tutorial. Glad we got this out of our way now. Our trusty breadbin would set the border and background colors to black and then write the text at the top left of the screen.
+Ahh, the classic "hello world!". Don't you hate it as much as I do? I would have loved to use a different text, but I'm pretty sure it's required by law to _always_ include this in _any_ tutorial. Glad we got this out of our way now. Our trusty breadbin would set the border and background colors to black and then write the text at the top left of the screen.
 
 ![c64 with letter](/assets/img/blog/c64-hello-world.png)
 
@@ -633,7 +633,7 @@ Everything went smooth until we reached the data section with the "hello world!"
 
 ## Making assumptions about code and data
 
-It is actually impossible to be 100% certain if something is code or data. Even the computer wouldn't "know", it just executes instruction by instruction blindly. A jump to a memory location one byte before or after a valid instruction would likely result in a crash. The machine doesn't care. It's us damn humans who care. We want to read that nicely formatted code and make make sense out of it.
+It is actually impossible to be 100% certain if something is code or data. Even the computer wouldn't "know", it just executes instruction by instruction blindly. A jump to a memory location one byte before or after a valid instruction would likely result in a crash. The machine doesn't care. It's us damn humans who care. We want to read that nicely formatted code and make sense out of it.
 
 However, there are some good indicators which can guide us through the conversion.
 
