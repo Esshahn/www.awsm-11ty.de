@@ -7,7 +7,9 @@ teaser: 'c128demo/c128demo-00002.png'
 excerpt: "I found a box of floppies in my parent's attic and they contain some of the first program's I've ever written. This is probably my earliest attempt at writing a demo."
 ---
 
-I found a box of floppies in my parent's attic and they contain some of the first program's I've ever written. This is probably my earliest attempt at writing a demo.
+
+  
+  
 
 https://www.youtube.com/embed/oLU_mbsxog0
 

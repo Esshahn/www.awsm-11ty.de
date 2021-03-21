@@ -1,25 +1,25 @@
 {% include "header.njk" %}
 {% include "navigation.njk" %}
-
 <div id="article">
   <div class="navbar">
     <a href="/blog/" class="navlink">&#10094;&#10094; back to overview</a>
   </div>
-
   <h1>{{ title }}</h1>
   on
   {{ date.toDateString() }}
   by
   {{ site.author }}
-  {{ content | safe }}
-
-  <div class="navbar" style="margin-top:64px;">
-    <a href="/blog/" class="navlink">&#10094;&#10094; back to overview</a>
+  <br>
+    {% if excerpt %}
+      <h2>{{ excerpt }}</h2>
+      <br/>
+    {% endif %}
+    {{ content | safe }}
+    <div class="navbar" style="margin-top:64px;">
+      <a href="/blog/" class="navlink">&#10094;&#10094; back to overview</a>
+    </div>
+    <div class="comments">
+      <script src="https://utteranc.es/client.js" repo="Esshahn/utterances-comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="async"></script>
+    </div>
   </div>
-
-  <div class="comments">
-    <script src="https://utteranc.es/client.js" repo="Esshahn/utterances-comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="async"></script>
-  </div>
-</div>
-
-{% include "footer.html" %}
+  {% include "footer.html" %}

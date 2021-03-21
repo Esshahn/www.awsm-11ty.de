@@ -9,8 +9,6 @@ excerpt: 'This is a summary of a series of posts from my last blog. I still reme
 
 
 
-### This is a summary of a series of posts from my last blog. I still remember the creation of this game as a very enjoyable experience, so I want to share it here.
-
 ![Cover](/assets/img/blog/ghosttown-javascript/ghosttown-js-00001.png)
 
 ## Ghost Town Remake

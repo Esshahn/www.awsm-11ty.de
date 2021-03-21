@@ -7,7 +7,6 @@ teaser: falcon-2.jpg
 excerpt: 'The Atari Falcon 030 is without a doubt my most precious item in my vintage computer collection. The last home computer made by Atari which after only one year, decided to stop producing it and focus on the also-destined-to-fail Jaguar game console. Well, we all know what happened to the company shortly after.'
 ---
 
-The Atari Falcon 030 is without a doubt my most precious item in my vintage computer collection. The last home computer made by Atari which after only one year, decided to stop producing it and focus on the also-destined-to-fail Jaguar game console. Well, we all know what happened to the company shortly after.
 
 ![{{title}}](/assets/img/blog/falcon-1.jpg)
 
