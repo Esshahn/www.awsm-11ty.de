@@ -922,7 +922,7 @@ def analyze(startaddr, bytes, opcodes):
 
 ## What's next
 
-There's lots of room for improvements and the code could be much smarter and more elegant. But since I'm neither smart nor elegant either, I kinda feel in good company here. Also this article has already become the longest on my blog and the fact that you're still here, reading this, makes me question your life choices. Think about it. You should probably be outside right now, running after some butterflies or digging a whole in the ground leading to the center of the earth where Elvis and your mom live.
+There's lots of room for improvements and the code could be much smarter and more elegant. But since I'm neither smart nor elegant either, I kinda feel in good company here. Also this article has already become the longest on my blog and the fact that you're still here, reading this, makes me question your life choices. Think about it. You should probably be outside right now, running after some butterflies or digging a whole in the ground leading to the center of the earth where Elvis lives with your mom.
 
 Some ideas for further improvement would be:
 
