@@ -2,7 +2,7 @@
 layout: article
 date: 2021-03-21
 tags: blog
-title: 'PyDisAss: A 6502 disassembler in Python'
+title: 'A 6502 disassembler in Python'
 teaser: pydisass-teaser.jpg
 excerpt: "In this article I share some learnings about disassembling 6502 machine code. Turns out getting it to work around 80% is easy, improving to 90% is tricky and making it work 100% of the time almost impossible."
 ---
@@ -170,7 +170,7 @@ Now we have all the information we need to identify how many bytes that follow t
 
 ## opcodes.json
 
-There are 256 (or `ff` in hex notation) opcodes possible for the 6502 processor, but only 151 of them are defined instructions that produce an expected behavior. The other 105 are called illegal opcodes. If you want to learn more about these, I highly recommend the excellent article [How MOS 6502 Illegal Opcodes really work](https://www.pagetable.com/?p=39) by Michael Steil.
+There are 256 (0 to 255, or `ff` in hex notation) opcodes possible for the 6502 processor, but only 151 of them are defined instructions that produce an expected behavior. The other 105 are called illegal opcodes. If you want to learn more about these, I highly recommend the excellent article [How MOS 6502 Illegal Opcodes really work](https://www.pagetable.com/?p=39) by Michael Steil.
 
 The first (and tedious) step for my disassembler was to make these opcodes available for parsing the code. I decided for a simple `JSON` file, which includes all 256 opcodes. Here are the first lines (all code can be [download from my github repository](https://github.com/Esshahn/pydisass64)).
 
@@ -336,7 +336,7 @@ This generates a python `array`
 And sure enough after formatting the data the resulting output file would read like this:
 
 ```asm6502
-; converted with pydisass6502 by awsm of mayday!
+; converted with disass6502 by awsm of mayday!
 
 * = $0810
             lda #$02
@@ -435,7 +435,7 @@ Looking into the memory using [VICE](https://vice-emu.sourceforge.io)'s monitor 
 .C:0819  60          RTS
 ```
 
-One would expect the `BNE` command to read `BNE $0812`, but it's `BNE $F9`! That's because it branches relative to it's own position. Branching instructions can only jump forward 128 bytes or backward 128 bytes. In our example we would jump back 6 bytes: from address `$0818` to address `$0812`. We do that by starting with `$ff` (255) and subtracting 6, so it's `$F9` (249). If we would jump forward, we would add 6 to `$00`, resulting in `$06`.
+One would expect the `BNE` command to read `BNE $0812`, but it's `BNE $F9`! That's because it branches relative to it's own position. Branching instructions can only jump forward 127 bytes or backward 127 bytes. In our example we would jump back 6 bytes: from address `$0818` to address `$0812`. We do that by starting with `$ff` (255) and subtracting 6, so it's `$F9` (249). If we would jump forward, we would add 6 to `$00`, resulting in `$06`.
 
 With that knowledge we can add a check in the code for relative branching. Here's the full python function including the previous label checking, adding information about illegal opcodes and a check for the end of the file.
 
@@ -552,7 +552,7 @@ def bytes_to_asm(startaddr, bytes, opcodes):
 Ok, drumroll, let's use this masterpiece on our latest program and disassemble the sh#t out of it!
 
 ```asm6502
-; converted with pydisass6502 by awsm of mayday!
+; converted with disass6502 by awsm of mayday!
 
 * = $0810
             ldy #$07
@@ -603,7 +603,7 @@ Ahh, the classic "hello world!". Don't you hate it as much as I do? I would have
 Let's feed our disassembler with the code and check the output.
 
 ```asm6502
-; converted with pydisass6502 by awsm of mayday!
+; converted with disass6502 by awsm of mayday!
 
 * = $0810
             lda #$00
@@ -740,7 +740,7 @@ The generated data looks like this:
 Parsing this data with the python function that constructs the assembly code results in a much better representation:
 
 ```asm6502
-; converted with pydisass6502 by awsm of mayday!
+; converted with disass6502 by awsm of mayday!
 
 * = $0810
 
@@ -801,7 +801,7 @@ exit
 It's basically the same code as before, with an added jump to `exit`, which would be code after a data section. Let's see how the disassembler handles the final exam:
 
 ```asm6502
-; converted with pydisass6502 by awsm of mayday!
+; converted with disass6502 by awsm of mayday!
 
 * = $0810
 
@@ -838,7 +838,7 @@ l082f
 
 Test completed. Mission accomplished! \o/
 
-![party hard](/assets/img/blog/c64-party.gif)
+![party hard](/assets/img/blog/c64-gatsby.gif)
 
 And here's the (very unoptimized) main python function used for the conversion. Not too much code I'd say, although a lot is outsourced into little helper functions to make the code more readable.
 
