@@ -274,7 +274,7 @@ Yes! The result is the same as with the previous method. I've shown you both app
 Now that we have done our homework and learned how to do it manually, we can lean back and check out a tool that does this automatically for us.
 
 What did you say?  
-Oh, I should have shown you that one first?
+Oh, you mean, err.., I should have shown you that one first?
 
 ![drevil](/assets/img/blog/fairlight/drevil.gif)
 
@@ -312,4 +312,4 @@ pass2, return to mem: $c000
 saved $c000-$cfff as flt-01.prg.c000
 ```
 
-Wow. That's... impressive. Now that we've done it the hard way ourselves we can appreciate it even more.
+Wow. That's... impressive. Now that we've done it the hard way ourselves we can appreciate it even more. The converted program was saved as `flt-01.prg.c000` and should be identical to the versions we created before.

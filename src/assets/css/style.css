@@ -9,7 +9,8 @@
   --navigation: #146781d0;
   --accent: #1fd2ff;
   --link-light: #f5e663;
-  --link-dark: #146781;
+  --link-dark: #066185;
+  --link-dark-hover: #118fc0;
 }
 
 html,
@@ -434,7 +435,7 @@ h3 {
 }
 
 #article p a:hover {
-  color: #4982d3;
+  color: var(--link-dark-hover);
 }
 
 #article a:hover {
