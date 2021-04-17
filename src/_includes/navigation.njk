@@ -1,14 +1,12 @@
 <!-- Sidebar -->
 {% set items_by_order = collections.navigation | sortByOrder %}
-
-<nav id="navigation">
-  <img src="/assets/img/awsm-logo2.gif">
+<nav
+  id="navigation">
+  <!--<img src="/assets/img/awsm-logo2.gif">-->
   {%- for navigation in items_by_order -%}
-
-    <a class="{{ 'active' if navigation.url == page.url }}" href="{{navigation.url }}">
-      {{navigation.data.title }}
+    <a class="{{ 'active' if navigation.url == page.url }}" href="{{ navigation.url }}">
+      {{ navigation.data.title }}
     </a>
-
   {%- endfor -%}
 </nav>
 <!-- Sidebar End -->
