@@ -1,10 +1,10 @@
 ---
 layout: article
-date: 2021-04-02
+date: 2021-04-12
 tags: blog-unfinished
-title: 'Unpacking the Fairlight Intro'
+title: 'Disassembling the Fairlight Intro'
 teaser: fairlight/fairlight-intro.gif
-excerpt: "This C64 intro from Fairlight ist nothing less than iconic and engraved in our collective memory as the beginning of an art form. In this article I share my learnings unpacking the code."
+excerpt: "This C64 intro from Fairlight ist nothing less than iconic and engraved in our collective memory as the beginning of an art form. In this article I share my learnings disassembling the code."
 ---
 
 
@@ -14,7 +14,7 @@ Alright, before starting, I've got to admit that this is my second attempt at di
 
 Where was I... ah yes, unpacking the Fairlight intro.
 
-## The Fairlight Intro
+## The Fairlight Intro 
 
 https://youtu.be/WnYCERvc2B8?t=17
 

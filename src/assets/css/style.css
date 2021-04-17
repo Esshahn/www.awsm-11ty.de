@@ -43,6 +43,15 @@ a:hover {
   color: var(--link-light);
 }
 
+.quote {
+  font-style: italic;
+  margin: 0px 30px 0px 30px;
+}
+
+.quote::first-letter {
+  font-size: 2em;
+}
+
 h3 {
   text-align: center;
   color: var(--text);

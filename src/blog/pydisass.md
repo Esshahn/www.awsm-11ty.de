@@ -172,7 +172,7 @@ Now we have all the information we need to identify how many bytes that follow t
 
 There are 256 (0 to 255, or `ff` in hex notation) opcodes possible for the 6502 processor, but only 151 of them are defined instructions that produce an expected behavior. The other 105 are called illegal opcodes. If you want to learn more about these, I highly recommend the excellent article [How MOS 6502 Illegal Opcodes really work](https://www.pagetable.com/?p=39) by Michael Steil.
 
-The first (and tedious) step for my disassembler was to make these opcodes available for parsing the code. I decided for a simple `JSON` file, which includes all 256 opcodes. Here are the first lines (all code can be [download from my github repository](https://github.com/Esshahn/pydisass64)).
+The first (and tedious) step for my disassembler was to make these opcodes available for parsing the code. I decided for a simple `JSON` file, which includes all 256 opcodes. Here are the first lines (all code can be [download from my github repository](https://github.com/Esshahn/pydisass6502)).
 
 ```json
 {
@@ -651,7 +651,7 @@ setInterval(function(){
  }, 3000);
 </script>
 
-At this point it made sense to refactor the code and start with a fresh approach. I'm keeping both versions in my github repository for comparison.
+At this point it made sense to refactor the code and start with a fresh approach. 
 
 ## Applying the ruleset 
 
@@ -931,6 +931,16 @@ Some ideas for further improvement would be:
 * typical byte patterns that represent often used instructions like `8D 20 0D` for `sta $d020` could be "weighted", meaning that while one could not be 100% sure it's code, we could be biased towards it being code. If we reach a certain threshhold of weight, we could mark something as either code or data
 * interaction with a proper UI. Turning this into JavaScript is pretty easy and we could let the user mark sections as either code or data and convert between both states on the fly. This is probably the biggest step towards a functional app 
 
-So that's it for now. Feel free to [checkout the code on github](https://github.com/Esshahn/pydisass64), make changes to it and submit pull requests. This has been a fun learning experience for me. I still need to disassemble that Fairlight intro though...
+So that's it for now. Feel free to [checkout the code on github](https://github.com/Esshahn/pydisass6502), make changes to it and submit pull requests. This has been a fun learning experience for me. I still need to disassemble that Fairlight intro though...
 
 Thank you for reading this article :)
+
+## Update (April 2021)
+
+I was amazed to find this article on [Hacker News](https://news.ycombinator.com/item?id=26534045) shortly after posting and traffic spiked quite a bit because of that.
+
+Since then these changes have been implemented:
+
+* Added user defined entrypoints so that specific sections can be explicitly marked as either code or data. Useful in areas where the simple algorithm fails
+* Added C64 memory addresses for automatic comments
+* Code cleanup & a more robust command line interface
