@@ -1,10 +1,10 @@
 ---
 layout: article
 date: 2021-04-12
-tags: blog-unfinished
-title: 'Disassembling the Fairlight Intro'
+tags: blog
+title: 'The Fairlight Intro, Part I: Unpacking'
 teaser: fairlight/fairlight-intro.gif
-excerpt: "This C64 intro from Fairlight ist nothing less than iconic and engraved in our collective memory as the beginning of an art form. In this article I share my learnings disassembling the code."
+excerpt: "This C64 intro from Fairlight ist nothing less than iconic and engraved in our collective memory as the beginning of an art form. In this article I share my learnings unpacking the code."
 ---
 
 
@@ -318,3 +318,5 @@ Wow. That's... impressive. I love when logical assumptions put into a function y
 
 The unpacking is done. We can finally look into disassembling the code.  
 Phew.
+
+Continue reading part II: [disassembly of the Fairlight intro](/blog/fairlight-disassembly/)

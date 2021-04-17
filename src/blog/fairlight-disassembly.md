@@ -1,12 +1,14 @@
 ---
 layout: article
-date: 2021-04-02
-tags: blog-unfinished
-title: 'Unpacking the Fairlight Intro'
+date: 2021-04-16
+tags: blog
+title: 'The Fairlight Intro, Part II: Disassembly'
 teaser: fairlight/fairlight-intro.gif
 excerpt: "This C64 intro from Fairlight ist nothing less than iconic and engraved in our collective memory as the beginning of an art form. In this article I share my learnings unpacking the code."
 ---
 
+This article is part of a small series of articles about the Fairlight intro.  
+[The Fairlight Intro, Part I: Unpacking](/blog/fairlight-unpacking/)
 
 Alright, before starting, I've got to admit that this is my second attempt at disassembling this program. Last time I got sidetracked and ended up [writing a new disassembler in python](/blog/pydisass/). That's why I'm just a hobby developer - I can chase ideas like an overexcited puppy dog hunts squirrels on a sunny june's flower meadow, giving a damn shit about the worrying sprint cycle burndown chart and the product owner being up my arse about fixing those critical bugs that keep exposing customer's credit card data to the public. Did I mention I'm a product owner in real life?
 
