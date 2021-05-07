@@ -7,8 +7,12 @@ teaser: fairlight/fairlight-intro.gif
 excerpt: "This C64 intro from Fairlight ist nothing less than iconic and engraved in our collective memory as the beginning of an art form. In this article I share my learnings unpacking the code."
 ---
 
+This article is part of a small series of articles about the Fairlight intro.  
+[Writing a disassembler](/blog/pydisass/)  
+[The Fairlight Intro, Part I: Unpacking](/blog/fairlight-unpacking/) -> this article   
+[The Fairlight Intro, Part II: Disassembly](/blog/fairlight-disassembly/) 
 
-Alright, before starting, I've got to admit that this is my second attempt at disassembling this program. Last time I got sidetracked and ended up [writing a new disassembler in python](/blog/pydisass/). That's why I'm just a hobby developer - I can chase ideas like an overexcited puppy dog hunts squirrels on a sunny june's flower meadow, giving a damn shit about the worrying sprint cycle burndown chart and the product owner being up my arse about fixing those critical bugs that keep exposing customer's credit card data to the public. Did I mention I'm a product owner in real life?
+Alright, before starting, I've got to admit that this is my second attempt at disassembling this program. Last time I got sidetracked and ended up [writing a new disassembler in python](/blog/pydisass/). That's why I'm just a hobby developer - I can chase ideas like an overexcited puppy dog hunting squirrels over a sunny june's flower meadow, giving a damn shit about the worrying sprint cycle burndown chart and the product owner being up my arse about fixing those critical bugs that keep exposing customer's credit card data to the public. Did I mention I'm a product owner in real life?
 
 ![squirrel](/assets/img/blog/fairlight/squirrel.gif)
 
@@ -18,19 +22,19 @@ Where was I... ah yes, unpacking the Fairlight intro.
 
 https://youtu.be/WnYCERvc2B8?t=17
 
-Let's take a look at this beauty from the year 1987. You can [download it from csdb.dk](https://csdb.dk/release/?id=53390) and use an emulator like [VICE](https://vice-emu.sourceforge.io) to watch it. It's worth noting that many Commodore 64 intros of that time were more impressive from a technical standpoint, like the wonderful [Papillons intro](https://csdb.dk/release/?id=3345) (1988) or the [Dynamic Duo intro](https://csdb.dk/release/?id=54050) (1986). But besides the equally iconic [Eagle Soft Incorportated intro](https://csdb.dk/release/?id=53330), very few managed to leave such a lasting impression. I have so fond memories of these cracktros that I [converted some of my favorites to JavaScript](/jscracktros/). My demo group *Mayday!* did a [tribute to the intro as well](https://csdb.dk/release/?id=148407).
+Let's take a look at this beauty from the year 1987. You can [download it from csdb.dk](https://csdb.dk/release/?id=53390) and use an emulator like [VICE](https://vice-emu.sourceforge.io) to watch it. It's worth noting that many Commodore 64 intros of that time were more impressive from a technical standpoint, like the wonderful [Papillons intro](https://csdb.dk/release/?id=3345) (1988) or the [Dynamic Duo intro](https://csdb.dk/release/?id=54050) (1986). But besides the equally iconic [Eagle Soft Incorportated intro](https://csdb.dk/release/?id=53330), very few managed to leave such a lasting impression. I have such fond memories of these cracktros that I [converted some of my favorites to JavaScript](/jscracktros/). My demo group *Mayday!* did a [tribute to the intro as well](https://csdb.dk/release/?id=148407).
 
-csdb.dk counts a massive 185 games that released with this cracktro. That's like four big boxes of 5 1/4 inch floppy discs. No wonder there was no way around this intro as Fairlight was impressively active during that time.
+csdb.dk counts a massive 185 games released with this cracktro. That's like four big boxes of 5 1/4 inch floppy discs. No wonder there was no way around this intro as Fairlight was impressively active during that time.
 
-Written by [Woodo](https://csdb.dk/scener/?id=4203), who's last C64 release was in 1992, this intro still scores high for many demo sceners:
+Written by [Woodo](https://csdb.dk/scener/?id=4203), who's last C64 release was in 1992, this intro still scores high among demo sceners:
 
-> *I'd say together with ESI's eagle intro, this is the most legendary intro on the c-64. Still get goose bumps looking at it. (Freestyle)*
+> ***"I'd say together with ESI's eagle intro, this is the most legendary intro on the c-64. Still get goose bumps looking at it." (Freestyle)***
 
-> *Probably the most known intro scene-wise. Brings back a lot of memories. (Jailbird)*
+> ***"Probably the most known intro scene-wise. Brings back a lot of memories." (Jailbird)***
 
-> *"L" like LEGENDARY! "O" like OMG! "V" like VIRTUOSIC! "E" like EPIC! Short: LOVE <3 (Shine)*
+> ***"'L' like LEGENDARY! 'O' like OMG! 'V' like VIRTUOSIC! 'E' like EPIC! Short: LOVE <3" (Shine)***
 
-> *I must be an exception, I've only learned about this intro and its legendaryness in the late 90's and honestly **I think its awful.** (Oswald)*
+> ***"I must be an exception, I've only learned about this intro and its legendaryness in the late 90's and honestly **I think its awful.**" (Oswald)***
 
 Err... thanks Oswald.
 
@@ -40,9 +44,9 @@ The easiest way to convert machine language into readable assembly code is to us
 
 ## Step 1: run the program in the emulator
 
-As mentioned earlier I'm using the [VICE](https://vice-emu.sourceforge.io) emulator, mostly because it's reliable and I got used to it. But there are alternatives, and the [64debugger](https://sourceforge.net/projects/c64-debugger/) is an especially powerful tool, which, if mastered, can provide you with some shortcuts to the process mentioned further on. I encourage you to check it out and give it a try, however, I will stick to old trusty VICE for this article.
+As mentioned earlier I'm using the [VICE](https://vice-emu.sourceforge.io) emulator, mostly because it's reliable and I got used to it. But there are alternatives, and the [64debugger](https://sourceforge.net/projects/c64-debugger/) is an especially powerful tool, which, if mastered, can provide you with some shortcuts in the process mentioned further on. I encourage you to check it out and give it a try, however, I will stick to old trusty VICE for this article.
 
-The PRG file [downloaded from csdb.dk](https://csdb.dk/release/?id=53390) can be executed by double clicking or by drag'n'drop into the emulator window. Since it started automatically, you would not see the BASIC program (usually a `SYS 2064`). You can check for that from the VICE monitor, but here's a little workaround in case you want to not start the program immediately (there's a reason why I explain this, more about that later).
+The Fairlight intro PRG file [downloaded from csdb.dk](https://csdb.dk/release/?id=53390) can be executed by double clicking or by drag'n'drop onto the emulator window. Since it starts automatically, you would not see the BASIC program (usually something like a `10 SYS 2064`). You can check for that from the VICE monitor, but here's a little workaround in case you want to prevent the program from starting immediately (there's a reason why I explain this, more about that later).
 
 ### Setting drive 9 as a SD2IEC device
 
@@ -64,7 +68,7 @@ Go to Settings (either from the menu "Settings > Settings...") or by pressing `c
 
 ![vice-2](/assets/img/blog/fairlight/vice-2.png)
 
-VICE looks quite different on various operating systems and your menu structure might vary from the screenshots above, but the overall process should be the same.
+VICE looks quite different on various operating systems and your menu structure might vary from the screenshots above, but the overall process should be similar.
 
 ### Loading the PRG via drive 9
 
@@ -74,7 +78,7 @@ Using the new configuration, we can simply type
 load"$",9
 ```
 
-to get the directory of the host file system displayed on the C64.
+at the BASIC prompt to get the directory of the host file system displayed on the C64.
 
 ![iecdir](/assets/img/blog/fairlight/iecdir.png)
 
@@ -86,7 +90,7 @@ load"flt-01.prg",9,1
 
 ![iecdir2](/assets/img/blog/fairlight/iecdir2.png)
 
-Now we know that the program is located at address `2064` or hex `$0810` in memory. And sure enough, this is the beginning of the code, with added comments. Hint: it's useful to have a [memory map of the C64](https://mem64.awsm.de) at hand when analyzing code.
+Now we can see the `SYS` command and that the program is located at address `2064` or hex `$0810` in memory. And sure enough, this is the beginning of the code. Hint: it's useful to have a [memory map of the C64](https://mem64.awsm.de) at hand when analyzing code. I've added comments to illustrate what's going on:
 
 ```asm6502
 .C:0810  78          SEI                ; disable interrupts
@@ -115,12 +119,12 @@ Now we know that the program is located at address `2064` or hex `$0810` in memo
 .C:083f  4C 00 01    JMP $0100          ; jump to address $0100
 ```
 
-Hm. This is not exactly what I expected. Instead of the intro code we see a sophisticated program that moves data in memory and then calls that data by `jmp $1000` at the end. What's going on?
+Hm. This is not exactly what I expected. Instead of the intro code we see a sophisticated program that copies data in memory and then calls that data by `jmp $1000` at the end. What's going on?
 
 ## Packing / Crunching
 
 A little interlude while I wait for the 45 gigabytes download of the Cyberpunk 2077 patch...
-Back in the 80's disk space and computer memory were extremely limited. In addition, especially Commodore's 1541 disk drives were so slow you could almost high five every single byte that snailed its way through the serial cable into the computer. "Hey there `$A9`, how are things today? Wow, `$32`, haven't seen you in a while... oh boy, if that isn't my man `$FF`...". 
+Back in the 80's disk space and computer memory were extremely limited and thus expensive. In addition, especially Commodore's 1541 disk drives were so slow you could almost high five every single byte that snailed its way through the serial cable into the computer. "Hey there `$A9`, how are things today? Wow, `$32`, haven't seen you in a while... oh boy, if that isn't ma man `$FF`...". 
 
 <span id="bytes"></span>
 <script>
@@ -133,7 +137,7 @@ setInterval(function(){
  }, 2000);
 </script>
 
-Therefore, file compressing was needed and these tools are called packers, or crunchers. Some popular ones are for example [exomizer](https://bitbucket.org/magli143/exomizer/wiki/Home) or [Pucrunch](https://github.com/mist64/pucrunch). Packing a program with these would greatly reduce the filesize and hence the loading speed. The additional time the computer needs to unpack the file again can be ignored in comparison to the much faster loading.
+Therefore, file compression was invented and these tools are called packers, or crunchers. Some popular ones are for example [exomizer](https://bitbucket.org/magli143/exomizer/wiki/Home) or [Pucrunch](https://github.com/mist64/pucrunch). Packing a program with these would greatly reduce the filesize and hence increase the loading speed. The additional time the computer needs to unpack the file again can be ignored in comparison to the much faster loading.
 
 Unfortunately for us who are sticking our noses into decades old intros, packed code is a pain the butt, because we can't just disassemble the program without unpacking it first. Let's cover this next.
 
@@ -172,7 +176,7 @@ fcc6
 Now we know where the code starts, but where does it end? In this case it's quite easy. Our code sits in the [upper RAM area](https://mem64.awsm.de), which is a section of 4096 bytes from `C000` to `CFFF`. We can now save that memory area in VICE using the monitor command `save` or short `s`. It takes the path to where you want to save the file, then a `0` for the host file system, then the start address and lastly the end address.
 
 ```bash
-save "/path/to/wherever/the/fuck/you/want/fairlight.prg" 0 0c00 0cfff
+save "/path/to/wherever/the/fuck/you/want/your/fairlight.prg" 0 0c00 0cfff
 ```
 
 Alright, time for a test! Let's drop that newly created file into VICE and see what happens.
@@ -185,14 +189,17 @@ Why doesn't it work? Well, when we saved the file, we stripped the BASIC program
 
 Success! \o/  
 All done. Thanks for reading this article. Roll the credits.  
+
+![niiice](/assets/img/blog/fairlight/borat-success.gif)
+
 ...  
 Wait.  
 Why doesn't that scolltext start at the beginning like it should?  
 That doesn't look right.
 
-Yup. That's because we saved code that was already running and changing data in memory. Depending on the time it took us to save the file after starting the intro, a lot might have changed. Like the position of the scrolltext, or the fake rasterbars, or the music. We can't be sure what the initial state was and in some cases the program might not work at all anymore.
+Yup. That's because we saved code that was already running and changing data in memory. Depending on the time it took us to save the file after starting the intro, a lot might have changed since. Like the position of the scrolltext, or the fake rasterbars, or the music. We can't be sure what the initial state was and in some cases the program might not work at all anymore.
 
-Success? More like sucks ass.  
+**Success? More like sucks ass.**  
 
 ![facepalm](/assets/img/blog/fairlight/facepalm.gif)
 
@@ -200,7 +207,7 @@ Let's try a different approach.
 
 ## Unpacking method 2: tracing the unpacker code
 
-The trick here will be to let the unpacker do it's work but insert a command that prevents execution right where it would otherwise jump to the intro. It is important that the program has not been started yet, that's why I explained earlier how to load the `PRG` without running it. Let's start by looking for a `JMP $C000`  or `JSR $C000` in memory.
+The trick here will be to let the unpacker do it's work like before but insert a command that prevents execution right where it would otherwise jump to the intro. It is important that the program has not been started yet, that's why I explained earlier how to load the `PRG` without running it. Let's start by looking for a `JMP $C000`  or `JSR $C000` in memory.
 
 ```asm6502
 h 0000 ffff 4c 00 c0      ; JMP $C000
@@ -217,7 +224,7 @@ Ha! There is our jump command. Let's change the `$20` to `$60` (RTS)
 >08e6 60      
 ```
 
-For the fun of it, since it's a quick hack, we can do the same from BASIC with a `POKE` command:
+For the fun of it, since it's a quick hack, we could do the same from BASIC with a `POKE` command. This is basically the same method most cheat pokes for infinite lifes worked in the 80s.
 
 ```bash
 POKE 2278, 96
@@ -228,10 +235,10 @@ Okay, right after running the program from basic, we are greeted with a clean sc
 
 ![fairlight-clean](/assets/img/blog/fairlight/fairlight-clean.png)
 
-This at least means that we achieved something as the intro is not starting as it would normally do. If everyhting worked as planned, we unpacked the code and left to BASIC right before starting it. If we type in
+This at least means that we achieved something as the intro did not start as it normally would do. If everything works as planned, we unpacked the code and left to BASIC right before executing the intro. If we type in
 
-```bash
-SYS 49152
+```asm6502
+SYS 49152       ; 49152 = $c000 -> the memory location of the intro
 ```
 
 the intro should now start. But before we do this, we save the program again just like we did earlier.
@@ -273,8 +280,12 @@ To verify if it works, we repeat the process as before:
 Yes! The result is the same as with the previous method. I've shown you both approaches since either can come in handy.
 Now that we have done our homework and learned how to do it manually, we can lean back and check out a tool that does this automatically for us.
 
-What did you say?  
-Oh, you mean, err.., I should have shown you that one first?
+*What?  
+I'm sorry, didn't get that...  
+Ahh, yes yes, automatically...  
+No. Right, that is not neede... what?  
+Why?  
+Oh, you mean, err.., I should have shown you the most convenient solution first?*
 
 ![drevil](/assets/img/blog/fairlight/drevil.gif)
 
@@ -292,9 +303,9 @@ I normally do this process in emulators by setting breakpoints but an automatic
 program that does it for me is handy.
 </div>
 
-The process is quite similar to what we did manually. 
+The process is quite similar to what we did manually. That means if you followed the instructions closely, you can now apply for a job as an unpacker. Teach a man how to fish...
 
-The downloaded ZIP file of Unp64 containes an executable for Windows only. But gladly a `Makefile` is included as well, together with the sources, so you can build your own Mac or Linux version by simply running 
+The downloaded ZIP file of Unp64 containes an executable file for Windows only. But gladly a `Makefile` is included as well, together with the sources, so you can build your own Mac or Linux version by simply running 
 
 ```bash
 > make
@@ -302,7 +313,7 @@ The downloaded ZIP file of Unp64 containes an executable for Windows only. But g
 
 in the terminal. After about a minute you should have the right executable file for your operating system.
 
-Using Unp64 is super simple, but be sure to check out the documentation to understand all the extra options. In our case, we make sure Unp64 and the Fairlight intro are in the same folder (it's just easier) and then run
+Using Unp64 is super simple, but check out the documentation to understand all the extra options. In our case, we make sure Unp64 and the Fairlight intro are in the same folder (it's just easier) and then run
 
 ```bash
 > unp64 flt-01.prg
@@ -314,9 +325,11 @@ pass2, return to mem: $c000
 saved $c000-$cfff as flt-01.prg.c000
 ```
 
-Wow. That's... impressive. I love when logical assumptions put into a function yield such great results. Now that we've done it the hard way ourselves we can appreciate it even more. The converted program was saved as `flt-01.prg.c000` and should be identical to the versions we created before.
+Wow. That's... impressive. I love when logical assumptions converted into code yield such great results. Now that we've done it the hard way ourselves, we can appreciate it even more. The converted program was saved as `flt-01.prg.c000` and should be identical to the versions we created before.
 
 The unpacking is done. We can finally look into disassembling the code.  
 Phew.
 
-Continue reading part II: [disassembly of the Fairlight intro](/blog/fairlight-disassembly/)
+![sleep](/assets/img/blog/fairlight/sleepy.gif)
+
+Continue reading part II: [the disassembly of the Fairlight intro](/blog/fairlight-disassembly/)
