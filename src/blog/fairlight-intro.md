@@ -60,15 +60,15 @@ Go to Settings (either from the menu "Settings > Settings...") or by pressing `c
 4. Check IEC-Device
 5. Choose "Host file system" from dropdown
 
-![vice-1](/assets/img/blog/fairlight/vice-1.png)
+<img src="/assets/img/blog/fairlight/vice-1.png" style="box-shadow: 0px 0px 0px;">
 
-6. Next, go to "Peripheral Devices" > "Filesystem Device"
-7. Click on Drive 9
-8. Click on "Browse..." button and choose the folder where your file is in
-9. Click "Close" button
-10. Make sure you save your settings
+1. Next, go to "Peripheral Devices" > "Filesystem Device"
+2. Click on Drive 9
+3. Click on "Browse..." button and choose the folder where your file is in
+4. Click "Close" button
+5.  Make sure you save your settings
 
-![vice-2](/assets/img/blog/fairlight/vice-2.png)
+<img src="/assets/img/blog/fairlight/vice-2.png" style="box-shadow: 0px 0px 0px;">
 
 VICE looks quite different on various operating systems and your menu structure might vary from the screenshots above, but the overall process should be similar.
 
@@ -82,7 +82,7 @@ load"$",9
 
 at the BASIC prompt to get the directory of the host file system displayed on the C64.
 
-![iecdir](/assets/img/blog/fairlight/iecdir.png)
+<img src="/assets/img/blog/fairlight/iecdir.png" style="box-shadow: 0px 0px 0px;">
 
 And we can load and list the program as if we loaded it from a `D64` image or real floppy.
 
