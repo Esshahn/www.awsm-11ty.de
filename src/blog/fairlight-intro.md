@@ -182,7 +182,7 @@ fcc6
 Now we know where the code starts, but where does it end? In this case it's quite easy. Our code sits in the [upper RAM area](https://mem64.awsm.de), which is a section of 4096 bytes from `C000` to `CFFF`. We can now save that memory area in VICE using the monitor command `save` or short `s`. It takes the path to where you want to save the file, then a `0` for the host file system, then the start address and lastly the end address.
 
 ```bash
-save "/path/to/wherever/the/fuck/you/want/your/fairlight.prg" 0 0c00 0cfff
+save "/path/to/wherever/the/fuck/you/want/your/fairlight.prg" 0 c000 0cfff
 ```
 
 Alright, time for a test! Let's drop that newly created file into VICE and see what happens.
