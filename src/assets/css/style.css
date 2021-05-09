@@ -6,7 +6,7 @@
   --bg-light: #eae6e5;
   --release: #8284892f;
   --release-button-bg: rgb(27, 30, 36);
-  --navigation: #146781d0;
+  --navigation: #557f8bd0;
   --accent: #1fd2ff;
   --link-light: #f5e663;
   --link-dark: #066185;
@@ -60,7 +60,9 @@ h3 {
 }
 
 code {
-  background-color: var(--bg-light);
+  background-color: #585858;
+  color: white;
+  border-radius: 4px;
 }
 
 table {
@@ -117,15 +119,17 @@ table thead th {
 }
 
 #navigation a {
-  margin: 0px 10px 0px 10px;
-  padding: 4px 12px;
+  margin: 0px 4px 0px 4px;
+  padding: 4px 18px;
   color: white;
+  font-size: 0.9em;
+  border-radius: 32px;
+  transition: all 0.2s;
 }
 
 #navigation a:hover {
   color: black;
   background-color: white;
-  border-radius: 8px;
 }
 
 #navigation img {
@@ -140,7 +144,6 @@ table thead th {
 #navigation .active {
   color: black;
   background-color: white;
-  border-radius: 8px;
 }
 
 .container {
@@ -400,8 +403,9 @@ table thead th {
   margin-top: 32px;
   padding: 10%;
   border-radius: 8px;
-
   max-width: 900px;
+  background-image: url("/assets/img/website-gradient.png");
+  background-repeat: no-repeat;
 }
 
 #article h1 {
@@ -443,12 +447,12 @@ h3 {
   font-weight: bold;
 }
 
-#article p a:hover {
-  color: var(--link-dark-hover);
+#article .navlink:hover {
+  color: white;
 }
 
 #article a:hover {
-  color: white;
+  color: var(--link-dark-hover);
 }
 
 .pagination {
