@@ -403,8 +403,9 @@ table thead th {
   margin-top: 32px;
   padding: 10%;
   border-radius: 8px;
-
   max-width: 900px;
+  background-image: url("/assets/img/website-gradient.png");
+  background-repeat: no-repeat;
 }
 
 #article h1 {
@@ -446,12 +447,12 @@ h3 {
   font-weight: bold;
 }
 
-#article p a:hover {
-  color: var(--link-dark-hover);
+#article .navlink:hover {
+  color: white;
 }
 
 #article a:hover {
-  color: white;
+  color: var(--link-dark-hover);
 }
 
 .pagination {
