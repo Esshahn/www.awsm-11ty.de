@@ -60,15 +60,15 @@ Go to Settings (either from the menu "Settings > Settings...") or by pressing `c
 4. Check IEC-Device
 5. Choose "Host file system" from dropdown
 
-![vice-1](/assets/img/blog/fairlight/vice-1.png)
+<img src="/assets/img/blog/fairlight/vice-1.png" style="box-shadow: 0px 0px 0px;">
 
-6. Next, go to "Peripheral Devices" > "Filesystem Device"
-7. Click on Drive 9
-8. Click on "Browse..." button and choose the folder where your file is in
-9. Click "Close" button
-10. Make sure you save your settings
+1. Next, go to "Peripheral Devices" > "Filesystem Device"
+2. Click on Drive 9
+3. Click on "Browse..." button and choose the folder where your file is in
+4. Click "Close" button
+5.  Make sure you save your settings
 
-![vice-2](/assets/img/blog/fairlight/vice-2.png)
+<img src="/assets/img/blog/fairlight/vice-2.png" style="box-shadow: 0px 0px 0px;">
 
 VICE looks quite different on various operating systems and your menu structure might vary from the screenshots above, but the overall process should be similar.
 
@@ -504,7 +504,7 @@ disass -i sources/flt.prg -o code/flt.asm -e sources/entrypoints.json
 ```
 
 But how do we identify code in the first place?  
-Many disassemblers have an interactive UI, which lets you mark sections and convert them interactively between code and data. Our command line tool does not have that luxury, but luckily we can aways look into the monitor of the [VICE](https://vice-emu.sourceforge.io) emulator. I usually keep it open all the time to browse through the code and set manual entrypoints whenever I spot code.
+Many disassemblers have an interactive UI, which lets you mark sections and convert them interactively between code and data. Our command line tool does not have that luxury, but luckily we can always look into the monitor of the [VICE](https://vice-emu.sourceforge.io) emulator. I usually keep it open all the time to browse through the code and set manual entrypoints whenever I spot code.
 
 The first entrypoint is easy to identify if you look at the start of the code again:
 
@@ -573,7 +573,7 @@ lc0b7
             jsr lcc5e
 ```
 
-The conservative approach of the disassembler marks anything after a `jmp` as data. And rightly so. But in this case, the following bytes are not accessed from anywhere in the (currently converted) code, which you can conclude by the missing label, which would be `c0b2`. Adding this address as an entrypoint reveals the missing code:
+The conservative approach of the disassembler marks anything after a `jmp` as data. And rightly so. But in this case, the following bytes are not accessed from anywhere in the (currently converted) code, which you can conclude by the missing label, which would be `lc0b2`. Adding this address as an entrypoint reveals the missing code:
 
 ```asm6502
 lc0af
