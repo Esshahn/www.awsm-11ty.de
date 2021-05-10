@@ -82,7 +82,7 @@ load"$",9
 
 at the BASIC prompt to get the directory of the host file system displayed on the C64.
 
-<img src="/assets/img/blog/fairlight/iecdir.png" style="box-shadow: 0px 0px 0px;">
+![iecdir](/assets/img/blog/fairlight/iecdir.png)
 
 And we can load and list the program as if we loaded it from a `D64` image or real floppy.
 
