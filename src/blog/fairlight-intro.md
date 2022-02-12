@@ -13,7 +13,7 @@ excerpt: "This C64 intro from Fairlight ist nothing less than iconic and engrave
 4. [Optimizations](#optimizations)  
 5. [Remix](#remix)
 
-Alright, before starting, I've got to admit that this is my second attempt at disassembling this program. The first time I got sidetracked and ended up [writing a new disassembler in Python](/blog/pydisass/). That's why I'm just a hobby developer - I can chase ideas like an overexcited puppy dog is hunting squirrels, giving a damn shit about the worrying sprint cycle burndown chart and the product owner being up my arse about fixing those critical bugs that keep exposing customer's credit card data to the public. Did I mention I'm a product owner in real life?
+Alright, before starting, I've got to admit that this is my second attempt at disassembling this program. The first time I got sidetracked and ended up [writing a new disassembler in Python](/blog/pydisass/). That's why I'm just a hobby developer - I can chase ideas like an overexcited puppy dog hunting squirrels, giving a damn shit about the worrying sprint cycle burndown chart and the Product Owner being up my arse about fixing those critical bugs that keep exposing customer's credit card data to the public. Did I mention I'm a Product Owner in real life?
 
 ![squirrel](/assets/img/blog/fairlight/squirrel.gif)
 
@@ -22,13 +22,13 @@ Where was I... ah yes, unpacking the Fairlight intro.
 <a name="intro"></a>
 # The Fairlight Intro 
 
-Let's take a look at this beauty from the year 1987. You can [download it from csdb.dk](https://csdb.dk/release/?id=53390) and use an emulator like [VICE](https://vice-emu.sourceforge.io) to watch it. It's worth noting that many Commodore 64 intros of that time were more impressive from a technical standpoint, like the wonderful [Papillons intro](https://csdb.dk/release/?id=3345) (1988) or the [Dynamic Duo intro](https://csdb.dk/release/?id=54050) (1986). But besides the equally iconic [Eagle Soft Incorportated intro](https://csdb.dk/release/?id=53330), very few managed to leave such a lasting impression. I have such fond memories of these cracktros, I even [converted some of my favorites to JavaScript](/jscracktros/). My demo group *Mayday!* did a [tribute to the intro as well](https://csdb.dk/release/?id=148407).
+Let's take a look at this beauty from the year 1987. You can [download it from csdb.dk](https://csdb.dk/release/?id=53390) and use an emulator like [VICE](https://vice-emu.sourceforge.io) to watch it. It's worth noting that many Commodore 64 intros of that time were more impressive from a technical standpoint, like the wonderful [Papillons intro](https://csdb.dk/release/?id=3345) (1988) or the [Dynamic Duo intro](https://csdb.dk/release/?id=54050) (1986). But besides the equally iconic [Eagle Soft Incorportated intro](https://csdb.dk/release/?id=53330), very few managed to leave such a lasting impression. I have very fond memories of these cracktros and even [converted some of my favorites to JavaScript](/jscracktros/). My demo group *Mayday!* did a [tribute to the intro as well](https://csdb.dk/release/?id=148407).
 
 https://youtu.be/WnYCERvc2B8?t=17
 
-[csdb.dk](http://www.csdb.dk) counts a massive 185 games released with this cracktro. That's like four big boxes of 5 1/4 inch floppy discs. No wonder there was no way around this intro as Fairlight was impressively active during that time.
+[csdb.dk](http://www.csdb.dk) counts a massive **185 games released with this cracktro**. That's like four big boxes of 5 1/4 inch floppy discs. No wonder there was no way around this intro as Fairlight was impressively active during that time.
 
-Written by [Woodo](https://csdb.dk/scener/?id=4203), who's last C64 release was in 1992, this intro still scores high among demo sceners:
+Written by [Woodo](https://csdb.dk/scener/?id=4203), who's last C64 release according to csdb was in 1992, this intro still scores high among demo sceners:
 
 > ***"I'd say together with ESI's eagle intro, this is the most legendary intro on the c-64. Still get goose bumps looking at it." (Freestyle)***
 
@@ -50,7 +50,7 @@ I'm using the [VICE](https://vice-emu.sourceforge.io) emulator, mostly because i
 
 The Fairlight intro PRG file [downloaded from csdb.dk](https://csdb.dk/release/?id=53390) can be executed by double clicking or by drag'n'drop onto the emulator window. Since it starts automatically, you would not see the BASIC program (usually something like a `10 SYS 2064`). You can check for that from the VICE monitor, but here's a little workaround in case you want to prevent the program from starting immediately (there's a reason why I explain this, more about that later).
 
-## Setting drive 9 as a SD2IEC device
+## Setting drive 9 as a SD2IEC device in VICE
 
 Go to Settings (either from the menu "Settings > Settings...") or by pressing `command + o` (Mac, not sure about Windows or Linux). 
 
@@ -139,7 +139,7 @@ setInterval(function(){
  }, 2000);
 </script>
 
-Therefore, file compression was invented (not true) and these tools are called packers, or crunchers. Some popular ones are for example [exomizer](https://bitbucket.org/magli143/exomizer/wiki/Home) or [Pucrunch](https://github.com/mist64/pucrunch). Packing a program with these would greatly reduce the filesize and hence increase the loading speed. The additional time the computer needs to unpack the file again can be ignored in comparison to the much faster loading.
+Therefore, file compression was invented (not true) and these tools are called packers, or crunchers. Some popular ones are for example [exomizer](https://bitbucket.org/magli143/exomizer/wiki/Home) or [Pucrunch](https://github.com/mist64/pucrunch). Packing a program with these would significantly reduce the file size and speed up loading times. The extra time the computer needs to unpack the file again can be ignored in comparison to the much faster loading.
 
 <a name="unpacking"></a>
 # Unpacking
@@ -153,7 +153,7 @@ Since the program comes with batteries included, it can unpack itself and run th
 
 ## Where in memory is the actual intro located?
 
-There are some usual suspects that help you find the right entry point. The simplest is usually following the code that gets executed first, which in our case is at address `2064`. If the program isn't packed, this might be the actual code right there. Another typical location in memory is `$c000` hex or `49152` decimal. Let's take a look there:
+There are some usual suspects that help you find the right entry point. The simplest is following the code that gets executed first, which in our case is at address `2064`. If the program isn't packed, this might be the actual code right there. Another typical location in memory is `$c000` hex or `49152` decimal. Let's take a look there:
 
 ```asm6502
 .C:c000  78          SEI
@@ -164,7 +164,7 @@ There are some usual suspects that help you find the right entry point. The simp
 [..]
 ```
 
-Bingo. This is a typical code section at the beginning of a program. It disables interrups with `SEI` and then sets the IRQ vector with `STA $0315` and `STA $0314`. Whenever you find code like this, it's likely at the beginning. I highly recommend getting familiar with [VICE's monitor commands](https://vice-emu.sourceforge.io/vice_12.html), which provide powerful tools like the `hunt` command. For example, to search through the whole memory for the `STA $0315` (or `8d 15 03` hex) instruction, just enter
+Bingo. This is a typical code section at the beginning of a program. It disables interrups with `SEI` and then sets the IRQ vector with `STA $0315` and `STA $0314`. Whenever you find code like this, it's likely at the start of a program. I highly recommend getting familiar with [VICE's monitor commands](https://vice-emu.sourceforge.io/vice_12.html), which provide powerful tools like the `hunt` command. For example, to search through the whole memory for the `STA $0315` instruction (or `8d 15 03` in hex notation), just enter
 
 ```asm6502
 h 0000 ffff 8d 15 03    ; format: start_addr end_addr byte byte byte
@@ -200,7 +200,7 @@ All done. Thanks for reading this article. Roll the credits.
 
 ...  
 Wait.  
-Why didn't that scolltext start at the beginning like it should?  
+Why didn't that scroller start at the beginning of the text like it should?  
 That doesn't look right.
 
 Yup. That's because we saved code that was already running and changing data in memory. Depending on the time it took us to save the file after starting the intro, a lot might have changed since. Like the position of the scrolltext, or the fake rasterbars, or the music. We can't be sure what the initial state was and in some cases the program might not work at all anymore.
@@ -214,7 +214,7 @@ Let's try a different approach.
 <a name="unpacking-2"></a>
 ## Unpacking method 2: tracing the unpacker code
 
-The trick here will be to let the unpacker do it's work like before but insert a command that prevents execution right where it would otherwise jump to the intro. It is important that the program has not been started yet, that's why I explained earlier how to load the `PRG` without running it. Let's start by looking for a `JMP $C000`  or `JSR $C000` in memory.
+The trick here will be to let the unpacker do its work like before but insert a command that prevents execution right where it would otherwise jump to the intro. It is important that the program has not been started yet, that's why I explained earlier how to load the `PRG` without running it. Let's start by looking for a `JMP $C000`  or `JSR $C000` in memory.
 
 ```asm6502
 h 0000 ffff 4c 00 c0      ; JMP $C000
@@ -282,7 +282,7 @@ To verify if it works, we repeat the process as before:
 6. run the BASIC program.
 7. save the program
 8. (in monitor) find a `RTS` and continue execution from there `g 0870`
-9. check with `SYS 49152`
+9. execute the intro with `SYS 49152`
 
 Yes! The result is the same as with the previous method. I've shown you both approaches since either can come in handy.
 Now that we have done our homework and learned how to do it manually, we can lean back and check out a tool that does this automatically for us.
@@ -332,7 +332,7 @@ pass2, return to mem: $c000
 saved $c000-$cfff as flt-01.prg.c000
 ```
 
-Wow. That's... impressive. I love when logical assumptions converted into code yield such great results. Since we've done it the hard way ourselves, we can appreciate it even more. The converted program was saved as `flt-01.prg.c000` and should be identical to the versions we created manually.
+Wow. That's... impressive. I love when logical assumptions transformed into code yield such great results. Since we've done it the hard way ourselves, we can appreciate it even more. The converted program was saved as `flt-01.prg.c000` and should be identical to the versions we created manually.
 
 The unpacking is done. We can finally look into disassembling the code.  
 Phew.
@@ -348,7 +348,7 @@ Where was I... ah yes, disassembling the Fairlight intro.
 
 ## The uncompressed binary file
 
-By now you should have your own unpacked file, if not, you can just grab it from this [github repo](https://github.com/Esshahn/c64-fairlight/tree/main/sources). If you plan to follow the steps and disassemble the binary file yourself, any disassembler out there, like [Regenerator](https://csdb.dk/release/?id=149429) or [masswerk's 6502 disassembler](https://www.masswerk.at/6502/disassembler.html), are great choices. Chances are they work just a tad better and are more user friendly than my disassembler [pyDisass6502](https://github.com/Esshahn/pydisass64). On the other hand, pyDisass6502 lets you adapt the code of the disassembler itself and is quite easy to understand. I've configured pyDisass6502 to run from any directory, instructions can be found in the repo's `readme.md` file. 
+By now you should have your own unpacked file, if not, you can just grab it from this [github repo](https://github.com/Esshahn/c64-fairlight/tree/main/sources). If you plan to follow the steps and disassemble the binary file yourself, many disassemblers out there, like [Regenerator](https://csdb.dk/release/?id=149429) or [masswerk's 6502 disassembler](https://www.masswerk.at/6502/disassembler.html), are great choices. Chances are they work just a tad better and are more user friendly than my disassembler [pyDisass6502](https://github.com/Esshahn/pydisass64). On the other hand, pyDisass6502 lets you adapt the code of the disassembler itself and is quite easy to understand. I've configured pyDisass6502 to run from any directory, instructions can be found in the repo's `readme.md` file. 
 
 ## Development environment
 
@@ -483,7 +483,7 @@ lc0f1
 
 Interestingly, since the compiler wouldn't care or even know if the code or data makes any sense, this would successfully compile even if the above section is code or just partly code.
 
-But we are humans, not compilers. If some of you out there are actually compilers, congrats. I'll try my best to make this article interesting for you, too. But for now, we need to focus on humans, who, sadly, can't make any shit out of this data gibberish. They need more guidance. So let's take care of that next.
+But we are humans, not compilers. If some of you out there are actually compilers, congrats. I'll try my best to make this article interesting for you, too. But for now, we need to focus on humans, who, sadly, can't make shit out of this data gibberish. Humans need more guidance. So let's take care of that next.
 
 ## Disassembly, round 2: Inspect the data
 
@@ -497,14 +497,14 @@ From here on, we help the disassembler identify code sections by marking them ma
 }
 ```
 
-The usage is pretty simple. Whenever we find code hidden in the data section, we add an entrypoint to the `JSON` file. pyDisass6502 will then acknowledge them when setting the `-e` or `--entrypoints` flag and run the script again, like so:
+The usage is pretty simple. Whenever we find code hidden in the data section, we add an entrypoint to the `JSON` file. pyDisass6502 will acknowledge these when setting the `-e` or `--entrypoints` flag and run the script again, like so:
 
 ```batch
 disass -i sources/flt.prg -o code/flt.asm -e sources/entrypoints.json
 ```
 
 But how do we identify code in the first place?  
-Many disassemblers have an interactive UI, which lets you mark sections and convert them interactively between code and data. Our command line tool does not have that luxury, but luckily we can always look into the monitor of the [VICE](https://vice-emu.sourceforge.io) emulator. I usually keep it open all the time to browse through the code and set manual entrypoints whenever I spot code.
+Many disassemblers have an interactive UI, which lets you mark sections and convert them  between code and data. Our command line tool does not have that luxury, but luckily we can always look into the monitor of the [VICE](https://vice-emu.sourceforge.io) emulator. I usually keep it open all the time to browse through the code and set manual entrypoints whenever I spot code.
 
 The first entrypoint is easy to identify if you look at the start of the code again:
 
@@ -515,7 +515,7 @@ The first entrypoint is easy to identify if you look at the start of the code ag
             sta $0314                       ; IRQ vector routine low byte
 ```
 
-The IRQ vector is changed to jump to `$c174`, which is our custom interrupt routine and therefore has to be code. Our disassembler wasn't smart enough to look for high byte and low byte addresses, but we humans are! GO HUMANS! GO HUMANS! This easily means it'a now a tie between compilers and humans.   
+The IRQ vector is changed to jump to `$c174`, which is our custom interrupt routine and therefore has to be code. Our disassembler wasn't smart enough to look for high and low byte addresses, but we humans are! **GO HUMANS! GO HUMANS!** This easily means it's now a tie between compilers and humans.   
 
 Our entrypoints file:
 
@@ -596,7 +596,7 @@ lc0b7
 
 And again, since we told the disassembler that we're in code land, much more data was successfully converted. At this point it is tempting to make changes to the code already, but since every rerun of the disassembler generates the file from scratch, all those changes would be lost. Make sure you're happy with the conversion result before advancing to the next step.
 
-Another hint to check for unidentified code sections is to remove one byte from a data section and check if the code crashes.
+A less scientific yet fun method to check for unidentified code sections is to remove one byte from a data section and check if the code crashes.
 
 ```asm6502
 lc18d
@@ -614,15 +614,15 @@ lc18d
 !byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 ```
 
-Let's remove any of the bytes above (`$00`) and check the output:
+Let's remove one of the `$00` bytes and check the output:
 
 ![crash](/assets/img/blog/fairlight/fairlight-crash.png)
 
-That's a clear indicator that some code hasn't been found yet and therefore the addresses aren't converted to labels. And because of that, that code can not be moved around in memory, resulting in unlikely behaviour, like this crash. The byte sequence above is unused memory though, as long as the amount of bytes is unchanged, we can replace them with any values and the intro will still run fine.
+That's a clear indicator that some code hasn't been found yet and therefore the addresses aren't converted to labels. And because of that, some code could not be moved around in memory, resulting in unwanted behaviour, like this crash. The byte sequence above is unused memory though, as long as the amount of bytes is unchanged, we can replace them with any values and the intro will still run fine.
 
 ## Disassembly, round 3: First compile test
 
-So we've made some changes and it's time to try the first compilation. We start the compiler in VSCode with `Shift + Command + B` (on Mac) and choose the `build -> C64 -> VICE` option. The compiler outputs some errors:
+So we've made some changes and it's time to try the first compilation. We start the compiler in VSCode (if you're using the ACME VSCode template) with `Shift + Command + B` (on Mac) and choose the `build -> C64 -> VICE` option. The compiler outputs some errors:
 
 ```bash  
 Error - File code/flt.asm, line 136 (Zone <untitled>): Value not defined (lc0f1).
@@ -680,7 +680,7 @@ All problems fixed - let's try again!
 
 ![sucess](/assets/img/blog/fairlight/fairlight-compile-success.png)
 
-That's a great milestone! We're actually compiling assembly code back into a fully working C64 intro! We haven't understood the code itself yet, but it's the first step. From here on we're starting to inspect the code itself and make it more readable.
+That's a great milestone! We're actually compiling assembly code back into a fully working C64 intro! We haven't understood the code itself yet, but it's the first step. From here on we can inspect the code itself and make it more readable.
 
 <img src="/assets/img/blog/fairlight/carlton.gif" style="box-shadow: 0px 0px 0px;">
 
@@ -746,7 +746,7 @@ irq                         ; IRQ address
 
 ## Convert data to text
 
-For better readabilty and making changes to the program easier, we can convert data sections into text. Many disassemblers have that feature built in, but little Python script doesn't yet. Thankfully, VICE features the `i` command for displaying memory as text. With this, I can convert the scrolltext at `$ca00` to a readable format, which I use to replace the corresponding data section in our program.
+For better readabilty and making changes to the program easier, we can convert data sections into text. Many disassemblers have that feature built in, but my little ~~Pony~~ Python script doesn't know that trick yet. Thankfully, VICE features the `i` command for displaying memory as text. With this, I can convert the scrolltext at `$ca00` to a readable format, which I use to replace the corresponding data section in our program.
 
 <img src="/assets/img/blog/fairlight/i-command.png" style="width: 80%; box-shadow: 0px 0px 0px;">
 
@@ -762,7 +762,7 @@ scrolltext
 !scr "party...       l8r           "
 ```
 
-## Extract code into separate files
+## Extracting code into separate files
 
 So far our program is one single file that includes code, scrolltext, the charset and the music. That's okay for a program this small, but I like it neatly packaged. But where in our code is all that stuff?
 
@@ -787,7 +787,8 @@ For the screen memory, the process is the same, with bits 4-7 (0001) of `$d018` 
 ![hackerman](/assets/img/blog/fairlight/hackerman.gif)
 
 Or hackerwoman.  
-I would love to have hackerwomen on my blog. Because, you know, lack of social contacts.
+I would love to have hackerwomen on my blog.  
+Because, you know, lack of social contacts.
 
 I provide both the assembly data (charset.asm) and the binary (charset.bin) in the github repository, they are practically identical, but only the binary file can be opened in a character editor like [VChar64](https://github.com/ricardoquesada/vchar64) or [CharPad](https://subchristsoftware.itch.io/charpad-free-edition). If you want to make changes to the font, that's your most convenient option.
 
@@ -809,17 +810,23 @@ I decided to convert the memory area to assembly code, combining repeating bytes
 
 !fill 43, $20
 !scr "...the home of the real crackers"
+
 !fill 180, $20
 !scr "presents:"
+
 !fill 69, $20
 !scr "combat school"
+
 !fill 60, $20
 !scr "cracked 21.11.87 by strider"
+
 !fill 87, $20
 scrollline
+
 !fill 39, $20
 last_character
 !byte $20
+
 !fill 93, $20
 !scr "intro by woodo"
 !fill 53, $20
@@ -832,17 +839,40 @@ The music section is a mixture of the player code and the song data. I've separa
 
 ## Wrapping up code conversion
 
-With all the steps above and some trial and error, you should now have code that is mostly memory location independent (except for the fixed locations like for the character and screen data), well commented (pyDisass6502 did a lot for us automatically) and ready to be analyzed and finally changed. It's a great milestone in our journey as we have successfully reverse engineered and therefore preserved the original code. It is now available to inspect and learn from. 
+With all the steps above and some trial and error, you should now have code that is mostly memory location independent (except for the fixed locations like for the character and screen data), well commented (pyDisass6502 did a lot for us automatically) and ready to be analyzed and changed. It's a great milestone in our journey as we have successfully reverse engineered and therefore preserved the original code. It is now available to inspect and learn from. 
 
 Time to create a new code branch [or make a copy of the source code](https://github.com/Esshahn/c64-fairlight/blob/main/code/flt-02-cleaned.asm) and make changes to it!
 
 <a name="optimizations"></a>
 # Optimizations
 
-Back in 1986 assembly code was usually a bit harder to organize, it's much easier to clean up code in a modern IDE like VSCode. During code conversion I moved some code sections around a bit, e.g. when code jumps to an area only once during execution. That code can then be moved to the location of the `jmp` instruction, if there is enough memory available, effectively removing that `jmp` and the corresponding `rts` command. It helps keeping the code in order and understandable and shaves off a byte or two in the process.
+Back in 1986 assembly code was usually a bit harder to organize, it's much easier to clean up code using a modern IDE like VSCode. During code conversion I moved some code sections around, like when code jumps to an area only once during execution. That code can then be moved to the location of the `jsr` instruction, if there is enough memory available, effectively removing that `jsr` and the corresponding `rts` command. It helps keeping the code in order and understandable and shaves off a byte or two in the process.
+
+````asm6502
+; before
+
+            lda #$01
+            sta $d020
+            jsr sub_routine
+            [..]
+
+sub_routine
+            lda #$02
+            sta $d021
+            rts
+
+; after
+
+            lda #$01
+            sta $d020
+            lda #$02
+            sta $d021
+            [..]
+
+````
 
 ## Stable rasterbars
-I noticed that even the slightest changes make the rasters flicker. This is a sign that the raster code isn't really stable and instead tweaked until it "magically works". And sure enough, if we look at the color information for the raster bars, we see that the rasters are much bigger than just the two red and blue bars:
+I noticed that even the slightest changes make the rasters flicker. This is a sign that the raster code isn't really stable and instead tweaked until it 🦄 <span style='color:#FF0000;'>m</span><span style='color:#FF5F00;'>a</span><span style='color:#FFBF00;'>g</span><span style='color:#DFFF00;'>i</span><span style='color:#7FFF00;'>a</span><span style='color:#1FFF00;'>l</span><span style='color:#00FF3F;'>l</span><span style='color:#00FF9F;'>y</span> <span style='color:#009FFF;'>w</span><span style='color:#003FFF;'>o</span><span style='color:#1F00FF;'>r</span><span style='color:#7F00FF;'>k</span><span style='color:#DF00FF;'>e</span><span style='color:#FF00BF;'>d</span><span style='color:#FF005F;'>!</span> 🦄. And sure enough, if we look at the color information for the raster bars, we see that the rasters are much bigger than just the two red and blue bars:
 
 ````asm6502
 raster_color
@@ -856,7 +886,7 @@ raster_color
 !byte $00, $00, $00, $00, $00, $00, $57, $59
 ````
 
-Remove all the `$00` (which represents the color 'black') and the bars would be displayed several lines higher (and flicker a lot). It seems that Woodo experimented with the amount of raster lines until he found the most stable version and then made all unnecessary lines invisible. To illustrate the method, I've changed the color of the first raster line to yellow:
+Remove all the `$00` (which represents the color 'black') and the bars would be displayed several lines higher (and flicker a lot). It seems that Woodo experimented with the amount of raster lines until he found the most stable version and then made all unwanted lines invisible. To illustrate the method, I've changed the color of the first raster line to yellow:
 
 ![yellow-raster](/assets/img/blog/fairlight/yellow-raster.png)
 
@@ -871,17 +901,17 @@ raster_color
 raster_color_end
 ````
 
-This made some changes to the display code needed, e.g. moving the start of the raster bars to a later rasterline. However, I wasn't able to get the raster lines stable again. For the sake of doing it right, I added code for generating stable rasters, which is way beyond my paygrade and was mostly copied from this excellent (german) website: [www.retro-programming.de](https://www.retro-programming.de/programming/nachschlagewerk/interrupts/der-rasterzeileninterrupt/raster-irq-endlich-stabil/).
+This required some changes to the display code, like moving the start of the raster bars to a later rasterline. However, I wasn't able to get the raster lines stable again. For the sake of doing it right, I added code for generating stable rasters, which is way beyond my paygrade and was mostly copied from this excellent (german) website: [www.retro-programming.de](https://www.retro-programming.de/programming/nachschlagewerk/interrupts/der-rasterzeileninterrupt/raster-irq-endlich-stabil/). It's worth noting that the amount of added code exceeds the amount of bytes we saved here. On the upside, we have now much more control over the rasters and can adjust it without fearing flickering.
 
 ![glitchy-dot](/assets/img/blog/fairlight/glitchy-dot.png)
 
-It's worth noting that the amount of added code far exceeds the amount of bytes we save here. Our new code is more stable and works reliably (and it also gets rid of some glitchy dots, see image above), but if you just want to have a tiny intro which magically does what it is supposed to do and was fun to hack together, Woodo's way of doing it was just right. All good, Woodo, all good. I considered fixing the uneven color gradient too (the blue bar misses a white line), but decided against it to keep the visuals as original as possible.
+Our new code is more stable and works reliably (and it also gets rid of some glitchy dots, see image above), but if you just want to have a tiny intro which magically does what it is supposed to do and was fun to hack together, Woodo's way of doing it was just right. All good, Woodo, all good. I considered fixing the uneven color gradient too (the blue bar misses a white line), but decided against it to keep the visuals as original as possible.
 
 ![uneven-raster](/assets/img/blog/fairlight/uneven-raster.png)
 
 ## Optimized sine table
 
-Similar to the rasterbars, the sinus table which stores the Y-position of the green sprite raster seemed overly long:
+Similar to the real rasterbars, the sinus table which stores the vertical position of the fake sprite raster seems overly long:
 
 ````asm6502
 table_sprite_y_pos
@@ -924,13 +954,13 @@ table_sprite_y_pos
 table_sprite_y_pos_end
 ````
 
-You'll see that the table data has not only become much shorter, but is different as well. Why? I noticed that the original sinus table wasn't as smooth as it could be and since I had to change it anyway I figured I could just as well create a new one. I used [this sinus table generator](https://www.daycounter.com/Calculators/Sine-Generator-Calculator.phtml) and tweaked the data to my requirements (top and bottom Y position) with a Python script, which you'll find in the repo's 'tools' folder. I find Python ideal for little tasks like this.
+You may notice that the new table data has not only become much shorter, but has different values as well. Why? I noticed that the original sinus table wasn't as smooth as it could be and since I had to change it anyway I figured I could just as well create a better one. I used [this sinus table generator](https://www.daycounter.com/Calculators/Sine-Generator-Calculator.phtml) and tweaked the values to my requirements (top and bottom Y position) with a Python script, which you'll find in the repo's 'tools' folder. I find Python ideal for little tasks like this.
 
 As mentioned earlier the rasterbar effect is actually just sprites. By adding a `txa` in the sprite setup loop we can make this very clearly visible:
 
 ![colored-sprites](/assets/img/blog/fairlight/colored-sprites.png)
 
-Ah, good we did this, otherwise I wouldn't have spotted another bug in the code: all eight sprites are used, but only seven are needed to fill the screen with double width sprites: 320 / 48 = 6.6. I noticed this, because after the color `red ($02)` always comes `cyan ($03)`, not `purple ($04)`. And with just seven sprites used, the last sprite color should be `blue ($06)`, not `yellow ($07)`. And sure enough, the sprite setup routine skipped a sprite right here:
+Ah, good we did this, otherwise we wouldn't have spotted another glitch in the code: all eight sprites are used, but only seven are needed to fill the screen with double width sprites: 320 / 48 = 6.6. I noticed this, because after the color `red ($02)` always comes `cyan ($03)`, not `purple ($04)`. And with just seven sprites used, the last sprite color should be `blue ($06)`, not `yellow ($07)`. And sure enough, the sprite setup routine skipped a sprite right here:
 
 ```asm6502
             lda #$78
@@ -941,7 +971,7 @@ Ah, good we did this, otherwise I wouldn't have spotted another bug in the code:
             sta $d00a                       ; sprite #5 X position (bits 0-7)
 ```
 
-I added the missing sprite, removed the last sprite and adapted the following routine for sprite movement. Now we have one sprite less to move around and which we could use for other things.
+I added the missing sprite, removed the last sprite and adapted the sprite movement routine. Now we have one sprite less to move around which we could use for other effects if we wanted.
 
 ![sprites-corrected](/assets/img/blog/fairlight/sprites-corrected.png)
 
@@ -955,7 +985,7 @@ The length of the scrolltext was also hardcoded:
             cmp #$cc
 ````
 
-`$3a` contains the high byte of the current scrolltext position in memory. As soon as the scrolltext position reaches `$cc00` the text position gets reset. This not only makes it hard to move the scrolltext around in memory, it also explains why Woodo had to use so many empty characters in his message:
+`$3a` contains the high byte of the current scrolltext position in memory. As soon as the scrolltext position reaches `$cc00` the text position resets. This not only makes it difficult to move the scrolltext to a different memory location, it also explains why Woodo had to use so many empty characters in his message:
 
 ```asm6502
 scrolltext
@@ -984,13 +1014,13 @@ This concludes our code optimizations. We have made this lovely intro quite a bi
 <a name="remix"></a>
 # Remix 
 
-Now that we finally have full control over every single byte of the code, we can change whatever we want and turn it into our own remix. There's almost no limit to your imagination and this intro serves as a great template for your own creativity. I didn't want to go way beyond with this, I made some artistic changes but kept the rest close to the original. It is still the famous Fairlight intro, after all.
+Now that we finally have full control over every single byte of the code, we can change whatever we want and turn the intro into our own remix. There's almost no limit to your imagination and this intro serves as a great template for your own creativity. I didn't want to go way beyond with this, I made some artistic changes but kept the rest close to the original. It is still the famous Fairlight intro, after all.
 
 [Here's the result.](https://github.com/Esshahn/c64-fairlight/blob/main/code/flt-04-awsm.asm)
 
 https://www.youtube.com/watch?v=EvNWiIuwKQY
 
-That's it. We're finally done with this. It was a fun ride for me and I've learned a ton from understanding Woodo's code. Thanks Woodo! There's much more I could have optimized and many of my explanations and methods described here could be considered inefficient or at least not ideal. I still consider myself a beginner when it comes to writing 6502 assembly code. That's why I love learning from the best. 
+That's it. We're finally done with this. It was a fun ride for me and I've learned a ton from analyzing Woodo's code. **Thanks Woodo!** There's much more I could have optimized and many of my explanations and methods described here could be considered inefficient or at least not ideal. I still consider myself a beginner when it comes to writing 6502 assembly code. That's why I love learning from the best. 
 
 Feel free to suggest improvements or share your best practices in the comments below. Also if you find any bugs or want to contribute to the disassembled code, submit an issue or a pull request. And of course now you can make [your very own version of the famous Fairlight intro - it's all there.](https://github.com/Esshahn/c64-fairlight/)
 
