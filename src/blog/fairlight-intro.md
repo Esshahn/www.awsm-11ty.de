@@ -342,7 +342,7 @@ Phew.
 <a name="disassembly"></a>
 # Disassembly
 
-**I'm done** praising this *"oh so iconic masterpiece of a C64 cracktro, which massively influenced the demo scene which itself has become [accepted as UNESCO cultural heritage](http://demoscene-the-art-of-coding.net/2021/03/20/demoscene-accepted-as-unesco-cultural-heritage-in-germany/)"*. After all, [Woodo](https://csdb.dk/scener/?id=4203) was probably like 12 years old when he coded this, half acne, half chips & coke farts. I, for one, am in my mid fourties, a serious, well respected and adorable decend human being, who's in no way in a mid-life crisis.
+**I'm done** praising this *"oh so iconic masterpiece of a C64 cracktro, which massively influenced the demo scene which itself has become [accepted as UNESCO cultural heritage](http://demoscene-the-art-of-coding.net/2021/03/20/demoscene-accepted-as-unesco-cultural-heritage-in-germany/)"*. After all, [Woodo](https://csdb.dk/scener/?id=4203) was probably like 12 years old when he coded this, half acne, half chips & coke farts. I, for one, am in my mid fourties, a serious, well respected and adorable decent human being, who's in no way in a mid-life crisis.
 
 Where was I... ah yes, disassembling the Fairlight intro.  
 
